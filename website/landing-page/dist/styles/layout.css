@@ -1,0 +1,24 @@
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:32px}
+.section{padding-block:100px;background:var(--bg)}
+.section-flush-top{padding-top:0}
+
+/* Section divider — very subtle, fades at edges
+   Slightly brighter center for definition between major sections */
+hr.rule{
+  border:none;height:1px;position:relative;z-index:2;
+  background:linear-gradient(90deg,transparent 0%,var(--bdr) 12%,var(--bdr2) 50%,var(--bdr) 88%,transparent 100%);
+}
+
+/* Section-to-section gradient bleed — prevents hard cutoff between sections.
+   Applied via ::after on sections that precede another section */
+.section{position:relative}
+.section::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:80px;
+  background:linear-gradient(to bottom,transparent 0%,var(--bg) 100%);
+  pointer-events:none;z-index:1;
+}
+/* Last content block before footer doesn't need bleed */
+.pricing-section::after{display:none}
+
+@media(max-width:480px){.wrap{padding-inline:18px} .section{padding-block:64px} .section::after{height:48px}}

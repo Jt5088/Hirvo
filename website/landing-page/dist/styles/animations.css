@@ -1,0 +1,111 @@
+/* ── Scroll reveal ── */
+html.js .reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity var(--d3) var(--ease-out), transform var(--d3) var(--ease-out);
+}
+html.js .reveal.in{opacity:1;transform:translateY(0)}
+
+/* Stagger delays */
+html.js .d1{transition-delay:120ms}
+html.js .d2{transition-delay:240ms}
+html.js .d3{transition-delay:360ms}
+html.js .d4{transition-delay:480ms}
+html.js .d5{transition-delay:600ms}
+
+/* ── Hero entrance — per-word blur-dissolve ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Line spans force line breaks; word spans animate independently */
+.hero-line{display:block}
+.hero-word{display:inline-block}
+
+/* Default hidden state — prevents flash before JS triggers entrance
+   ⚠ .hero-animate and .reveal must never be on the same element
+   Text emerges from bright white glow: blur + brightness → sharp + normal */
+.hero-animate{
+  opacity:0;filter:blur(8px) brightness(2);transform:translateY(8%);
+  transition:opacity 1.2s cubic-bezier(0.25,0.1,0.25,1),
+             filter 1.4s cubic-bezier(0.25,0.1,0.25,1),
+             transform 1.2s cubic-bezier(0.25,0.1,0.25,1);
+}
+
+/* App window — cinematic rise from below: no effects, slow scale-up */
+.hero-animate.hero-app-entrance{
+  filter:none;
+  transform:translateY(120%) scale(0.96);
+  transition:opacity 2.5s cubic-bezier(0.22,1,0.36,1),
+             transform 2.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* Final visible state — triggered by body.hero-loaded */
+body.hero-loaded .hero-animate{
+  opacity:1;filter:blur(0px) brightness(1);transform:translateY(0);
+}
+body.hero-loaded .hero-animate.hero-app-entrance{
+  filter:none;transform:translateY(0) scale(1);
+}
+
+/* Stagger delays — text unveils (150–900ms), app rises alongside (700ms) */
+.hd0{transition-delay:150ms}
+.hw0{transition-delay:350ms}
+.hw1{transition-delay:450ms}
+.hw2{transition-delay:550ms}
+.hd3{transition-delay:700ms}
+.hd4{transition-delay:900ms}
+.hd5{transition-delay:700ms}
+
+/* ── Button ripple ── */
+@keyframes ripple{from{transform:scale(0);opacity:0.3}to{transform:scale(3.5);opacity:0}}
+.ripple{
+  position:absolute;width:60px;height:60px;margin:-30px;border-radius:50%;
+  background:rgba(0,0,0,0.2);
+  animation:ripple var(--d3) var(--ease) forwards;
+  pointer-events:none;
+}
+
+/* ── Typing cursor ── */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── App window view transition ── */
+#app-main-content{animation:fadeUp var(--d2) var(--ease) 1.2s both;}
+
+/* ── Mouse-following glow on product widgets ── */
+.card-glow{
+  position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+  opacity:0;transition:opacity var(--d2) var(--ease);z-index:3;
+  background:conic-gradient(
+    from var(--glow-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    rgba(237,237,236,0.12) 60deg,
+    rgba(237,237,236,0.08) 120deg,
+    transparent 180deg
+  );
+  -webkit-mask:linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
+  mask-composite:exclude;
+  padding:1.5px;
+}
+
+/* ── Reduced-motion ── */
+@media(prefers-reduced-motion:reduce){
+  *{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    transition-delay:0ms !important;
+  }
+  html.js .reveal{opacity:1;transform:none}
+  #app-main-content{animation:none}
+  /* Hero entrance: opacity only, skip blur/brightness and transform */
+  .hero-animate{
+    filter:none !important;
+    transform:none !important;
+    transition-property:opacity !important;
+    transition-duration:0.6s !important;
+    transition-delay:0ms !important;
+  }
+  body.hero-loaded .hero-animate{transform:none !important}
+  body.hero-loaded .hero-animate.hero-app-entrance{transform:none !important}
+}

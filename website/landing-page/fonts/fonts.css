@@ -1,0 +1,11 @@
+/* =========================================================
+   HIRVO — Fonts
+   Google Fonts: Plus Jakarta Sans (400–900)
+   Inter kept as fallback for smooth migration
+   ========================================================= */
+
+/* Preconnect hints are set in index.html <head> via <link> tags.
+   This file handles the @import for CSS-only contexts. */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');

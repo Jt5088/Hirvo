@@ -1,0 +1,65 @@
+.proof{border-top:1px solid var(--bdr);padding-block:56px;overflow:hidden}
+.proof-lbl{text-align:center;font-size:10.5px;font-weight:700;letter-spacing:0.11em;text-transform:uppercase;color:var(--t4);margin-bottom:22px}
+
+/* ── Infinite marquee ── */
+.proof-marquee{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  /* Fade edges so logos appear/disappear smoothly */
+  mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);
+}
+
+.proof-track{
+  display:flex;
+  align-items:center;
+  gap:48px;
+  width:max-content;
+  animation:marquee 35s linear infinite;
+}
+.proof-marquee:hover .proof-track{
+  animation-play-state:paused;
+}
+
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+.proof-logo{
+  font-size:14px;font-weight:600;letter-spacing:0.02em;
+  color:var(--t3);white-space:nowrap;flex-shrink:0;
+  transition:color var(--d2) var(--ease);
+}
+.proof-logo:hover{color:var(--t2)}
+
+/* ── Metrics ── */
+.metrics{padding-block:100px 120px}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+/* Counter-synced reveal: .mcard starts hidden, JS adds .in when counter fires */
+.mcard{
+  padding:36px 28px;border-radius:14px;
+  border:1px solid var(--bdr2);
+  background:rgba(19,19,22,0.85);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  opacity:0;transform:translateY(16px);
+  transition:opacity 500ms var(--ease), transform 500ms var(--ease), border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+}
+.mcard.in{opacity:1;transform:translateY(0)}
+.mcard:hover{
+  border-color:rgba(255,255,255,0.15);
+  background:rgba(19,19,22,0.92);
+}
+.mnum{font-size:48px;font-weight:900;letter-spacing:-0.04em;color:var(--t1);line-height:1;margin-bottom:10px}
+.mname{font-size:13.5px;font-weight:500;color:var(--t2);line-height:1.55}
+
+@media(max-width:680px){.mgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.mgrid{grid-template-columns:1fr}}
+
+/* Respect reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .proof-track{animation:none}
+  .proof-marquee{mask-image:none;-webkit-mask-image:none}
+  .proof-track{flex-wrap:wrap;justify-content:center;width:auto}
+}

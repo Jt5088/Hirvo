@@ -1,0 +1,122 @@
+/* No colored section background washes */
+
+.showcase{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:start}
+.showcase.flip{direction:rtl}
+.showcase.flip>*{direction:ltr}
+.sc-copy{display:flex;flex-direction:column}
+.sc-head{margin-top:8px;margin-bottom:14px}
+.sc-body{font-size:15.5px;line-height:1.75;color:var(--t2);margin-bottom:28px}
+.sc-checks{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:28px}
+.sc-checks li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--t2);line-height:1.6}
+.chk{flex-shrink:0;margin-top:2px}
+
+/* ── UI Frame — product showcase widget with Linear-style spotlight ── */
+
+/* Spotlight halo behind each showcase widget — slightly brighter for better card lift */
+.showcase > div:last-child{position:relative}
+.showcase > div:last-child::before{
+  content:'';position:absolute;
+  inset:-80px -60px -60px -60px;
+  background:radial-gradient(ellipse 75% 60% at 50% 30%,rgba(255,255,255,0.04) 0%,transparent 65%);
+  pointer-events:none;z-index:-1;
+}
+/* Flipped showcase: spotlight shifts right */
+.showcase.flip > div:first-child{position:relative}
+.showcase.flip > div:first-child::before{
+  content:'';position:absolute;
+  inset:-80px -60px -60px -60px;
+  background:radial-gradient(ellipse 75% 60% at 50% 30%,rgba(255,255,255,0.04) 0%,transparent 65%);
+  pointer-events:none;z-index:-1;
+}
+
+.ui-frame{
+  border-radius:13px;overflow:hidden;
+  /* Gradient border — Linear style: bright top fades to invisible bottom
+     Top edge at 0.14 is the sweet spot — visible but not glowing */
+  border:1px solid transparent;
+  background:
+    linear-gradient(var(--surf), var(--surf)) padding-box,
+    linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.01) 100%) border-box;
+  /* Directional layered shadows + inset top highlight */
+  box-shadow:
+    inset 0 1px 0 var(--highlight),
+    0 2px 4px var(--shadow-near),
+    0 8px 16px var(--shadow-mid),
+    0 24px 48px var(--shadow-far);
+  /* 3D perspective tilt — kept subtle at 3deg */
+  transform:perspective(1200px) rotateX(3deg);
+  transition:box-shadow var(--d3) var(--ease), transform var(--d3) var(--ease);
+}
+/* Hover — deeper shadows + flatten tilt + lift */
+.showcase .reveal:hover .ui-frame,
+.showcase > div:hover > .ui-frame{
+  box-shadow:
+    inset 0 1px 0 var(--highlight-hover),
+    0 4px 8px var(--shadow-near),
+    0 16px 32px var(--shadow-mid),
+    0 40px 64px var(--shadow-far);
+  transform:perspective(1200px) rotateX(1deg) translateY(-6px);
+}
+
+.uf-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--bdr);background:rgba(255,255,255,0.025)}
+.uf-dot{width:9px;height:9px;border-radius:50%}
+.uf-dot:nth-child(1){background:var(--dot-close)}
+.uf-dot:nth-child(2){background:var(--dot-min)}
+.uf-dot:nth-child(3){background:var(--dot-max)}
+.uf-bar-title{font-size:11.5px;color:var(--t3);margin-left:8px}
+.uf-status{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--green);background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.18);border-radius:100px;padding:2px 8px}
+.uf-body{padding:16px;display:flex;flex-direction:column;gap:9px}
+.uf-micro{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4);margin-bottom:2px}
+
+/* Recruiter profile list */
+.rp-list{display:flex;flex-direction:column;gap:6px}
+.rp-row{
+  display:flex;align-items:center;gap:10px;padding:9px 11px;
+  background:rgba(255,255,255,0.02);border:1px solid var(--bdr);border-radius:8px;cursor:pointer;
+  transition:border-color var(--d2) var(--ease), background var(--d2) var(--ease), transform var(--d2) var(--ease);
+}
+.rp-row:hover{background:rgba(255,255,255,0.04);border-color:var(--bdr2);transform:translateX(2px)}
+.rp-row.active{
+  background:rgba(255,255,255,0.06);border-color:var(--bdr3);
+}
+.rp-row.active .rp-rname{color:var(--t1)}
+.rp-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:rgba(255,255,255,0.05);border:1px solid var(--bdr2);color:var(--t3);transition:background var(--d2) var(--ease),border-color var(--d2) var(--ease),color var(--d2) var(--ease)}
+.rp-row.active .rp-av{background:rgba(255,255,255,0.10);border-color:var(--bdr3);color:var(--t1)}
+.rp-info{flex:1;display:flex;flex-direction:column;gap:2px}
+.rp-rname{font-size:12.5px;font-weight:500;color:var(--t2);transition:color var(--d2) var(--ease)}
+.rp-rmeta{font-size:10.5px;color:var(--t3)}
+.rp-tag-active{font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:rgba(52,211,153,0.08);color:var(--green);border:1px solid rgba(52,211,153,0.18);flex-shrink:0}
+
+/* ATS grid */
+.ats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ats-col{background:rgba(255,255,255,0.02);border:1px solid var(--bdr);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.ats-col-hd{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;color:var(--t3)}
+.ats-r{height:4px;border-radius:2px;background:rgba(255,255,255,0.06)}
+.ats-r.g{background:rgba(52,211,153,0.30)}
+.ats-r.r{background:rgba(248,113,113,0.30)}
+.ats-verdict{margin-top:4px;padding:5px;border-radius:5px;text-align:center;font-size:9.5px;font-weight:700}
+.ats-verdict.pass{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.18);color:var(--green)}
+.ats-verdict.fail{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.18);color:var(--red)}
+
+/* ── Linear-style dissolve — card fades into page background ──
+   Extra padding adds dead space at bottom; mask dissolves through it.
+   All real content stays fully visible above the fade zone. */
+.showcase .ui-frame{
+  position:relative;
+  /* Vertical fade + small radial fades at bottom-left/right corners only */
+  -webkit-mask-image:
+    linear-gradient(to bottom,black 0%,black 58%,transparent 92%),
+    radial-gradient(circle 60px at 0% 100%,transparent 0%,black 100%),
+    radial-gradient(circle 60px at 100% 100%,transparent 0%,black 100%);
+  -webkit-mask-composite:source-in,source-in;
+  mask-image:
+    linear-gradient(to bottom,black 0%,black 58%,transparent 92%),
+    radial-gradient(circle 60px at 0% 100%,transparent 0%,black 100%),
+    radial-gradient(circle 60px at 100% 100%,transparent 0%,black 100%);
+  mask-composite:intersect,intersect;
+}
+/* Extra breathing room — the fade eats this space, not content */
+.showcase .uf-body{padding-bottom:88px}
+
+@media(max-width:860px){.showcase,.showcase.flip{grid-template-columns:1fr;direction:ltr;gap:40px}}
+@media(max-width:480px){.sc-body{font-size:14.5px} .sc-checks li{font-size:13px}}

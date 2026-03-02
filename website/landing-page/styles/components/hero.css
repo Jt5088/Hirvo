@@ -1,0 +1,38 @@
+/* ── Hero ── */
+.hero{position:relative;overflow:hidden;padding-top:108px;padding-bottom:0}
+.aurora-canvas{position:absolute;inset:0;z-index:0;opacity:0.35;pointer-events:none}
+.aurora-canvas canvas{width:100%!important;height:100%!important}
+/* Hero bottom border removed — proof strip has its own border-top */
+
+/* Soft warm radial — NOT colored, just light falloff
+   Slightly brighter center pool to illuminate the hero title area */
+.hero-glow{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 50% -5%,rgba(237,237,236,0.07) 0%,transparent 60%),
+  radial-gradient(ellipse 45% 35% at 30% 10%,rgba(237,237,236,0.025) 0%,transparent 50%),
+  radial-gradient(ellipse 45% 35% at 70% 10%,rgba(237,237,236,0.025) 0%,transparent 50%);
+pointer-events:none;transition:transform var(--d1) linear;will-change:transform;}
+
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 60% 45% at 50% 0,#000 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 60% 45% at 50% 0,#000 0%,transparent 100%);pointer-events:none}
+
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.hero-copy{text-align:center;max-width:720px;margin-inline:auto;padding-bottom:56px;display:flex;flex-direction:column;align-items:center}
+
+/* Gradient text — warm white to muted, NOT colored */
+.hero-gradient{background:linear-gradient(135deg,var(--t1) 0%,var(--t3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.16);border-radius:100px;padding:5px 14px;margin-bottom:28px;font-size:12.5px;font-weight:500;color:rgba(52,211,153,0.88);transition:background var(--d2) var(--ease),border-color var(--d2) var(--ease),color var(--d2) var(--ease)}
+.hero-badge:hover{background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.28);color:rgba(52,211,153,1)}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+.hero-sub{font-size:clamp(16px,1.8vw,18px);line-height:1.72;color:var(--t2);margin-top:22px;margin-bottom:34px;max-width:540px;margin-inline:auto}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.hero-note{font-size:12.5px;color:var(--t3)}
+.hero-note .sep{margin-inline:7px;opacity:0.45}
+
+@media(max-width:480px){
+  .hero{padding-top:84px}
+  .hero-copy{padding-bottom:36px}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;gap:8px}
+  .hero-btns .btn{width:100%;justify-content:center}
+}

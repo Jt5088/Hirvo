@@ -1,0 +1,278 @@
+/* ── Orbital Timeline — recruiter screening visualization ── */
+
+.ot-head{text-align:center;margin-inline:auto;margin-bottom:60px}
+.ot-sub{font-size:16px;line-height:1.72;color:var(--t2);margin-top:14px;max-width:560px;margin-inline:auto}
+
+/* Container */
+.ot-container{
+  position:relative;
+  width:100%;
+  height:800px;
+  user-select:none;
+}
+
+/* ── CPU Architecture SVG — center piece ── */
+.ot-cpu{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:600px;
+  z-index:10;
+  color:rgba(237,237,236,0.12);
+  pointer-events:none;
+}
+.ot-cpu-svg{width:100%;height:100%}
+
+/* ── Orbit ring ── */
+.ot-ring{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid var(--bdr);
+  pointer-events:none;
+}
+
+/* ── Node ── */
+.ot-node{
+  position:absolute;
+  left:50%;top:50%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+  will-change:transform;
+}
+
+/* Glow aura (visible on active/related) */
+.ot-node-glow{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity var(--d3) var(--ease);
+}
+.ot-node.active .ot-node-glow,
+.ot-node.related .ot-node-glow{opacity:1}
+
+/* Icon circle */
+.ot-node-icon{
+  width:42px;height:42px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid rgba(255,255,255,0.3);
+  background:var(--bg);
+  color:var(--t1);
+  position:relative;
+  z-index:2;
+  transition:all 300ms var(--ease);
+}
+.ot-node:hover .ot-node-icon{
+  border-color:rgba(255,255,255,0.5);
+}
+.ot-node.active .ot-node-icon{
+  background:var(--t1);
+  color:var(--bg);
+  border-color:var(--t1);
+  transform:scale(1.4);
+  box-shadow:0 0 24px rgba(255,255,255,0.2);
+}
+.ot-node.related .ot-node-icon{
+  background:rgba(52,211,153,0.15);
+  border-color:var(--green);
+  animation:ot-glow 1.5s ease-in-out infinite;
+}
+
+/* Label below icon */
+.ot-node-label{
+  margin-top:10px;
+  white-space:nowrap;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--t3);
+  transition:color 300ms var(--ease);
+}
+.ot-node.active .ot-node-label{color:var(--t1)}
+
+/* ── Expanded card ── */
+.ot-card{
+  position:absolute;
+  top:72px;
+  left:50%;
+  transform:translateX(-50%) translateY(4px);
+  width:264px;
+  border-radius:14px;
+  border:1px solid var(--bdr2);
+  background:rgba(9,9,11,0.94);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  padding:18px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.4), 0 12px 40px rgba(0,0,0,0.3);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 300ms var(--ease), transform 300ms var(--ease);
+  z-index:200;
+}
+.ot-node.active .ot-card{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* Connector line node → card */
+.ot-card::before{
+  content:'';
+  position:absolute;
+  top:-10px;left:50%;
+  transform:translateX(-50%);
+  width:1px;height:10px;
+  background:rgba(255,255,255,0.2);
+}
+
+/* Card header */
+.ot-card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+/* Status badge */
+.ot-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 8px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+.ot-badge-completed{background:var(--green);color:var(--bg)}
+.ot-badge-in-progress{background:var(--t1);color:var(--bg)}
+.ot-badge-pending{background:rgba(255,255,255,0.06);color:var(--t3);border:1px solid rgba(255,255,255,0.12)}
+
+.ot-card-date{
+  font-size:10px;
+  font-family:'SF Mono','Fira Code',monospace;
+  color:var(--t4);
+}
+.ot-card-title{
+  font-size:14px;
+  font-weight:600;
+  color:var(--t1);
+  margin-bottom:8px;
+  line-height:1.3;
+}
+.ot-card-desc{
+  font-size:12px;
+  line-height:1.65;
+  color:var(--t2);
+}
+
+/* Energy bar */
+.ot-energy{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--bdr);
+}
+.ot-energy-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:10px;
+  color:var(--t3);
+  margin-bottom:6px;
+}
+.ot-energy-bar{
+  height:3px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.06);
+  overflow:hidden;
+}
+.ot-energy-fill{
+  height:100%;
+  border-radius:2px;
+  background:linear-gradient(90deg, var(--green), rgba(52,211,153,0.35));
+}
+
+/* Connected nodes */
+.ot-connected{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid var(--bdr);
+}
+.ot-connected-lbl{
+  font-size:10px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--t4);
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.ot-connected-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 8px;
+  font-size:11px;
+  font-weight:500;
+  color:var(--t2);
+  border:1px solid var(--bdr2);
+  border-radius:4px;
+  background:transparent;
+  cursor:pointer;
+  margin-right:4px;
+  margin-bottom:4px;
+  transition:all var(--d1) var(--ease);
+}
+.ot-connected-btn:hover{
+  border-color:rgba(255,255,255,0.2);
+  color:var(--t1);
+  background:rgba(255,255,255,0.04);
+}
+.ot-connected-btn svg{width:8px;height:8px;opacity:0.5}
+
+/* ── Keyframes ── */
+@keyframes ot-glow{
+  0%,100%{opacity:1}
+  50%{opacity:0.55}
+}
+
+/* ── Connector lines ── */
+.ot-lines{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:15;
+  overflow:visible;
+}
+
+/* ── Responsive ── */
+@media(max-width:720px){
+  .ot-container{height:660px}
+  .ot-cpu{width:400px}
+}
+@media(max-width:480px){
+  .ot-container{height:560px}
+  .ot-cpu{width:280px}
+  .ot-node-icon{width:34px;height:34px}
+  .ot-node-label{font-size:9px}
+  .ot-card{width:210px;padding:14px}
+}
+
+/* ── Reduced motion ── */
+@media(prefers-reduced-motion:reduce){
+  .ot-node.related .ot-node-icon{animation:none}
+}

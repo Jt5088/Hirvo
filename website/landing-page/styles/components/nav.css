@@ -1,0 +1,121 @@
+/* ===================================================================
+   Nav — Cursor-inspired minimal top bar
+   Clean line, no glassmorphism, content-first
+   =================================================================== */
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;display:flex;align-items:center;
+  padding-inline:24px;
+  background:var(--bg);
+  border-bottom:1px solid var(--bdr);
+  transition:
+    border-color var(--d3) var(--ease);
+}
+
+/* Scrolled state — stronger border for definition */
+.nav.dense{
+  border-color:var(--bdr2);
+}
+
+.nav-in{max-width:1200px;margin-inline:auto;width:100%;display:flex;align-items:center}
+
+/* ── Logo ── */
+.nav-logo{
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+  transition:opacity var(--d2) var(--ease);
+}
+.nav-logo:hover{opacity:0.7}
+.nav-mark{
+  width:22px;height:22px;border-radius:5px;
+  background:var(--t1);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform var(--d2) var(--ease);
+}
+.nav-mark svg rect{fill:var(--bg)}
+.nav-logo:hover .nav-mark{transform:scale(1.05)}
+.nav-name{
+  font-size:14px;font-weight:700;letter-spacing:-0.01em;
+  color:var(--t1);
+}
+
+/* ── Nav links ── */
+.nav-links{display:flex;align-items:center;gap:0;margin-left:32px;flex:1}
+.nav-link{
+  font-size:13px;font-weight:450;color:var(--t3);
+  padding:6px 12px;border-radius:6px;
+  transition:color var(--d2) var(--ease);
+  position:relative;
+}
+.nav-link:hover{color:var(--t1)}
+.nav-link:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+
+/* Active — just brighter text, no underline decorations */
+.nav-link.nav-active{color:var(--t1)}
+
+/* Kill the ::after pseudo from old nav */
+.nav-link::after{display:none}
+
+/* ── Right side ── */
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nav-signin{
+  color:var(--t3);
+  font-weight:450;
+  transition:color var(--d2) var(--ease);
+}
+.nav-signin:hover{color:var(--t1)}
+
+/* Nav CTA — smaller, understated in nav context */
+.nav .btn-pri{
+  height:32px;padding-inline:14px;font-size:12.5px;border-radius:8px;
+}
+
+/* ── Hamburger button ── */
+.nav-burger{
+  display:none;align-items:center;justify-content:center;
+  width:32px;height:32px;border:none;background:none;cursor:pointer;
+  flex-direction:column;gap:5px;padding:7px;border-radius:6px;
+  transition:background var(--d2) var(--ease);
+}
+.nav-burger:hover{background:rgba(255,255,255,0.06)}
+.nav-burger:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.burger-line{
+  display:block;width:14px;height:1.5px;background:var(--t3);border-radius:2px;
+  transition:transform var(--d2) var(--ease), opacity var(--d2) var(--ease), background var(--d2) var(--ease);
+}
+.nav-burger:hover .burger-line{background:var(--t1)}
+.nav-burger.open .burger-line:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.open .burger-line:nth-child(2){opacity:0}
+.nav-burger.open .burger-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── Mobile menu ── */
+.nav-mobile{
+  position:fixed;inset:53px 0 0 0;z-index:199;
+  background:var(--bg);
+  padding:16px 24px 32px;
+  border-top:1px solid var(--bdr);
+  display:flex;flex-direction:column;gap:2px;
+  transform:translateY(-8px);opacity:0;pointer-events:none;
+  transition:transform var(--d3) var(--ease), opacity var(--d2) var(--ease);
+}
+.nav-mobile.open{transform:translateY(0);opacity:1;pointer-events:auto}
+.nav-mobile-link{
+  font-size:15px;font-weight:450;color:var(--t2);
+  padding:12px 0;border-bottom:1px solid var(--bdr);
+  transition:color var(--d2) var(--ease);
+}
+.nav-mobile-link:hover{color:var(--t1)}
+.nav-mobile-sep{border:none;border-top:1px solid var(--bdr);margin:4px 0}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .nav{padding-inline:16px}
+}
+@media(max-width:480px){
+  .nav{height:48px;padding-inline:14px}
+  .nav-right .nav-signin{display:none}
+  .nav-right .btn{font-size:12px;padding-inline:12px;height:30px}
+  .nav-mobile{inset:49px 0 0 0;padding:12px 16px 24px}
+}

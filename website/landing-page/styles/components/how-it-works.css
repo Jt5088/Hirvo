@@ -1,0 +1,126 @@
+/* How it works — stacked display cards */
+
+.hiw-head{text-align:center;margin-inline:auto;margin-bottom:100px}
+.hiw-sub{font-size:16px;line-height:1.72;color:var(--t2);margin-top:14px;max-width:560px;margin-inline:auto}
+
+/* Stacked grid — all cards occupy the same cell */
+.hiw-cards{
+  display:grid;
+  grid-template-areas:'stack';
+  place-items:center;
+  padding-bottom:80px;
+}
+
+/* Base card — skewed, glass surface, right-edge fade */
+.hiw-card{
+  grid-area:stack;
+  position:relative;
+  width:26rem;
+  padding:24px 28px;
+  border-radius:14px;
+  border:1px solid var(--bdr2);
+  background:rgba(19,19,22,0.85);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transform:skewY(-8deg);
+  select:none;
+  overflow:hidden;
+  transition:transform 700ms var(--ease), border-color 700ms var(--ease), filter 700ms var(--ease);
+}
+.hiw-card:hover{border-color:rgba(255,255,255,0.15)}
+
+/* Content above pseudo overlays */
+.hiw-card > *{position:relative;z-index:2}
+
+/* Right-edge gradient fade into page background */
+.hiw-card::after{
+  content:'';position:absolute;
+  right:-1px;top:-5%;height:110%;width:8rem;
+  background:linear-gradient(to left, var(--bg), transparent);
+  pointer-events:none;z-index:3;
+}
+
+/* Grayscale + dark overlay for inactive cards (1st & 2nd) */
+.hiw-card:nth-child(1),
+.hiw-card:nth-child(2){filter:grayscale(100%)}
+
+.hiw-card:nth-child(1)::before,
+.hiw-card:nth-child(2)::before{
+  content:'';position:absolute;inset:0;
+  border-radius:14px;
+  background:rgba(9,9,11,0.5);
+  background-blend-mode:overlay;
+  transition:opacity 700ms var(--ease);
+  z-index:1;
+}
+
+/* Card 1 — back */
+.hiw-card:nth-child(1){
+  transform:skewY(-8deg) translateY(-40px);
+}
+.hiw-card:nth-child(1):hover{
+  transform:skewY(-8deg) translateY(-80px);
+  filter:grayscale(0);
+}
+.hiw-card:nth-child(1):hover::before{opacity:0}
+
+/* Card 2 — middle */
+.hiw-card:nth-child(2){
+  transform:skewY(-8deg) translateX(72px) translateY(50px);
+}
+.hiw-card:nth-child(2):hover{
+  transform:skewY(-8deg) translateX(72px) translateY(0px);
+  filter:grayscale(0);
+}
+.hiw-card:nth-child(2):hover::before{opacity:0}
+
+/* Card 3 — front (most offset, no grayscale, active) */
+.hiw-card:nth-child(3){
+  transform:skewY(-8deg) translateX(144px) translateY(150px);
+}
+.hiw-card:nth-child(3):hover{
+  transform:skewY(-8deg) translateX(144px) translateY(100px);
+}
+
+/* Active state — clicked card pops out, fully readable */
+.hiw-card{cursor:pointer}
+.hiw-card.active{
+  filter:grayscale(0) !important;
+  z-index:10;
+  border-color:rgba(255,255,255,0.2);
+}
+.hiw-card.active::before{opacity:0 !important}
+.hiw-card.active::after{opacity:0}
+.hiw-card:nth-child(1).active{
+  transform:skewY(0) translateY(-50px) scale(1.02);
+}
+.hiw-card:nth-child(2).active{
+  transform:skewY(0) translateX(72px) translateY(10px) scale(1.02);
+}
+.hiw-card:nth-child(3).active{
+  transform:skewY(0) translateX(144px) translateY(90px) scale(1.02);
+}
+
+/* Number badge — green-tinted circle */
+.hiw-num{
+  width:28px;height:28px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--green);
+  background:rgba(52,211,153,0.1);
+  margin-bottom:14px;
+}
+
+.hiw-card .t-h3{margin-bottom:8px;color:var(--green)}
+.hiw-card .t-sm{color:var(--t2);line-height:1.65}
+
+/* ── Responsive ── */
+@media(max-width:720px){
+  .hiw-cards{place-items:start}
+  .hiw-card{width:100%;max-width:22rem}
+  .hiw-card::after{width:8rem}
+  .hiw-card:nth-child(1){transform:skewY(0)}
+  .hiw-card:nth-child(1):hover{transform:translateY(-20px)}
+  .hiw-card:nth-child(2){transform:translateX(20px) translateY(20px)}
+  .hiw-card:nth-child(2):hover{transform:translateX(20px) translateY(0)}
+  .hiw-card:nth-child(3){transform:translateX(40px) translateY(40px)}
+  .hiw-card:nth-child(3):hover{transform:translateX(40px) translateY(20px)}
+}

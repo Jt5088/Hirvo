@@ -1,0 +1,24 @@
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;font-weight:600;white-space:nowrap;transition:background var(--d2) var(--ease),transform var(--d2) var(--ease),box-shadow var(--d2) var(--ease),color var(--d2) var(--ease),border-color var(--d2) var(--ease)}
+.btn-sm{height:34px;padding-inline:14px;font-size:13px}
+.btn-md{height:40px;padding-inline:18px;font-size:14px}
+.btn-lg{height:46px;padding-inline:24px;font-size:14.5px}
+
+/* ── Primary: white on dark — Cursor style ── */
+.btn-pri{background:var(--cta);color:var(--cta-text);position:relative;overflow:hidden}
+.btn-pri:hover{background:var(--cta-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,255,255,0.08)}
+.btn-pri:active{transform:scale(0.98);box-shadow:none}
+.btn-pri:focus-visible{outline:2px solid var(--cta2);outline-offset:3px;box-shadow:0 0 0 4px var(--cta-glow)}
+
+/* ── Ghost button ── */
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--t2);border:1px solid var(--bdr2)}
+.btn-ghost:hover{color:var(--t1);border-color:var(--bdr3);background:rgba(255,255,255,0.06);transform:translateY(-1px)}
+.btn-ghost:active{transform:scale(0.98)}
+.btn-ghost:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+
+@media(max-width:480px){
+  .btn-sm{height:38px;padding-inline:16px}
+}
+
+@media(hover:none){
+  .btn-pri:hover,.btn-ghost:hover{transform:none;box-shadow:none}
+}
