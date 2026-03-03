@@ -185,17 +185,20 @@ export default function RadialOrbitalTimeline({
             const isPulsing = pulseEffect[item.id];
             const Icon = item.icon;
 
-            const nodeStyle = {
+            const nodeStyle: React.CSSProperties = {
               transform: `translate(${position.x}px, ${position.y}px)`,
               zIndex: isExpanded ? 200 : position.zIndex,
               opacity: isExpanded ? 1 : position.opacity,
+              transition: autoRotate
+                ? 'transform 100ms linear, opacity 200ms ease-out'
+                : 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms cubic-bezier(0.33, 1, 0.68, 1)',
             };
 
             return (
               <div
                 key={item.id}
-                ref={(el) => (nodeRefs.current[item.id] = el)}
-                className="absolute transition-all duration-700 cursor-pointer"
+                ref={(el) => { nodeRefs.current[item.id] = el; }}
+                className="absolute cursor-pointer"
                 style={nodeStyle}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -231,11 +234,13 @@ export default function RadialOrbitalTimeline({
                       ? "border-white shadow-lg shadow-white/30"
                       : isRelated
                       ? "border-white animate-pulse"
-                      : "border-white/40"
+                      : "border-white/40 hover:border-white/60"
                   }
-                  transition-all duration-300 transform
-                  ${isExpanded ? "scale-150" : ""}
+                  ${isExpanded ? "scale-150" : "hover:scale-110"}
                 `}
+                  style={{
+                    transition: 'transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 280ms ease-out',
+                  }}
                 >
                   <Icon size={16} />
                 </div>
@@ -244,15 +249,17 @@ export default function RadialOrbitalTimeline({
                   className={`
                   absolute top-12  whitespace-nowrap
                   text-xs font-semibold tracking-wider
-                  transition-all duration-300
-                  ${isExpanded ? "text-white scale-125" : "text-white/70"}
+                  ${isExpanded ? "text-white scale-110" : "text-white/70"}
                 `}
+                  style={{
+                    transition: 'color 200ms ease-out, transform 280ms cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
                 >
                   {item.title}
                 </div>
 
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-black/90 backdrop-blur-lg border-white/30 shadow-xl shadow-white/10 overflow-visible">
+                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-black/90 backdrop-blur-lg border-white/30 shadow-xl shadow-white/10 overflow-visible animate-card-enter">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-white/50"></div>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
@@ -312,7 +319,10 @@ export default function RadialOrbitalTimeline({
                                   key={relatedId}
                                   variant="outline"
                                   size="sm"
-                                  className="flex items-center h-6 px-2 py-0 text-xs rounded-none border-white/20 bg-transparent hover:bg-white/10 text-white/80 hover:text-white transition-all"
+                                  className="flex items-center h-6 px-2 py-0 text-xs rounded-none border-white/20 bg-transparent hover:bg-white/10 active:bg-white/20 text-white/80 hover:text-white hover:border-white/40 active:scale-95"
+                                  style={{
+                                    transition: 'background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out, transform 60ms linear',
+                                  }}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     toggleItem(relatedId);
@@ -321,7 +331,7 @@ export default function RadialOrbitalTimeline({
                                   {relatedItem?.title}
                                   <ArrowRight
                                     size={8}
-                                    className="ml-1 text-white/60"
+                                    className="ml-1 text-white/60 transition-transform duration-150 group-hover:translate-x-0.5"
                                   />
                                 </Button>
                               );

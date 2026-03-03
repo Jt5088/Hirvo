@@ -12,22 +12,7 @@
 
 /* ── UI Frame — product showcase widget with Linear-style spotlight ── */
 
-/* Spotlight halo behind each showcase widget — slightly brighter for better card lift */
-.showcase > div:last-child{position:relative}
-.showcase > div:last-child::before{
-  content:'';position:absolute;
-  inset:-80px -60px -60px -60px;
-  background:radial-gradient(ellipse 75% 60% at 50% 30%,rgba(255,255,255,0.04) 0%,transparent 65%);
-  pointer-events:none;z-index:-1;
-}
-/* Flipped showcase: spotlight shifts right */
-.showcase.flip > div:first-child{position:relative}
-.showcase.flip > div:first-child::before{
-  content:'';position:absolute;
-  inset:-80px -60px -60px -60px;
-  background:radial-gradient(ellipse 75% 60% at 50% 30%,rgba(255,255,255,0.04) 0%,transparent 65%);
-  pointer-events:none;z-index:-1;
-}
+/* Widget spotlight halos removed — clean background only */
 
 .ui-frame{
   border-radius:13px;overflow:hidden;

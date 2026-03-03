@@ -37,11 +37,44 @@
   animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+/* ─── Display card: position via CSS vars, hover jump via :hover ─── */
+
+.display-card {
+  transform: translateX(var(--card-x, 0px)) translateY(var(--card-y, 0px)) skewY(var(--card-skew, 0deg));
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 300ms ease-out,
+              border-color 200ms ease-out,
+              background-color 200ms ease-out;
+}
+
+.display-card:hover {
+  transform: translateX(var(--card-x, 0px)) translateY(var(--card-hover-y, var(--card-y, 0px))) skewY(var(--card-skew, 0deg));
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.07);
+}
+
+/* ─── Card entry animation ─── */
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.animate-card-enter {
+  animation: card-enter 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ─── Transition Utilities ─── */
 
 .transition-all {
   transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .duration-300 {

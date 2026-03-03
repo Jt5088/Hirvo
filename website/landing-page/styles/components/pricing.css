@@ -24,7 +24,7 @@
   .bp{animation:none;stroke-dashoffset:0;opacity:0.5}
 }
 
-.pricing-head{text-align:center;max-width:560px;margin-inline:auto;margin-bottom:48px}
+.pricing-head{text-align:center;max-width:640px;margin-inline:auto;margin-bottom:48px}
 .pricing-sub{font-size:16px;line-height:1.7;color:var(--t2);margin-top:16px}
 
 /* Toggle */
@@ -54,49 +54,163 @@
 /* Grid */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
 
-/* Card */
+/* Card — convex surface gradient, diagonal light catch on border */
 .pcard{
   position:relative;
-  padding:32px 28px;border-radius:14px;
-  border:1px solid var(--bdr2);
-  background:rgba(19,19,22,0.85);
+  padding:36px 30px;border-radius:14px;
+  border:1px solid transparent;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24,24,28,0.92) 0%,
+      rgba(14,14,17,0.88) 30%,
+      rgba(10,10,13,0.90) 100%
+    ) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(232,223,200,0.14) 0%,
+      rgba(255,255,255,0.08) 40%,
+      transparent 70%
+    ) border-box;
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   display:flex;flex-direction:column;
-  transition:border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 2px 1px rgba(255,255,255,0.03),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-mid),
+    0 12px 24px var(--shadow-far);
+  transition:
+    background var(--d3) var(--ease),
+    box-shadow var(--d3) cubic-bezier(0.4,0,0.2,1),
+    transform 500ms cubic-bezier(0.22,1,0.36,1);
 }
 .pcard:hover{
-  border-color:rgba(255,255,255,0.15);
-  background:rgba(19,19,22,0.92);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,30,36,0.94) 0%,
+      rgba(14,14,17,0.93) 40%,
+      rgba(10,10,13,0.92) 100%
+    ) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(232,223,200,0.20) 0%,
+      rgba(255,255,255,0.10) 35%,
+      rgba(255,255,255,0.03) 70%,
+      transparent 100%
+    ) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 2px 1px rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 1px 2px var(--shadow-near),
+    0 6px 14px var(--shadow-mid),
+    0 20px 40px var(--shadow-far),
+    0 32px 64px var(--shadow-ambient);
+  transform:translateY(-4px);
+}
+.pcard:active{
+  transform:translateY(-1px) scale(0.995);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-mid);
+  transition-duration:80ms;
 }
 
-/* Popular card — slightly brighter border for emphasis */
+/* Popular card — physically closer, thicker glass */
 .pcard-popular{
-  border-color:rgba(255,255,255,0.15);
-  background:rgba(19,19,22,0.92);
+  transform:scale(1.02);
+  z-index:1;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(26,26,30,0.96) 0%,
+      rgba(16,16,19,0.94) 30%,
+      rgba(10,10,13,0.94) 100%
+    ) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(232,223,200,0.26) 0%,
+      rgba(255,255,255,0.12) 30%,
+      rgba(255,255,255,0.04) 65%,
+      transparent 100%
+    ) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 2px 1px rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-mid),
+    0 12px 24px var(--shadow-far),
+    0 24px 48px var(--shadow-ambient);
 }
-.pcard-popular:hover{border-color:rgba(255,255,255,0.20);background:rgba(19,19,22,0.95)}
+.pcard-popular:hover{
+  transform:scale(1.02) translateY(-4px);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(32,32,38,0.97) 0%,
+      rgba(18,18,22,0.96) 40%,
+      rgba(12,12,15,0.95) 100%
+    ) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(232,223,200,0.30) 0%,
+      rgba(255,255,255,0.14) 30%,
+      rgba(255,255,255,0.05) 70%,
+      transparent 100%
+    ) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    inset 0 2px 1px rgba(255,255,255,0.05),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 1px 2px var(--shadow-near),
+    0 6px 14px var(--shadow-mid),
+    0 20px 40px var(--shadow-far),
+    0 40px 80px var(--shadow-ambient);
+}
+.pcard-popular:active{
+  transform:scale(1.015) translateY(-1px);
+}
 
+/* Badge — inline pill, not hanging tab */
 .pcard-badge{
-  position:absolute;top:0;right:20px;
-  background:var(--t1);color:var(--bg);
-  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;
-  padding:4px 10px;border-radius:0 0 6px 6px;
+  display:inline-flex;align-items:center;
+  padding:3px 10px;border-radius:100px;
+  font-size:10px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+  color:var(--t1);
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+  margin-bottom:10px;
 }
 
 /* Head */
-.pcard-head{margin-bottom:24px}
-.pcard-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--t3);margin-bottom:12px}
+.pcard-head{margin-bottom:28px}
+.pcard-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--t3-warm);margin-bottom:12px}
 .pcard-price{display:flex;align-items:baseline;gap:4px}
-.pcard-amount{font-size:48px;font-weight:800;letter-spacing:-0.03em;line-height:1;transition:opacity var(--d2) var(--ease)}
+.pcard-amount{
+  font-size:48px;font-weight:800;letter-spacing:-0.03em;line-height:1;
+  background:linear-gradient(180deg, var(--t1) 20%, var(--t-warm) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  transition:opacity var(--d2) var(--ease);
+}
 .pcard-amount.switching{opacity:0.4}
-.pcard-period{font-size:14px;color:var(--t3)}
+.pcard-period{font-size:14px;color:var(--t3-warm)}
 .pcard-billed{font-size:12px;color:var(--t4);margin-top:4px}
 .pcard-desc{font-size:14px;line-height:1.6;color:var(--t2);margin-top:12px}
 
-/* Features */
+/* Features — divider separates pricing from feature list */
 .pcard-features{
   list-style:none;display:flex;flex-direction:column;gap:10px;
   flex:1;margin-bottom:28px;
+  padding-top:20px;
+  border-top:1px solid var(--bdr);
 }
 .pcard-features li{
   display:flex;align-items:flex-start;gap:10px;
@@ -104,8 +218,16 @@
 }
 .pcard-check{flex-shrink:0;margin-top:2px}
 
+/* Muted checkmarks on non-popular cards — editorial, not gamified */
+.pcard:not(.pcard-popular) .pcard-check path{stroke:var(--acc-s)}
+
 /* CTA */
 .pcard-cta{width:100%;justify-content:center}
 
 /* Responsive */
-@media(max-width:860px){.pricing-grid{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+@media(max-width:860px){
+  .pricing-grid{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+  .pcard-popular{transform:none;z-index:auto}
+  .pcard-popular:hover{transform:translateY(-4px)}
+  .pcard-popular:active{transform:translateY(-1px) scale(0.995)}
+}

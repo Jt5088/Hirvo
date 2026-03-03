@@ -77,10 +77,7 @@
   /* ── State ── */
   var angle = 0;
   var targetAngle = null;
-  var rotVelocity = 0;
   var autoRotate = true;
-  var rotationStartTime = 0;     /* timestamp when rotation begins */
-  var ROTATION_RAMP = 2000;      /* ms to ease into full rotation speed */
   var activeId = null;
   var nodeEls = {};
   var iconEls = {};
@@ -88,9 +85,6 @@
   var glowLineEls = {};
   var linesSvg = null;
   var rafId = null;
-  var hoveredId = null;       /* node currently hovered (null = none) */
-  var hoverWireT = {};        /* per-node hover wire animation progress 0→1 */
-  var hoverWireDir = {};      /* per-node: 1 = filling in, -1 = fading out */
 
   /* ── Wire colors — warm gradient progression ── */
   var glowColors = ['#E8A87C', '#D4789C', '#B878B8', '#8C8CC8', '#A8B4C0'];
@@ -114,8 +108,8 @@
   var GLOW_DEPTH_FLOOR = 0.50;
   /* Asymptote: wire reaches (1 - e^-7) = 99.91% of maxLen — sub-pixel gap, never 100% */
   var ASYM = 1 - Math.exp(-7);
-  var ICON_RADIUS = 24; /* 23px half-icon + 1px border — stops exactly at outer edge */
-  var ICON_OFFSET = 13; /* icon center offset above node center (label pushes it up) */
+  var ICON_RADIUS = 23; /* 21px half-icon + 2px border — stops exactly at outer edge */
+  var ICON_OFFSET = 12; /* icon center is ~12px above node center (label pushes it up) */
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -124,12 +118,11 @@
   var introActive = false;
   var introStart = 0;
   var glowBaseTime = 0;
-  var INTRO_RING_DUR = 2800;    /* slow, smooth ring draw */
-  var INTRO_RING_START = 500;   /* ring starts at this offset */
-  var INTRO_WIRE_DELAY = INTRO_RING_START + INTRO_RING_DUR + 350; /* gentle pause after ring, then wires */
-  var INTRO_WIRE_DUR = 2000;    /* leisurely beam travel */
+  var INTRO_RING_DUR = 2200;
+  var INTRO_WIRE_DELAY = 2400;  /* ring finishes first, brief beat, then wires */
+  var INTRO_WIRE_DUR = 1500;    /* leisurely wire travel */
   var INTRO_WIRE_STAGGER = 0;   /* all wires fire simultaneously */
-  var INTRO_HOLD = 800;
+  var INTRO_HOLD = 600;
   var introFadeStart = 0;
   var INTRO_CROSSFADE = 1200; /* ms for intro wires to gently dim after intro ends */
   var ringCircleEl = null;
@@ -139,18 +132,20 @@
   var GLOW_ENTER_DELAY = 200;   /* ms of pure rotation before glow wires appear */
   var GLOW_FADE_IN = 600;       /* ms for glow wires to fade in from 0 */
   var introRingDone = false;
+  var introShimmerStart = 0;
+  var INTRO_SHIMMER_DUR = 700;  /* shimmer sweep after ring completes */
 
   /* ── Chip edge helper ──
      Ray-rect intersection: where line from center → node exits HIRVO chip.
-     Chip SVG: rect x=75 y=36 w=50 h=28 in viewBox 0 0 200 100.
-     .ot-cpu width set by CSS (420/320/220px). Scale = cpuWidth / 200. */
+     Chip SVG: rect x=85 y=40 w=30 h=20 in viewBox 0 0 200 100.
+     .ot-cpu width set by CSS (600/400/280px). Scale = cpuWidth / 200. */
   var cpuEl = container.querySelector('.ot-cpu');
-  var cachedCpuW = cpuEl ? cpuEl.offsetWidth : 420;
+  var cachedCpuW = cpuEl ? cpuEl.offsetWidth : 600;
   var shimmerGrad = document.getElementById('cpu-text-gradient');
   function getChipEdge(cx, cy, dx, dy) {
     var scale = cachedCpuW / 200;
-    var hw = 25 * scale; /* half chip width in pixels (50/2 SVG units) */
-    var hh = 14 * scale; /* half chip height in pixels (28/2 SVG units) */
+    var hw = 15 * scale; /* half chip width in pixels (30/2 SVG units) */
+    var hh = 10 * scale; /* half chip height in pixels (20/2 SVG units) */
     var absDx = Math.abs(dx);
     var absDy = Math.abs(dy);
     var tx = absDx > 0.01 ? hw / absDx : 9999;
@@ -162,10 +157,10 @@
   /* ── Helpers ── */
   function getRadius() {
     var w = container.offsetWidth;
-    if (w < 400) return 140;
-    if (w < 600) return 175;
-    if (w < 800) return 210;
-    return 250;
+    if (w < 400) return 180;
+    if (w < 600) return 220;
+    if (w < 800) return 260;
+    return 330;
   }
 
   function statusLabel(s) {
@@ -310,31 +305,12 @@
       nodeEls[data[n].id] = container.querySelector('[data-id="' + data[n].id + '"]');
       if (nodeEls[data[n].id]) {
         nodeEls[data[n].id].style.setProperty('--node-glow-rgb', glowRgbs[n]);
-        nodeEls[data[n].id].style.setProperty('--breathe-delay', (n * 0.9) + 's');
         iconEls[data[n].id] = nodeEls[data[n].id].querySelector('.ot-node-icon');
       }
     }
 
     /* Event delegation */
     container.addEventListener('click', handleClick);
-
-    /* Hover wire — mouseenter/leave on each node */
-    for (var m = 0; m < data.length; m++) {
-      (function (id) {
-        var el = nodeEls[id];
-        if (!el) return;
-        hoverWireT[id] = 0;
-        hoverWireDir[id] = 0;
-        el.addEventListener('mouseenter', function () {
-          hoveredId = id;
-          hoverWireDir[id] = 1;
-        });
-        el.addEventListener('mouseleave', function () {
-          if (hoveredId === id) hoveredId = null;
-          hoverWireDir[id] = -1;
-        });
-      })(data[m].id);
-    }
   }
 
   /* ── Click handler ── */
@@ -387,7 +363,6 @@
     activeId = null;
     autoRotate = true;
     targetAngle = null;
-    rotVelocity = 0;
     for (var i = 0; i < data.length; i++) {
       var el = nodeEls[data[i].id];
       if (el) el.classList.remove('active', 'related');
@@ -475,12 +450,9 @@
           if (wireT > 0) {
             if (wireT < INTRO_WIRE_DUR) {
               var wp = wireT / INTRO_WIRE_DUR;
-              /* Smooth ease-out — gentle deceleration into icon */
-              var we = 1 - Math.pow(1 - wp, 3);
-              fillLen = safeLen * we;
-              /* Opacity fades in over first 30% then holds */
-              var wFade = Math.min(1, wp / 0.3);
-              lineOp = 0.52 * (wFade * wFade * (3 - 2 * wFade));
+              fillLen = safeLen * (1 - Math.exp(-3.5 * wp));
+              var wFade = Math.min(1, wp / 0.25);
+              lineOp = 0.48 * (wFade * wFade * (3 - 2 * wFade));
             } else {
               fillLen = safeLen;
               var holdT = wireT - INTRO_WIRE_DUR;
@@ -492,8 +464,8 @@
                 lineOp = 0.32 * (1 - hfp);
               }
             }
-            /* Light up node when beam touches the icon edge */
-            if (fillLen >= safeLen * 0.95 && !el.classList.contains('ot-lit')) {
+            /* Light up node when wire reaches ~75% */
+            if (wireT > INTRO_WIRE_DUR * 0.75 && !el.classList.contains('ot-lit')) {
               el.classList.add('ot-lit');
             }
           }
@@ -553,25 +525,6 @@
           introFadeStart = 0;
         }
 
-        /* ── Hover wire overlay — smooth fill/fade on mouseenter/leave ── */
-        var hId = data[i].id;
-        var hDir = hoverWireDir[hId] || 0;
-        if (hDir !== 0) {
-          /* ~400ms fill, ~500ms fade — frame-rate independent */
-          var hSpeed = hDir > 0 ? (16.67 / 400) : (16.67 / 500);
-          hoverWireT[hId] = Math.max(0, Math.min(1, (hoverWireT[hId] || 0) + hDir * hSpeed));
-          if (hoverWireT[hId] <= 0) hoverWireDir[hId] = 0;
-        }
-        var ht = hoverWireT[hId] || 0;
-        if (ht > 0) {
-          /* Smoothstep easing */
-          var he = ht * ht * (3 - 2 * ht);
-          var hoverFill = safeLen * he;
-          var hoverOp = 0.55 * he;
-          if (hoverFill > fillLen) fillLen = hoverFill;
-          if (hoverOp > lineOp) lineOp = hoverOp;
-        }
-
         glowLine.setAttribute('x1', edge.x.toFixed(1));
         glowLine.setAttribute('y1', edge.y.toFixed(1));
         glowLine.setAttribute('x2', endX.toFixed(1));
@@ -582,8 +535,8 @@
       }
     }
 
-    /* ── HIRVO text shimmer — continuous circulation (starts as soon as ring completes) ── */
-    if (shimmerGrad && now && introPlayed && (introRingDone || !introActive)) {
+    /* ── HIRVO text shimmer — ripple circulation synced to wire stagger ── */
+    if (shimmerGrad && now && !introActive && glowEnabled) {
       var st = (now - glowBaseTime) % STAGGER;
       var sx;
       if (st < FILL_DUR) {
@@ -609,53 +562,43 @@
     if (introActive) {
       var elapsed = now - introStart;
 
-      /* Phase 0: Chip outline fades in (200ms in) */
-      if (elapsed >= 200 && !container.classList.contains('ot-cpu-visible')) {
-        container.classList.add('ot-cpu-visible');
-      }
-
-      /* Phase 1: Ring draws + HIRVO text fades in synced to ring progress */
-      var ringElapsed = Math.max(0, elapsed - INTRO_RING_START);
-      var ringProgress = 0;
+      /* Phase 1: Ring draws via SVG stroke-dashoffset */
       if (ringCircleEl) {
-        if (ringElapsed < INTRO_RING_DUR) {
-          var rp = ringElapsed / INTRO_RING_DUR;
-          /* Smooth ease-in-out */
-          ringProgress = rp < 0.5
+        if (elapsed < INTRO_RING_DUR) {
+          var rp = elapsed / INTRO_RING_DUR;
+          /* Smooth ease-in-out: slow start, steady middle, gentle finish */
+          var ep = rp < 0.5
             ? 2 * rp * rp
             : 1 - 2 * (1 - rp) * (1 - rp);
           ringCircleEl.setAttribute('stroke-dashoffset',
-            (RING_CIRCUMFERENCE * (1 - ringProgress)).toFixed(2));
+            (RING_CIRCUMFERENCE * (1 - ep)).toFixed(2));
         } else {
-          ringProgress = 1;
           ringCircleEl.setAttribute('stroke-dashoffset', '0');
         }
       }
 
-      /* HIRVO text opacity tracks ring progress — slightly delayed start, catches up */
-      if (elapsed >= INTRO_RING_START) {
-        var textProgress = Math.min(1, ringProgress * 1.25); /* text finishes at 80% ring */
-        var textEase = textProgress * textProgress * (3 - 2 * textProgress);
-        var cpuSvgText = container.querySelectorAll('.ot-cpu-svg text');
-        for (var ti = 0; ti < cpuSvgText.length; ti++) {
-          cpuSvgText[ti].style.opacity = textEase.toFixed(3);
-        }
-        /* Shimmer sweep synced to ring — matches circulation range exactly (-0.45 → +0.45) */
-        if (shimmerGrad && !introRingDone) {
-          shimmerGrad.setAttribute('gradientTransform',
-            'translate(' + (-0.45 + 0.9 * ringProgress).toFixed(3) + ', 0)');
-        }
-      }
-
-      /* Ring just completed — hand off to continuous shimmer seamlessly */
-      if (!introRingDone && ringElapsed >= INTRO_RING_DUR) {
+      /* Ring just completed — drop brightness, trigger shimmer sweep */
+      if (!introRingDone && elapsed >= INTRO_RING_DUR) {
         introRingDone = true;
-        /* Set glowBaseTime so circulation picks up at +0.45 (end of forward sweep)
-           — it will naturally continue into the return sweep, no direction reversal */
-        glowBaseTime = now - FILL_DUR;
+        container.classList.remove('ot-intro-bright');
+        introShimmerStart = now;
       }
 
-      /* Phase 2: CPU glows when wires start firing */
+      /* Smooth settle: gradient eases from centered (illuminated) to circulation start */
+      if (shimmerGrad && introShimmerStart > 0) {
+        var shimmerT = now - introShimmerStart;
+        if (shimmerT < INTRO_SHIMMER_DUR) {
+          var sp = shimmerT / INTRO_SHIMMER_DUR;
+          var se = sp * sp * (3 - 2 * sp); /* smoothstep */
+          shimmerGrad.setAttribute('gradientTransform',
+            'translate(' + (-0.45 * se).toFixed(3) + ', 0)');
+        } else {
+          introShimmerStart = 0;
+          shimmerGrad.setAttribute('gradientTransform', 'translate(-0.45, 0)');
+        }
+      }
+
+      /* Phase 2: CPU brightens when wires start firing */
       if (elapsed >= INTRO_WIRE_DELAY && !container.classList.contains('ot-intro-firing')) {
         container.classList.add('ot-intro-firing');
       }
@@ -668,25 +611,25 @@
         + INTRO_WIRE_DUR + INTRO_HOLD + 150;
       if (elapsed > lastWireEnd) {
         introActive = false;
+        introRingDone = false;
         introFadeStart = now;
-        /* Enable continuous glow wire cycle — shimmer keeps its base time for seamless handoff */
-        glowEnabled = true;
-        glowEnableTime = now;
+        /* Delay normal glow wires — let pure rotation breathe first */
+        glowEnabled = false;
+        glowEnableTime = now + GLOW_ENTER_DELAY;
+        glowBaseTime = now + GLOW_ENTER_DELAY;
         container.classList.remove('ot-intro', 'ot-intro-bright', 'ot-intro-firing');
-        /* Clear inline text opacity so it stays at full */
-        var cpuTexts = container.querySelectorAll('.ot-cpu-svg text');
-        for (var ti2 = 0; ti2 < cpuTexts.length; ti2++) {
-          cpuTexts[ti2].style.opacity = '';
-        }
         for (var n = 0; n < data.length; n++) {
           if (nodeEls[data[n].id]) nodeEls[data[n].id].classList.remove('ot-lit');
         }
       }
     }
 
-    /* Continuous glow wires cycle after intro */
+    /* Enable glow wires after post-intro delay */
+    if (!glowEnabled && glowEnableTime > 0 && now >= glowEnableTime) {
+      glowEnabled = true;
+    }
 
-    /* ── Rotation — starts once all nodes are lit, ramps up smoothly ── */
+    /* ── Rotation — starts immediately once all nodes are lit ── */
     var canRotate = !introActive;
     if (introActive) {
       /* Check if all nodes have lit up */
@@ -697,29 +640,18 @@
           break;
         }
       }
-      /* Mark the moment rotation first becomes possible */
-      if (canRotate && rotationStartTime === 0) {
-        rotationStartTime = now;
-      }
     }
     if (canRotate) {
       if (targetAngle !== null) {
-        /* Critically damped spring — smooth ease-in-out, no oscillation */
         var diff = targetAngle - angle;
-        rotVelocity += diff * 0.005;
-        rotVelocity *= 0.85;
-        angle += rotVelocity;
-        if (Math.abs(diff) < 0.15 && Math.abs(rotVelocity) < 0.05) {
+        if (Math.abs(diff) < 0.3) {
           angle = targetAngle;
           targetAngle = null;
-          rotVelocity = 0;
+        } else {
+          angle += diff * 0.08;
         }
       } else if (autoRotate && !prefersReducedMotion) {
-        /* Smooth ramp from 0 to full speed */
-        var rampT = rotationStartTime > 0
-          ? Math.min(1, (now - rotationStartTime) / ROTATION_RAMP) : 1;
-        var rampEase = rampT * rampT * (3 - 2 * rampT); /* smoothstep */
-        angle = (angle + 0.15 * rampEase) % 360;
+        angle = (angle + 0.15) % 360;
       }
     }
 
@@ -737,8 +669,9 @@
           introPlayed = true;
           introActive = true;
           introStart = performance.now();
-          /* Reset shimmer to pre-sweep position (matches circulation range start) */
-          if (shimmerGrad) shimmerGrad.setAttribute('gradientTransform', 'translate(-0.45, 0)');
+          container.classList.add('ot-intro-bright');
+          /* Center metallic gradient — CSS brightness handles the illuminated look */
+          if (shimmerGrad) shimmerGrad.setAttribute('gradientTransform', 'translate(0, 0)');
         }
       } else {
         if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
@@ -756,7 +689,7 @@
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-      cachedCpuW = cpuEl ? cpuEl.offsetWidth : 420;
+      cachedCpuW = cpuEl ? cpuEl.offsetWidth : 600;
       updateLinesViewBox();
       positionNodes(performance.now());
     }, 100);

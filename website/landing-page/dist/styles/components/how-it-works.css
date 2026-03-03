@@ -1,6 +1,7 @@
 /* How it works — stacked display cards */
 
-.hiw-head{text-align:center;margin-inline:auto;margin-bottom:100px}
+#how-it-works{padding-top:140px}
+.hiw-head{text-align:center;margin-inline:auto;margin-bottom:120px}
 .hiw-sub{font-size:16px;line-height:1.72;color:var(--t2);margin-top:14px;max-width:560px;margin-inline:auto}
 
 /* Stacked grid — all cards occupy the same cell */
@@ -8,7 +9,44 @@
   display:grid;
   grid-template-areas:'stack';
   place-items:center;
-  padding-bottom:80px;
+  padding-top:60px;
+  padding-bottom:100px;
+  position:relative;
+}
+
+/* Light diffusion behind card stack — scrim-curve amber glow, 3-zone bloom */
+.hiw-glow{
+  grid-area:stack;
+  width:calc(100% + 200px);height:calc(100% + 200px);
+  margin:-60px -100px;
+  background:
+    /* Zone 1 — tight amber core, scrim-curve falloff */
+    radial-gradient(ellipse 45% 50% at 48% 50%,
+      rgba(251,191,36,0.20) 0%,
+      rgba(251,191,36,0.148) 19%,
+      rgba(251,191,36,0.108) 34%,
+      rgba(251,191,36,0.076) 47%,
+      rgba(251,191,36,0.056) 56.5%,
+      rgba(251,191,36,0.039) 65%,
+      rgba(251,191,36,0.025) 73%,
+      rgba(251,191,36,0.015) 80%,
+      rgba(251,191,36,0.008) 86%,
+      rgba(251,191,36,0.004) 91%,
+      transparent 100%),
+    /* Zone 2 — wide ambient scatter, much dimmer */
+    radial-gradient(ellipse 70% 65% at 50% 52%,
+      rgba(251,191,36,0.04) 0%,
+      rgba(251,191,36,0.030) 19%,
+      rgba(251,191,36,0.022) 34%,
+      rgba(251,191,36,0.015) 47%,
+      rgba(251,191,36,0.010) 56.5%,
+      rgba(251,191,36,0.006) 65%,
+      rgba(251,191,36,0.003) 73%,
+      rgba(251,191,36,0.001) 80%,
+      transparent 86%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:0;
 }
 
 /* Base card — skewed, glass surface, right-edge fade */
@@ -19,12 +57,18 @@
   padding:24px 28px;
   border-radius:14px;
   border:1px solid var(--bdr2);
-  background:rgba(19,19,22,0.85);
+  background:rgba(14,14,17,0.85);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   transform:skewY(-8deg);
-  select:none;
+  -webkit-user-select:none;user-select:none;
   overflow:hidden;
-  transition:transform 700ms var(--ease), border-color 700ms var(--ease), filter 700ms var(--ease);
+  box-shadow:
+    inset 0 1px 0 var(--highlight),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-mid),
+    0 12px 24px var(--shadow-far),
+    0 24px 48px var(--shadow-ambient);
+  transition:transform 700ms var(--ease), border-color 700ms var(--ease), filter 700ms var(--ease), box-shadow 700ms var(--ease);
 }
 .hiw-card:hover{border-color:rgba(255,255,255,0.15)}
 
@@ -40,87 +84,139 @@
 }
 
 /* Grayscale + dark overlay for inactive cards (1st & 2nd) */
-.hiw-card:nth-child(1),
-.hiw-card:nth-child(2){filter:grayscale(100%)}
+.hiw-card:nth-child(2),
+.hiw-card:nth-child(3){filter:grayscale(100%)}
 
-.hiw-card:nth-child(1)::before,
-.hiw-card:nth-child(2)::before{
+.hiw-card:nth-child(2)::before,
+.hiw-card:nth-child(3)::before{
   content:'';position:absolute;inset:0;
   border-radius:14px;
-  background:rgba(9,9,11,0.5);
+  background:rgba(6,6,8,0.5);
   background-blend-mode:overlay;
   transition:opacity 700ms var(--ease);
   z-index:1;
 }
 
 /* Card 1 — back */
-.hiw-card:nth-child(1){
-  transform:skewY(-8deg) translateY(-40px);
+.hiw-card:nth-child(2){
+  transform:skewY(-8deg) translateX(-82px) translateY(-165px);
 }
-.hiw-card:nth-child(1):hover{
-  transform:skewY(-8deg) translateY(-80px);
-  filter:grayscale(0);
-}
-.hiw-card:nth-child(1):hover::before{opacity:0}
 
 /* Card 2 — middle */
-.hiw-card:nth-child(2){
-  transform:skewY(-8deg) translateX(72px) translateY(50px);
-}
-.hiw-card:nth-child(2):hover{
-  transform:skewY(-8deg) translateX(72px) translateY(0px);
-  filter:grayscale(0);
-}
-.hiw-card:nth-child(2):hover::before{opacity:0}
-
-/* Card 3 — front (most offset, no grayscale, active) */
 .hiw-card:nth-child(3){
-  transform:skewY(-8deg) translateX(144px) translateY(150px);
-}
-.hiw-card:nth-child(3):hover{
-  transform:skewY(-8deg) translateX(144px) translateY(100px);
+  transform:skewY(-8deg) translateY(-50px);
 }
 
-/* Active state — clicked card pops out, fully readable */
+/* Card 3 — front */
+.hiw-card:nth-child(4){
+  transform:skewY(-8deg) translateX(82px) translateY(40px);
+}
+
+/* Active state — card turns flat in place */
 .hiw-card{cursor:pointer}
 .hiw-card.active{
   filter:grayscale(0) !important;
   z-index:10;
-  border-color:rgba(255,255,255,0.2);
+  border-color:rgba(255,255,255,0.22);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.08);
+  transition:transform var(--d4) var(--ease), border-color var(--d4) var(--ease), filter var(--d4) var(--ease), box-shadow var(--d4) var(--ease) !important;
 }
 .hiw-card.active::before{opacity:0 !important}
 .hiw-card.active::after{opacity:0}
-.hiw-card:nth-child(1).active{
-  transform:skewY(0) translateY(-50px) scale(1.02);
-}
-.hiw-card:nth-child(2).active{
-  transform:skewY(0) translateX(72px) translateY(10px) scale(1.02);
-}
-.hiw-card:nth-child(3).active{
-  transform:skewY(0) translateX(144px) translateY(90px) scale(1.02);
-}
+/* Each card stays at its own position, just removes skew to face flat */
+.hiw-card:nth-child(2).active{transform:translateX(-82px) translateY(-165px) !important}
+.hiw-card:nth-child(3).active{transform:translateY(-50px) !important}
+.hiw-card:nth-child(4).active{transform:translateX(82px) translateY(40px) !important}
 
-/* Number badge — green-tinted circle */
+/* Number badge — amber accent */
 .hiw-num{
   width:28px;height:28px;border-radius:50%;
   display:inline-flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:var(--green);
-  background:rgba(52,211,153,0.1);
+  font-size:12px;font-weight:800;color:var(--amber);
+  border:1px solid rgba(251,191,36,0.18);
+  background:rgba(251,191,36,0.06);
   margin-bottom:14px;
 }
 
-.hiw-card .t-h3{margin-bottom:8px;color:var(--green)}
+.hiw-card .t-h3{margin-bottom:8px;color:var(--amber)}
 .hiw-card .t-sm{color:var(--t2);line-height:1.65}
+
+/* ── Scroll-linked drop entrance ── */
+html.js .hiw-cards.reveal{
+  opacity:1;
+  transform:none;
+  transition:none;
+}
+
+/* Pre-entrance: cards hidden, offset above final pos (matches JS start values) */
+html.js .hiw-cards:not(.in) .hiw-card{
+  opacity:0;
+  transition:none;
+}
+html.js .hiw-cards:not(.in) .hiw-card:nth-child(2){
+  transform:skewY(-8deg) translateX(-100px) translateY(-320px);
+}
+html.js .hiw-cards:not(.in) .hiw-card:nth-child(3){
+  transform:skewY(-8deg) translateY(-200px);
+}
+html.js .hiw-cards:not(.in) .hiw-card:nth-child(4){
+  transform:skewY(-8deg) translateX(96px) translateY(-60px);
+}
+
+/* Post-settle: JS clears inline styles, CSS .in takes over for hover/active */
+html.js .hiw-cards.in .hiw-card{
+  opacity:1;
+  transition:
+    transform 300ms var(--ease),
+    border-color 300ms var(--ease),
+    filter 300ms var(--ease);
+}
+html.js .hiw-cards.in .hiw-card:nth-child(2){
+  transform:skewY(-8deg) translateX(-82px) translateY(-165px);
+}
+html.js .hiw-cards.in .hiw-card:nth-child(3){
+  transform:skewY(-8deg) translateY(-50px);
+}
+html.js .hiw-cards.in .hiw-card:nth-child(4){
+  transform:skewY(-8deg) translateX(82px) translateY(40px);
+}
+
+/* ── Hover jump — only after cards have settled ── */
+html.js .hiw-cards.in .hiw-card:nth-child(2):hover{
+  transform:skewY(-8deg) translateX(-82px) translateY(-185px);
+  filter:grayscale(0);
+}
+html.js .hiw-cards.in .hiw-card:nth-child(2):hover::before{opacity:0}
+html.js .hiw-cards.in .hiw-card:nth-child(3):hover{
+  transform:skewY(-8deg) translateY(-70px);
+  filter:grayscale(0);
+}
+html.js .hiw-cards.in .hiw-card:nth-child(3):hover::before{opacity:0}
+html.js .hiw-cards.in .hiw-card:nth-child(4):hover{
+  transform:skewY(-8deg) translateX(82px) translateY(20px);
+}
 
 /* ── Responsive ── */
 @media(max-width:720px){
+  .hiw-cards::before{width:380px;height:340px;transform:translateX(10px)}
+  .hiw-cards::after{width:420px;height:360px;transform:translateX(15px) translateY(15px)}
   .hiw-cards{place-items:start}
   .hiw-card{width:100%;max-width:22rem}
   .hiw-card::after{width:8rem}
-  .hiw-card:nth-child(1){transform:skewY(0)}
-  .hiw-card:nth-child(1):hover{transform:translateY(-20px)}
-  .hiw-card:nth-child(2){transform:translateX(20px) translateY(20px)}
-  .hiw-card:nth-child(2):hover{transform:translateX(20px) translateY(0)}
-  .hiw-card:nth-child(3){transform:translateX(40px) translateY(40px)}
-  .hiw-card:nth-child(3):hover{transform:translateX(40px) translateY(20px)}
+  .hiw-card:nth-child(2){transform:skewY(0)}
+  .hiw-card:nth-child(3){transform:translateX(20px) translateY(20px)}
+  .hiw-card:nth-child(4){transform:translateX(40px) translateY(40px)}
+  /* Scroll-linked drop — mobile start/end positions */
+  html.js .hiw-cards:not(.in) .hiw-card:nth-child(2){transform:translateY(-60px)}
+  html.js .hiw-cards:not(.in) .hiw-card:nth-child(3){transform:translateX(20px) translateY(-40px)}
+  html.js .hiw-cards:not(.in) .hiw-card:nth-child(4){transform:translateX(40px) translateY(-10px)}
+  html.js .hiw-cards.in .hiw-card:nth-child(2){transform:skewY(0)}
+  html.js .hiw-cards.in .hiw-card:nth-child(3){transform:translateX(20px) translateY(20px)}
+  html.js .hiw-cards.in .hiw-card:nth-child(4){transform:translateX(40px) translateY(40px)}
+  /* Mobile hover jumps — only after settle */
+  html.js .hiw-cards.in .hiw-card:nth-child(2):hover{transform:translateY(-12px)}
+  html.js .hiw-cards.in .hiw-card:nth-child(3):hover{transform:translateX(20px) translateY(10px)}
+  html.js .hiw-cards.in .hiw-card:nth-child(4):hover{transform:translateX(40px) translateY(30px)}
 }

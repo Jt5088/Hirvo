@@ -1,17 +1,119 @@
-/* ── Scroll reveal ── */
+/* ── Scroll reveal — silky, elegant cascade ──
+   --ease-reveal glides elements into place with gentle
+   initial velocity and soft deceleration. No snap, no pop.
+   Each section has its own character. */
+
+/* Default: cards, lists, checklist items */
 html.js .reveal{
   opacity:0;
-  transform:translateY(20px);
-  transition:opacity var(--d3) var(--ease-out), transform var(--d3) var(--ease-out);
+  transform:translateY(14px);
+  will-change:transform,opacity;
+  transition:opacity 720ms var(--ease-reveal), transform 720ms var(--ease-reveal);
 }
 html.js .reveal.in{opacity:1;transform:translateY(0)}
 
-/* Stagger delays */
-html.js .d1{transition-delay:120ms}
-html.js .d2{transition-delay:240ms}
-html.js .d3{transition-delay:360ms}
-html.js .d4{transition-delay:480ms}
-html.js .d5{transition-delay:600ms}
+/* Headings (h2) — slow, authoritative arrival */
+html.js .reveal-h{
+  opacity:0;
+  transform:translateY(18px);
+  will-change:transform,opacity;
+  transition:opacity 850ms var(--ease-reveal), transform 850ms var(--ease-reveal);
+}
+html.js .reveal-h.in{opacity:1;transform:translateY(0)}
+
+/* Body text & subtitles — pure fade, no motion */
+html.js .reveal-f{
+  opacity:0;
+  will-change:opacity;
+  transition:opacity 700ms var(--ease-reveal);
+}
+html.js .reveal-f.in{opacity:1}
+
+/* Labels/badges — small whisper of motion */
+html.js .reveal-l{
+  opacity:0;
+  transform:translateY(8px);
+  will-change:transform,opacity;
+  transition:opacity 620ms var(--ease-reveal), transform 620ms var(--ease-reveal);
+}
+html.js .reveal-l.in{opacity:1;transform:translateY(0)}
+
+/* Widgets / product demos — weighted scale-up, slowest reveal */
+html.js .reveal-w{
+  opacity:0;
+  transform:translateY(24px) scale(0.975);
+  will-change:transform,opacity;
+  transition:opacity 950ms var(--ease-reveal), transform 950ms var(--ease-reveal);
+}
+html.js .reveal-w.in{opacity:1;transform:translateY(0) scale(1)}
+
+/* Stagger delays — 150ms intervals, wider breathing room */
+html.js .d1{transition-delay:150ms}
+html.js .d2{transition-delay:300ms}
+html.js .d3{transition-delay:440ms}
+html.js .d4{transition-delay:580ms}
+html.js .d5{transition-delay:720ms}
+html.js .d6{transition-delay:860ms}
+
+/* ── Per-section reveal character ── */
+
+/* Feature grid — leisurely wave across the 3x2 grid */
+.fgrid .reveal{transition-duration:800ms}
+
+/* Showcase — text floats in, widgets arrive with weighted mass */
+.showcase .reveal-h{transition-duration:950ms}
+.showcase .reveal-f{transition-duration:800ms}
+.showcase .reveal-w{
+  transform:translateY(28px) scale(0.97);
+  transition-duration:1100ms;
+}
+.showcase .reveal-w.in{transform:translateY(0) scale(1)}
+
+/* Methodology — stat cards: measured, analytical entrance */
+.meth-layout .stat-card.reveal{
+  transform:translateY(10px);
+  transition-duration:880ms;
+}
+.meth-layout .stat-card.reveal.in{transform:translateY(0)}
+
+/* Pricing — each card gently materializes into place */
+.pricing-section .pcard.reveal{
+  transform:translateY(10px);
+  transition:opacity 1200ms cubic-bezier(0.16,1,0.3,1),
+             transform 1200ms cubic-bezier(0.16,1,0.3,1),
+             border-color var(--d3) var(--ease),
+             background var(--d3) var(--ease),
+             box-shadow var(--d3) var(--ease);
+}
+.pricing-section .pcard.reveal.in{opacity:1;transform:translateY(0)}
+.pricing-section .pcard.reveal.d1{transition-delay:80ms}
+.pricing-section .pcard.reveal.d2{transition-delay:280ms}
+.pricing-section .pcard.reveal.d3{transition-delay:480ms}
+
+/* FAQ — pure opacity fade, no vertical travel. Calm, ready when you are */
+#faq .faq-item.reveal{
+  transform:none;
+  transition:opacity 880ms var(--ease-reveal);
+}
+#faq .faq-item.reveal.in{transform:none}
+
+/* Orbital timeline — container breathes open with gentle scale */
+#recruiter-sim .ot-container.reveal{
+  transform:translateY(16px) scale(0.985);
+  transition-duration:1000ms;
+}
+#recruiter-sim .ot-container.reveal.in{transform:translateY(0) scale(1)}
+
+/* CTA — the final beat: confident, weighty, decisive */
+.cta-outer .reveal-h{
+  transform:translateY(20px);
+  transition-duration:950ms;
+}
+.cta-outer .reveal-h.in{transform:translateY(0)}
+.cta-outer .reveal{transition-duration:850ms}
+
+/* Testimonials — gentle heading arrival */
+#testimonials .reveal-h{transition-duration:950ms}
 
 /* ── Hero entrance — per-word blur-dissolve ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -96,7 +198,7 @@ body.hero-loaded .hero-animate.hero-app-entrance{
     transition-duration:0.01ms !important;
     transition-delay:0ms !important;
   }
-  html.js .reveal{opacity:1;transform:none}
+  html.js .reveal,html.js .reveal-h,html.js .reveal-f,html.js .reveal-l,html.js .reveal-w{opacity:1;transform:none}
   #app-main-content{animation:none}
   /* Hero entrance: opacity only, skip blur/brightness and transform */
   .hero-animate{

@@ -1,13 +1,13 @@
 /* ── Orbital Timeline — recruiter screening visualization ── */
 
-.ot-head{text-align:center;margin-inline:auto;margin-bottom:60px}
+.ot-head{text-align:center;margin-inline:auto;margin-bottom:24px}
 .ot-sub{font-size:16px;line-height:1.72;color:var(--t2);margin-top:14px;max-width:560px;margin-inline:auto}
 
 /* Container */
 .ot-container{
   position:relative;
   width:100%;
-  height:800px;
+  height:560px;
   user-select:none;
 }
 
@@ -16,7 +16,7 @@
   position:absolute;
   left:50%;top:50%;
   transform:translate(-50%,-50%);
-  width:600px;
+  width:420px;
   z-index:10;
   color:rgba(237,237,236,0.12);
   pointer-events:none;
@@ -44,47 +44,106 @@
   will-change:transform;
 }
 
-/* Glow aura (visible on active/related) */
+/* Glow aura — always faintly visible, breathing animation gives life */
 .ot-node-glow{
   position:absolute;
   top:50%;left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%) scale(1);
   border-radius:50%;
-  background:radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%);
+  background:radial-gradient(circle,
+    rgba(var(--node-glow-rgb,200,200,220),0.20) 0%,
+    rgba(var(--node-glow-rgb,200,200,220),0.06) 45%,
+    transparent 72%);
   pointer-events:none;
-  opacity:0;
-  transition:opacity var(--d3) var(--ease);
+  opacity:0.18;
+  animation:ot-breathe 5s ease-in-out infinite;
+  animation-delay:var(--breathe-delay, 0s);
 }
 .ot-node.active .ot-node-glow,
-.ot-node.related .ot-node-glow{opacity:1}
+.ot-node.related .ot-node-glow{opacity:1;animation:none}
 
-/* Icon circle */
+/* Icon circle — card-depth pattern: gradient border, layered shadows, surface */
 .ot-node-icon{
-  width:42px;height:42px;
+  width:46px;height:46px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  border:2px solid rgba(255,255,255,0.3);
-  background:var(--bg);
-  color:var(--t1);
+  border:1px solid transparent;
+  background:
+    radial-gradient(circle at 50% 35%, var(--surf2) 0%, var(--surf) 50%, var(--bg) 100%) padding-box,
+    linear-gradient(180deg, var(--bdr3) 0%, var(--bdr) 60%, transparent 100%) border-box;
+  color:var(--t2);
   position:relative;
   z-index:2;
-  transition:all 300ms var(--ease);
+  box-shadow:
+    inset 0 1px 0 var(--highlight),
+    inset 0 -1px 3px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-mid),
+    0 10px 20px var(--shadow-far),
+    0 20px 40px var(--shadow-ambient),
+    0 0 16px 3px rgba(var(--node-glow-rgb,200,200,220),0.08);
+  transition:
+    transform 600ms var(--ease),
+    box-shadow 600ms var(--ease),
+    background 600ms var(--ease),
+    color 600ms var(--ease),
+    filter 600ms var(--ease);
 }
+
+/* ── Hover: gentle lift, surface brightens, colored ambient spill ── */
 .ot-node:hover .ot-node-icon{
-  border-color:rgba(255,255,255,0.5);
+  transform:scale(1.14);
+  color:var(--t1);
+  background:
+    radial-gradient(circle at 44% 30%, rgba(255,255,255,0.07) 0%, transparent 55%) padding-box,
+    radial-gradient(circle at 50% 50%, var(--surf2) 0%, var(--surf) 100%) padding-box,
+    linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 40%, transparent 100%) border-box;
+  box-shadow:
+    inset 0 1px 0 var(--highlight-hover),
+    inset 0 -1px 2px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 1px 2px var(--shadow-near),
+    0 5px 10px var(--shadow-mid),
+    0 14px 28px var(--shadow-far),
+    0 28px 56px var(--shadow-ambient),
+    0 0 22px 5px rgba(var(--node-glow-rgb,200,200,220),0.22),
+    0 0 52px 12px rgba(var(--node-glow-rgb,200,200,220),0.09);
 }
+
+/* Aura blooms softly on hover — scrim-curve falloff */
+.ot-node:hover .ot-node-glow{
+  opacity:1;
+  animation:none;
+  transition:opacity 600ms var(--ease), transform 600ms var(--ease);
+  transform:translate(-50%,-50%) scale(1.3);
+  background:radial-gradient(circle,
+    rgba(var(--node-glow-rgb,200,200,220),0.14) 0%,
+    rgba(var(--node-glow-rgb,200,200,220),0.08) 28%,
+    rgba(var(--node-glow-rgb,200,200,220),0.03) 52%,
+    transparent 74%);
+}
+
 .ot-node.active .ot-node-icon{
-  background:var(--t1);
+  background:
+    radial-gradient(circle at 45% 30%, rgba(255,255,255,0.15) 0%, transparent 50%),
+    var(--t1);
   color:var(--bg);
-  border-color:var(--t1);
-  transform:scale(1.4);
-  box-shadow:0 0 24px rgba(255,255,255,0.2);
+  transform:scale(1.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 0 0 1px rgba(255,255,255,0.10),
+    0 0 22px 5px rgba(var(--node-glow-rgb,200,200,220),0.30),
+    0 0 52px 12px rgba(var(--node-glow-rgb,200,200,220),0.12),
+    0 10px 28px var(--shadow-far),
+    0 24px 48px var(--shadow-ambient);
 }
 .ot-node.related .ot-node-icon{
-  background:rgba(52,211,153,0.15);
-  border-color:var(--green);
+  background:
+    rgba(var(--node-glow-rgb,200,200,220),0.10) padding-box,
+    linear-gradient(180deg, rgba(var(--node-glow-rgb,200,200,220),0.5) 0%, rgba(var(--node-glow-rgb,200,200,220),0.15) 100%) border-box;
   animation:ot-glow 1.5s ease-in-out infinite;
 }
 
@@ -97,8 +156,9 @@
   letter-spacing:0.06em;
   text-transform:uppercase;
   color:var(--t3);
-  transition:color 300ms var(--ease);
+  transition:color var(--d3) var(--ease), transform var(--d3) var(--ease);
 }
+.ot-node:hover .ot-node-label{color:var(--t2);transform:translateY(2px)}
 .ot-node.active .ot-node-label{color:var(--t1)}
 
 /* ── Expanded card ── */
@@ -110,13 +170,13 @@
   width:264px;
   border-radius:14px;
   border:1px solid var(--bdr2);
-  background:rgba(9,9,11,0.94);
+  background:rgba(6,6,8,0.94);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   padding:18px;
   box-shadow:0 4px 16px rgba(0,0,0,0.4), 0 12px 40px rgba(0,0,0,0.3);
   opacity:0;
   pointer-events:none;
-  transition:opacity 300ms var(--ease), transform 300ms var(--ease);
+  transition:opacity 380ms var(--ease), transform 380ms var(--ease);
   z-index:200;
 }
 .ot-node.active .ot-card{
@@ -154,7 +214,7 @@
   text-transform:uppercase;
   letter-spacing:0.05em;
 }
-.ot-badge-completed{background:var(--green);color:var(--bg)}
+.ot-badge-completed{background:var(--t1);color:var(--bg)}
 .ot-badge-in-progress{background:var(--t1);color:var(--bg)}
 .ot-badge-pending{background:rgba(255,255,255,0.06);color:var(--t3);border:1px solid rgba(255,255,255,0.12)}
 
@@ -242,7 +302,71 @@
 }
 .ot-connected-btn svg{width:8px;height:8px;opacity:0.5}
 
+/* ── Intro entrance sequence ── */
+
+/* Ring SVG replaces CSS border — enables stroke-dashoffset draw animation */
+.ot-ring-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+
+/* Nodes hidden until their wire reaches them */
+.ot-intro .ot-node{visibility:hidden}
+.ot-intro .ot-node.ot-lit{visibility:visible}
+
+/* Node icon — smooth fade-scale when lit */
+.ot-intro .ot-node.ot-lit .ot-node-icon{
+  animation:ot-icon-appear 1000ms var(--ease) both;
+}
+
+/* Node glow aura — brief colored flash when beam arrives */
+.ot-intro .ot-node.ot-lit .ot-node-glow{
+  animation:ot-glow-bloom 900ms var(--ease) both;
+}
+
+/* Node label — gentle fade in after icon */
+.ot-intro .ot-node.ot-lit .ot-node-label{
+  animation:ot-label-appear 800ms var(--ease) 300ms both;
+}
+
+/* CPU — smooth transitions for intro glow phases */
+.ot-cpu{transition:filter 1200ms var(--ease), opacity 1200ms var(--ease)}
+
+/* CPU starts invisible during intro, fades in as chip "powers on" */
+.ot-intro .ot-cpu{opacity:0}
+.ot-intro.ot-cpu-visible .ot-cpu{opacity:1}
+
+/* HIRVO text — JS controls opacity via inline style, synced to ring draw */
+.ot-intro .ot-cpu-svg text{opacity:0}
+
+/* Chip rect starts dim, fades in with chip */
+.ot-intro .ot-cpu-svg rect{opacity:0.3;transition:opacity 800ms var(--ease)}
+.ot-intro.ot-cpu-visible .ot-cpu-svg rect{opacity:1}
+
+/* Gentle brightness lift during ring draw, settles for beams */
+.ot-intro.ot-cpu-visible .ot-cpu{filter:brightness(1.15)}
+.ot-intro.ot-intro-firing .ot-cpu{
+  filter:drop-shadow(0 0 6px rgba(237,237,236,0.10)) brightness(1.0);
+  transition:filter 1000ms var(--ease);
+}
+
+@keyframes ot-icon-appear{
+  from{transform:scale(0.7);opacity:0;filter:brightness(1.6)}
+  50%{filter:brightness(1.2)}
+  to{transform:scale(1);opacity:1;filter:brightness(1)}
+}
+@keyframes ot-glow-bloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(0.6)}
+  30%{opacity:0.7;transform:translate(-50%,-50%) scale(1.3)}
+  100%{opacity:0.18;transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes ot-label-appear{
+  from{opacity:0;transform:translateY(4px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 /* ── Keyframes ── */
+@keyframes ot-breathe{
+  0%,100%{opacity:0.15;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:0.35;transform:translate(-50%,-50%) scale(1.08)}
+}
 @keyframes ot-glow{
   0%,100%{opacity:1}
   50%{opacity:0.55}
@@ -261,18 +385,25 @@
 
 /* ── Responsive ── */
 @media(max-width:720px){
-  .ot-container{height:660px}
-  .ot-cpu{width:400px}
+  .ot-container{height:480px}
+  .ot-cpu{width:320px}
 }
 @media(max-width:480px){
-  .ot-container{height:560px}
-  .ot-cpu{width:280px}
-  .ot-node-icon{width:34px;height:34px}
+  .ot-container{height:400px}
+  .ot-cpu{width:220px}
+  .ot-node-icon{width:36px;height:36px}
   .ot-node-label{font-size:9px}
   .ot-card{width:210px;padding:14px}
 }
 
 /* ── Reduced motion ── */
 @media(prefers-reduced-motion:reduce){
+  .ot-node-glow{animation:none;opacity:0.18}
   .ot-node.related .ot-node-icon{animation:none}
+  .ot-node:hover .ot-node-icon{transform:none;filter:none}
+  .ot-node:hover .ot-node-glow{transform:translate(-50%,-50%) scale(1)}
+  .ot-node:hover .ot-node-label{transform:none}
+  .ot-intro .ot-node{visibility:visible}
+  .ot-intro .ot-node.ot-lit .ot-node-icon,
+  .ot-intro .ot-node.ot-lit .ot-node-label{animation:none}
 }

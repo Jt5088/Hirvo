@@ -1,4 +1,15 @@
-.proof{border-top:1px solid var(--bdr);padding-block:56px;overflow:hidden}
+/* Soft gradient separator — thin line with faded edges, no blur filter */
+.proof{border-top:none;padding-block:56px;overflow:hidden;position:relative}
+.proof::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(237,237,236,0.08) 15%,
+    rgba(237,237,236,0.11) 50%,
+    rgba(237,237,236,0.08) 85%,
+    transparent 100%);
+  pointer-events:none;z-index:1;
+}
 .proof-lbl{text-align:center;font-size:10.5px;font-weight:700;letter-spacing:0.11em;text-transform:uppercase;color:var(--t4);margin-bottom:22px}
 
 /* ── Infinite marquee ── */
@@ -35,27 +46,139 @@
 .proof-logo:hover{color:var(--t2)}
 
 /* ── Metrics ── */
-.metrics{padding-block:100px 120px}
-.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-/* Counter-synced reveal: .mcard starts hidden, JS adds .in when counter fires */
-.mcard{
-  padding:36px 28px;border-radius:14px;
-  border:1px solid var(--bdr2);
-  background:rgba(19,19,22,0.85);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  opacity:0;transform:translateY(16px);
-  transition:opacity 500ms var(--ease), transform 500ms var(--ease), border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+/* Surface response — very wide, dim lift under content, full 13-stop scrim curve */
+.metrics{
+  position:relative;padding-block:100px 120px;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 46%,
+      rgba(237,237,236,0.015) 0%,
+      rgba(237,237,236,0.011) 19%,
+      rgba(237,237,236,0.008) 34%,
+      rgba(237,237,236,0.006) 47%,
+      rgba(237,237,236,0.004) 56.5%,
+      rgba(237,237,236,0.003) 65%,
+      rgba(237,237,236,0.002) 73%,
+      rgba(237,237,236,0.001) 80.2%,
+      rgba(237,237,236,0.001) 86.1%,
+      rgba(237,237,236,0.000) 91%,
+      transparent 95.2%,
+      transparent 100%),
+    var(--bg);
 }
-.mcard.in{opacity:1;transform:translateY(0)}
-.mcard:hover{
-  border-color:rgba(255,255,255,0.15);
-  background:rgba(19,19,22,0.92);
-}
-.mnum{font-size:48px;font-weight:900;letter-spacing:-0.04em;color:var(--t1);line-height:1;margin-bottom:10px}
-.mname{font-size:13.5px;font-weight:500;color:var(--t2);line-height:1.55}
 
-@media(max-width:680px){.mgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:400px){.mgrid{grid-template-columns:1fr}}
+/* Ambient bloom — full 13-stop scrim curve, blur-smeared to eliminate rings/banding */
+.metrics::before{
+  content:'';position:absolute;
+  inset:-60px -80px;
+  background:
+    /* Core bloom — tighter, brighter */
+    radial-gradient(ellipse 55% 45% at 50% 46%,
+      rgba(237,237,236,0.030) 0%,
+      rgba(237,237,236,0.022) 19%,
+      rgba(237,237,236,0.016) 34%,
+      rgba(237,237,236,0.011) 47%,
+      rgba(237,237,236,0.008) 56.5%,
+      rgba(237,237,236,0.006) 65%,
+      rgba(237,237,236,0.004) 73%,
+      rgba(237,237,236,0.002) 80.2%,
+      rgba(237,237,236,0.001) 86.1%,
+      rgba(237,237,236,0.001) 91%,
+      rgba(237,237,236,0.000) 95.2%,
+      transparent 98.2%,
+      transparent 100%),
+    /* Ambient scatter — wider, dimmer, extends the tail */
+    radial-gradient(ellipse 80% 65% at 50% 48%,
+      rgba(237,237,236,0.010) 0%,
+      rgba(237,237,236,0.007) 19%,
+      rgba(237,237,236,0.005) 34%,
+      rgba(237,237,236,0.004) 47%,
+      rgba(237,237,236,0.003) 56.5%,
+      rgba(237,237,236,0.002) 65%,
+      rgba(237,237,236,0.001) 73%,
+      rgba(237,237,236,0.001) 80.2%,
+      rgba(237,237,236,0.000) 86.1%,
+      transparent 91%,
+      transparent 100%);
+  filter:blur(0.5px);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:0;
+}
+
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1}
+
+/* Vertical gradient dividers — thin line, faded endpoints */
+.mcard:not(:last-child)::after{
+  content:'';position:absolute;
+  right:0;top:12%;bottom:12%;
+  width:1px;
+  background:linear-gradient(180deg,
+    transparent 0%,
+    rgba(237,237,236,0.09) 25%,
+    rgba(237,237,236,0.11) 50%,
+    rgba(237,237,236,0.09) 75%,
+    transparent 100%);
+  pointer-events:none;
+}
+
+/* Counter-synced reveal: .mcard starts hidden, JS adds .in when counter fires */
+/* Stagger: cards 1→2→3→4 appear sequentially */
+.mcard{
+  padding:32px 28px;
+  position:relative;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 700ms var(--ease), transform 700ms var(--ease), background var(--d2) var(--ease);
+}
+.mcard:nth-child(1){transition-delay:0ms,0ms,0ms}
+.mcard:nth-child(2){transition-delay:220ms,220ms,0ms}
+.mcard:nth-child(3){transition-delay:440ms,440ms,0ms}
+.mcard:nth-child(4){transition-delay:660ms,660ms,0ms}
+.mcard.in{opacity:1;transform:translateY(0)}
+.mcard:hover{background:rgba(255,255,255,0.035)}
+.mnum{
+  font-size:52px;font-weight:800;letter-spacing:-0.04em;
+  line-height:1;margin-bottom:12px;
+  background:linear-gradient(180deg, var(--t1) 20%, var(--t-warm) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.mname{font-size:13.5px;font-weight:500;color:var(--t2);line-height:1.55;letter-spacing:0.005em}
+
+@media(max-width:680px){
+  .mgrid{grid-template-columns:repeat(2,1fr)}
+  /* Hide all vertical dividers and redo for 2-col */
+  .mcard::after{display:none !important}
+  .mcard:nth-child(odd):not(:last-child)::before{
+    content:'';position:absolute;
+    right:0;top:10%;bottom:10%;width:1px;
+    background:linear-gradient(180deg, transparent, var(--bdr2) 20%, var(--bdr2) 80%, transparent);
+  }
+  /* Horizontal divider between rows */
+  .mcard:nth-child(-n+2){
+    position:relative;
+  }
+  .mcard:nth-child(2)::after,
+  .mcard:nth-child(1)::after{
+    display:none !important;
+  }
+  .mgrid::before{
+    content:'';position:absolute;
+    top:50%;left:6%;right:6%;height:1px;
+    background:linear-gradient(90deg, transparent, var(--bdr2) 12%, var(--bdr2) 88%, transparent);
+    z-index:1;
+  }
+}
+@media(max-width:400px){
+  .mgrid{grid-template-columns:1fr}
+  .mgrid::before{display:none}
+  .mcard::after,.mcard::before{display:none !important}
+  .mcard{padding:22px 0;position:relative}
+  .mcard:not(:last-child)::after{
+    content:'';display:block !important;position:absolute;
+    bottom:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg, transparent 5%, var(--bdr2) 20%, var(--bdr2) 80%, transparent 95%);
+  }
+}
 
 /* Respect reduced motion */
 @media(prefers-reduced-motion:reduce){

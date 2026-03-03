@@ -1,4 +1,4 @@
-.wrap{max-width:1200px;margin-inline:auto;padding-inline:32px}
+.wrap{max-width:1320px;margin-inline:auto;padding-inline:24px}
 .section{padding-block:100px;background:var(--bg)}
 .section-flush-top{padding-top:0}
 
@@ -21,4 +21,4 @@ hr.rule{
 /* Last content block before footer doesn't need bleed */
 .pricing-section::after{display:none}
 
-@media(max-width:480px){.wrap{padding-inline:18px} .section{padding-block:64px} .section::after{height:48px}}
+@media(max-width:480px){.wrap{padding-inline:16px} .section{padding-block:64px} .section::after{height:48px}}

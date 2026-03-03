@@ -4,15 +4,37 @@
 .aurora-canvas canvas{width:100%!important;height:100%!important}
 /* Hero bottom border removed — proof strip has its own border-top */
 
-/* Soft warm radial — NOT colored, just light falloff
-   Slightly brighter center pool to illuminate the hero title area */
+/* Warm radial — scrim-curve multi-stop falloff for natural light bloom
+   Center pool illuminates title, side fills add warmth without hard edges */
 .hero-glow{position:absolute;inset:0;background:
-  radial-gradient(ellipse 70% 50% at 50% -5%,rgba(237,237,236,0.07) 0%,transparent 60%),
-  radial-gradient(ellipse 45% 35% at 30% 10%,rgba(237,237,236,0.025) 0%,transparent 50%),
-  radial-gradient(ellipse 45% 35% at 70% 10%,rgba(237,237,236,0.025) 0%,transparent 50%);
+  radial-gradient(ellipse 65% 50% at 50% -5%,
+    rgba(237,237,236,0.08) 0%,
+    rgba(237,237,236,0.059) 19%,
+    rgba(237,237,236,0.043) 34%,
+    rgba(237,237,236,0.030) 47%,
+    rgba(237,237,236,0.021) 56.5%,
+    rgba(237,237,236,0.014) 65%,
+    rgba(237,237,236,0.008) 73%,
+    rgba(237,237,236,0.004) 80%,
+    transparent 91%),
+  radial-gradient(ellipse 40% 35% at 28% 8%,
+    rgba(237,237,236,0.028) 0%,
+    rgba(237,237,236,0.015) 34%,
+    rgba(237,237,236,0.006) 60%,
+    transparent 80%),
+  radial-gradient(ellipse 40% 35% at 72% 8%,
+    rgba(237,237,236,0.028) 0%,
+    rgba(237,237,236,0.015) 34%,
+    rgba(237,237,236,0.006) 60%,
+    transparent 80%);
 pointer-events:none;transition:transform var(--d1) linear;will-change:transform;}
 
-.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 60% 45% at 50% 0,#000 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 60% 45% at 50% 0,#000 0%,transparent 100%);pointer-events:none}
+.hero-dots{position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.028) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 55% 40% at 50% 0,#000 0%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 55% 40% at 50% 0,#000 0%,transparent 100%);
+  pointer-events:none}
 
 .hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
 .hero-copy{text-align:center;max-width:720px;margin-inline:auto;padding-bottom:56px;display:flex;flex-direction:column;align-items:center}

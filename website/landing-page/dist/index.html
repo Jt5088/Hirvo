@@ -96,8 +96,8 @@
       <h1 class="t-hero"><span class="hero-line"><span class="hero-word hero-animate hw0">See why</span> <span class="hero-word hero-animate hw1">recruiters</span></span><span class="hero-gradient hero-line hero-animate hw2">skip your resume</span></h1>
       <p class="hero-sub hero-animate hd3">HIRVO runs your resume through real ATS filters, a 6-second recruiter skim, and silent bias checks &mdash; then shows you exactly what killed it. Before you hit send.</p>
       <div class="hero-btns hero-animate hd4">
-        <a class="btn btn-pri btn-lg" href="/signup">Scan my resume free</a>
-        <a class="btn btn-ghost btn-lg" href="#how-it-works">See the simulation in action <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-pri btn-lg" href="/signup">Scan my resume free <svg class="btn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#how-it-works">See the simulation in action <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path class="arrow-line" d="M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="arrow-head" d="M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <p class="hero-note hero-animate hd4">No credit card required<span class="sep">&middot;</span>3 free scans<span class="sep">&middot;</span>2,400+ job seekers already found their hidden rejection reason</p>
     </div>
@@ -256,26 +256,27 @@
 <!-- How it works -->
 <section class="section" id="how-it-works" aria-labelledby="hiw-h">
   <div class="wrap">
-    <div class="hiw-head reveal">
-      <span class="lbl lbl-c">How it works</span>
-      <h2 class="t-h2" id="hiw-h">Find your rejection reason in under 5 minutes</h2>
-      <p class="hiw-sub">No coaching fluff. No generic tips. HIRVO runs the real filters recruiters use on your resume, then shows you what failed and how to fix it.</p>
+    <div class="hiw-head">
+      <span class="lbl lbl-c reveal-l">How it works</span>
+      <h2 class="t-h2 reveal-h d1" id="hiw-h">Find your rejection reason in under 5 minutes</h2>
+      <p class="hiw-sub reveal-f d2">No coaching fluff. No generic tips. We run the real filters recruiters use on your resume, then show you what failed and how to fix it.</p>
     </div>
     <div class="hiw-cards reveal">
+      <div class="hiw-glow" aria-hidden="true"></div>
       <div class="hiw-card">
         <div class="hiw-num">01</div>
         <h3 class="t-h3">Upload your resume</h3>
-        <p class="t-sm">Paste or upload. HIRVO parses it the same way Workday, Greenhouse, and Lever do &mdash; then shows you what a recruiter actually receives versus what gets silently dropped.</p>
+        <p class="t-sm">Paste or upload. We parse it the same way Workday and Greenhouse do, then show you what a recruiter actually receives versus what gets silently dropped.</p>
       </div>
       <div class="hiw-card">
         <div class="hiw-num">02</div>
         <h3 class="t-h3">Pick your recruiter type</h3>
-        <p class="t-sm">Startup hiring manager. Enterprise HR screener. University recruiter. Each one screens differently, flags different things, and rejects for different reasons. Pick the one you keep losing to.</p>
+        <p class="t-sm">Startup hiring manager. Enterprise HR screener. University recruiter. Each one screens differently and rejects for different reasons. Pick the one you keep losing to.</p>
       </div>
       <div class="hiw-card">
         <div class="hiw-num">03</div>
         <h3 class="t-h3">Read the rejection report</h3>
-        <p class="t-sm">Pass, borderline, or fail &mdash; with a specific reason for every verdict. Not &ldquo;add more keywords.&rdquo; The recruiter&rsquo;s actual thought, the exact bullet that failed, and what to rewrite to flip it.</p>
+        <p class="t-sm">Pass, borderline, or fail. Not "add more keywords." The recruiter's actual thought, the exact bullet that failed, and what to rewrite to flip it.</p>
       </div>
     </div>
   </div>
@@ -285,36 +286,42 @@
 <!-- Orbital Timeline — Recruiter Screening Visualization -->
 <section class="section" id="recruiter-sim" aria-labelledby="ot-h">
   <div class="wrap">
-    <div class="ot-head reveal">
-      <span class="lbl lbl-c">Recruiter Simulation</span>
-      <h2 class="t-h2" id="ot-h">See exactly how recruiters screen you</h2>
-      <p class="ot-sub">Watch a real recruiter screening unfold &mdash; from the ATS parse to the final verdict. Every step, every filter, every decision point exposed.</p>
+    <div class="ot-head">
+      <span class="lbl lbl-c reveal-l">Recruiter Simulation</span>
+      <h2 class="t-h2 reveal-h d1" id="ot-h">See exactly how recruiters screen you</h2>
+      <p class="ot-sub reveal-f d2">Watch a real recruiter screening unfold &mdash; from the ATS parse to the final verdict. Every step, every filter, every decision point exposed.</p>
     </div>
     <div class="ot-container reveal" id="orbital-timeline" role="img" aria-label="Interactive orbital diagram showing 5 stages of recruiter screening">
 
       <!-- CPU Architecture SVG — center piece -->
       <div class="ot-cpu">
         <svg class="ot-cpu-svg" viewBox="0 0 200 100">
-          <!-- CPU chip -->
-          <g>
-            <!-- Main chip body -->
-            <rect x="85" y="40" width="30" height="20" rx="2" fill="var(--surf,#131316)" filter="url(#cpu-light-shadow)"/>
-            <!-- Chip label -->
-            <text x="100" y="53" font-size="5.5" fill="url(#cpu-text-gradient)" font-weight="700" letter-spacing="0.1em" text-anchor="middle">HIRVO</text>
-          </g>
-
           <defs>
-            <filter id="cpu-light-shadow" x="-80%" y="-80%" width="260%" height="260%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="white" flood-opacity="0.12"/>
-              <feDropShadow dx="1.5" dy="1.5" stdDeviation="1" flood-color="black" flood-opacity="0.1"/>
+            <linearGradient id="cpu-body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a1a1f"/>
+              <stop offset="100%" stop-color="#131316"/>
+            </linearGradient>
+            <filter id="cpu-lift" x="-6%" y="-6%" width="112%" height="125%">
+              <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-color="#000" flood-opacity="0.5"/>
             </filter>
-
             <linearGradient id="cpu-text-gradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#AAAAAA"><animate attributeName="offset" values="-2; -1; 0" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0; 0.5; 1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/></stop>
-              <stop offset="25%" stop-color="white"><animate attributeName="offset" values="-1; 0; 1" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0; 0.5; 1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/></stop>
-              <stop offset="50%" stop-color="#AAAAAA"><animate attributeName="offset" values="0; 1; 2" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0; 0.5; 1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/></stop>
+              <stop offset="0%"   stop-color="#7A7A76"/>
+              <stop offset="10%"  stop-color="#868684"/>
+              <stop offset="22%"  stop-color="#9A9892"/>
+              <stop offset="34%"  stop-color="#B8B5AE"/>
+              <stop offset="42%"  stop-color="#D4D0C8"/>
+              <stop offset="47%"  stop-color="#E6E2DA"/>
+              <stop offset="52%"  stop-color="#D4D0C8"/>
+              <stop offset="62%"  stop-color="#A8A59E"/>
+              <stop offset="72%"  stop-color="#9A9890"/>
+              <stop offset="85%"  stop-color="#868684"/>
+              <stop offset="100%" stop-color="#7A7A76"/>
             </linearGradient>
           </defs>
+
+          <!-- Single chip block -->
+          <rect x="75" y="36" width="50" height="28" rx="3" fill="url(#cpu-body)" stroke="rgba(255,255,255,0.07)" stroke-width="0.3" filter="url(#cpu-lift)"/>
+          <text x="100" y="50" font-size="9" fill="url(#cpu-text-gradient)" font-weight="700" letter-spacing="0.12em" text-anchor="middle" dominant-baseline="central">HIRVO</text>
         </svg>
       </div>
 
@@ -334,16 +341,16 @@
   <div class="wrap">
     <div class="showcase">
       <div class="sc-copy">
-        <span class="lbl reveal">Recruiter simulation</span>
-        <h2 class="t-h2 sc-head reveal d1" id="f1-h">A recruiter spent 7 seconds on your resume. Here's what they saw.</h2>
-        <p class="sc-body reveal d2">HIRVO models five recruiter types &mdash; each with their own filters, gap tolerances, and definitions of "strong." You get the verbatim read: what they noticed, what tripped a flag, and the exact moment they moved on.</p>
+        <span class="lbl reveal-l">Recruiter simulation</span>
+        <h2 class="t-h2 sc-head reveal-h d1" id="f1-h">A recruiter spent 7 seconds on your resume. Here's what they saw.</h2>
+        <p class="sc-body reveal-f d2">HIRVO models five recruiter types &mdash; each with their own filters, gap tolerances, and definitions of "strong." You get the verbatim read: what they noticed, what tripped a flag, and the exact moment they moved on.</p>
         <ul class="sc-checks reveal d3">
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Verbatim: "what I noticed first" and "why I stopped reading" &mdash; no paraphrasing, no softening</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>5 profiles: startup, enterprise, university, early-career tech, and time-pressured HR screener</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Skim model built on 6&ndash;10 second real-world screening behavior &mdash; not career blog assumptions</li>
         </ul>
       </div>
-      <div class="reveal d2">
+      <div class="reveal-w d2">
         <div class="ui-frame" aria-hidden="true">
           <div class="uf-bar">
             <div class="uf-dot"></div>
@@ -392,16 +399,16 @@
   <div class="wrap">
     <div class="showcase flip">
       <div class="sc-copy">
-        <span class="lbl reveal">ATS + human scan analysis</span>
-        <h2 class="t-h2 sc-head reveal d1" id="f2-h">Your resume passed ATS. A human still rejected it. Here's why.</h2>
-        <p class="sc-body reveal d2">Most tools stop at keyword matching. HIRVO shows you what happens next &mdash; the human skim &mdash; where formatting, weak bullets, and missing signals kill resumes that already passed ATS. The bot approved you. We show you why the human didn't.</p>
+        <span class="lbl reveal-l">ATS + human scan analysis</span>
+        <h2 class="t-h2 sc-head reveal-h d1" id="f2-h">Your resume passed ATS. A human still rejected it. Here's why.</h2>
+        <p class="sc-body reveal-f d2">Most tools stop at keyword matching. HIRVO shows you what happens next &mdash; the human skim &mdash; where formatting, weak bullets, and missing signals kill resumes that already passed ATS. The bot approved you. We show you why the human didn't.</p>
         <ul class="sc-checks reveal d3">
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>ATS parse vs. recruiter skim &mdash; displayed side by side so the gap is impossible to miss</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Catches the resumes that pass the bot and get stopped by the human</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Points to the exact bullet, section, or signal that triggered the reject</li>
         </ul>
       </div>
-      <div class="reveal d2">
+      <div class="reveal-w d2">
         <div class="ui-frame" aria-hidden="true">
           <div class="uf-bar">
             <div class="uf-dot"></div>
@@ -450,16 +457,16 @@
   <div class="wrap">
     <div class="showcase">
       <div class="sc-copy">
-        <span class="lbl reveal">Interview simulator</span>
-        <h2 class="t-h2 sc-head reveal d1" id="f3-h">That vague bullet on your resume? A real screener will push back on it. Hard.</h2>
-        <p class="sc-body reveal d2">HR screens are not conversations &mdash; they're structured filters with a checklist and a timer. HIRVO runs yours: follow-up questions on every claim, pushback on unquantified metrics, consistency checks across your timeline. You'll know exactly where you'd fail the screen before it's a real call.</p>
+        <span class="lbl reveal-l">Interview simulator</span>
+        <h2 class="t-h2 sc-head reveal-h d1" id="f3-h">That vague bullet on your resume? A real screener will push back on it. Hard.</h2>
+        <p class="sc-body reveal-f d2">HR screens are not conversations &mdash; they're structured filters with a checklist and a timer. HIRVO runs yours: follow-up questions on every claim, pushback on unquantified metrics, consistency checks across your timeline. You'll know exactly where you'd fail the screen before it's a real call.</p>
         <ul class="sc-checks reveal d3">
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Every question is generated from your specific resume &mdash; no generic practice prompts</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Pass / borderline / fail verdict with the explicit reason for every downgrade</li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(237,237,236,0.18)"/><path d="M4.5 7.5l2 2 4-4" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Timeline inconsistency detection &mdash; catches the gaps in your story before a screener does</li>
         </ul>
       </div>
-      <div class="reveal d2">
+      <div class="reveal-w d2">
         <div class="ui-frame" aria-hidden="true">
           <div class="uf-bar">
             <div class="uf-dot"></div>
@@ -501,41 +508,51 @@
 <!-- Feature grid -->
 <section class="section section-flush-top" aria-labelledby="fg-h">
   <div class="wrap">
-    <div class="fgrid-head reveal">
-      <span class="lbl lbl-c">Full toolkit</span>
-      <h2 class="t-h2" id="fg-h">Every filter between you and an interview &mdash; modeled.</h2>
+    <div class="fgrid-head">
+      <span class="lbl lbl-c reveal-l">The toolkit</span>
+      <h2 class="t-h2 reveal-h d1" id="fg-h">Every filter between you and an interview. Modeled.</h2>
     </div>
+    <div class="fgrid-wrap">
+    <div class="fgrid-glow" aria-hidden="true"></div>
     <div class="fgrid">
+
       <div class="fcard reveal d1">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><rect x="2" y="2" width="5.5" height="5.5" rx="1.5" fill="var(--t3)"/><rect x="9.5" y="2" width="5.5" height="5.5" rx="1.5" fill="var(--t3)" opacity=".6"/><rect x="5.75" y="9.5" width="5.5" height="5.5" rx="1.5" fill="var(--t3)" opacity=".8"/></svg></div>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="4" cy="10" r="2.5" fill="currentColor"/><circle cx="10" cy="10" r="2.5" fill="currentColor" opacity=".65"/><circle cx="16" cy="10" r="2.5" fill="currentColor" opacity=".35"/></svg></div>
         <h3 class="t-h3">5 Recruiter Profiles</h3>
-        <p class="t-sm">University, early-career tech, startup, enterprise, and HR screener &mdash; each with different red flags, different tolerances, and different reasons to pass on your resume.</p>
+        <p class="t-sm">A startup founder and an enterprise HR screener will reject the same resume for completely different reasons. We modeled five of them.</p>
       </div>
+
       <div class="fcard reveal d2">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="var(--t3)" stroke-width="1.5"/><path d="M5.5 8.5h6M8.5 5.5v6" stroke="var(--t3)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <h3 class="t-h3">ATS Parsing Engine</h3>
-        <p class="t-sm">Parses your resume the way Workday, Greenhouse, and Lever actually do. Shows you what gets extracted cleanly, what gets mangled, and what disappears entirely before a human ever sees your name.</p>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 10h7M10 6.5v7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <h3 class="t-h3">ATS Parsing</h3>
+        <p class="t-sm">Workday strips your formatting. Greenhouse reparses your dates. We show you what actually reaches the other side.</p>
       </div>
+
       <div class="fcard reveal d3">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><path d="M3 13.5V9M7 13.5V5M11 13.5V7.5M15 13.5V2" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 16V11M8.5 16V6M13 16V9M17.5 16V3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
         <h3 class="t-h3">Bullet-Level Scoring</h3>
-        <p class="t-sm">Every bullet gets a signal strength score. Vague impact metrics are flagged. Weak ownership language is called out. You see exactly which lines are dragging your resume down.</p>
+        <p class="t-sm">"Improved performance by 30%" and "improved performance" read almost the same to you. To a recruiter, one is a signal and the other is noise.</p>
       </div>
+
       <div class="fcard reveal d1">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><rect x="3" y="3" width="11" height="11" rx="2.5" stroke="var(--t3)" stroke-width="1.5"/><path d="M6 8.5l2 2 3.5-3.5" stroke="var(--t3)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3 class="t-h3">Screening Interview Sim</h3>
-        <p class="t-sm">A live, adaptive HR screen built from your actual resume. Pushback on every vague claim. Catches timeline gaps. Tells you where you'd fail the screen &mdash; before it's a real call.</p>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="13" height="13" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 10.5l2 2 3.5-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="t-h3">Interview Sim</h3>
+        <p class="t-sm">They read your resume, then ask why you left your last role. We run that conversation before it happens.</p>
       </div>
+
       <div class="fcard reveal d2">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="var(--t3)" stroke-width="1.5"/><path d="M5.5 8.5h3l1.5-3" stroke="var(--t3)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.4"/><ellipse cx="10" cy="10" rx="3" ry="7" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 10h13" stroke="currentColor" stroke-width="1.2"/></svg></div>
         <h3 class="t-h3">International Mode</h3>
-        <p class="t-sm">Visa risk signals, school bias patterns, and sponsorship sensitivity &mdash; modeled explicitly. These are the filters that kill international applications before anyone says a word about it.</p>
+        <p class="t-sm">Visa sponsorship gets flagged before your resume reaches a person. School-name heuristics filter silently after that. We make both visible.</p>
       </div>
+
       <div class="fcard reveal d3">
-        <div class="fcard-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><path d="M3 13h11M5 10.5V7M8.5 10.5V5M12 10.5V9" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="fcard-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 15.5h13M6 12V8.5M10 12V5.5M14 12V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
         <h3 class="t-h3">Progress Tracking</h3>
-        <p class="t-sm">Run the same simulation before and after your edits. See whether your ATS score, readability, and signal strength moved &mdash; not just whether the resume looks different.</p>
+        <p class="t-sm">Edit your resume. Re-run. See if the scores actually moved.</p>
       </div>
+
+    </div>
     </div>
   </div>
 </section>
@@ -546,30 +563,39 @@
   <div class="wrap">
     <div class="meth-layout">
       <div>
-        <span class="lbl reveal">Methodology</span>
-        <h2 class="t-h2 reveal d1" id="meth-h">Built on how recruiters actually screen &mdash; not how they say they do</h2>
-        <p class="meth-body reveal d2">HIRVO's recruiter models are built from real screening behavior data &mdash; not LinkedIn advice threads or career coaching intuition. Every feedback rule maps to a pattern we've documented in how candidates actually get filtered.</p>
-        <div class="meth-cards">
-          <div class="meth-card reveal d2">
-            <div class="meth-card-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 2v10M2 7h10" stroke="var(--t3)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-            <div><div class="meth-card-title">Zero optimism bias</div><div class="meth-card-desc">HIRVO doesn't soften the verdict. You get the internal monologue of a recruiter who's seen 200 resumes this week and is already behind schedule.</div></div>
+        <span class="lbl reveal-l">Methodology</span>
+        <h2 class="t-h2 reveal-h d1" id="meth-h">Built on how recruiters actually screen &mdash; not how they say they do</h2>
+        <p class="meth-body reveal-f d2">Our models come from real screening behavior, not career coaching advice. Every rule maps to how candidates actually get filtered.</p>
+        <div class="meth-list">
+          <div class="meth-item reveal d2">
+            <svg class="meth-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div>
+              <div class="meth-item-title">Zero optimism bias</div>
+              <div class="meth-item-desc">No one softens the verdict. You get a recruiter who's seen 200 resumes this week and is already behind schedule.</div>
+            </div>
           </div>
-          <div class="meth-card reveal d3">
-            <div class="meth-card-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="4" height="4" rx="1" stroke="var(--t3)" stroke-width="1.4"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="var(--t3)" stroke-width="1.4"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="var(--t3)" stroke-width="1.4"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="var(--t3)" stroke-width="1.4"/></svg></div>
-            <div><div class="meth-card-title">Role-specific logic</div><div class="meth-card-desc">A startup hiring manager doesn't care about GPA. An enterprise screener might reject you for a 4-month gap. Each profile runs different rules on your resume.</div></div>
+          <div class="meth-item reveal d3">
+            <svg class="meth-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+            <div>
+              <div class="meth-item-title">Role-specific logic</div>
+              <div class="meth-item-desc">A startup founder doesn't care about GPA. An enterprise screener will reject you for a 4-month gap. Different rules, same resume.</div>
+            </div>
           </div>
-          <div class="meth-card reveal d4">
-            <div class="meth-card-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 2L8.5 5.5H12L9.25 7.75L10.5 11.5L7 9L3.5 11.5L4.75 7.75L2 5.5H5.5L7 2Z" stroke="var(--t3)" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
-            <div><div class="meth-card-title">Silent filters, made visible</div><div class="meth-card-desc">Visa risk flags, school tier bias, career trajectory doubts &mdash; HIRVO names the things recruiters act on but never put in a rejection email.</div></div>
+          <div class="meth-item reveal d4">
+            <svg class="meth-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2L9.8 6.1H14L10.6 8.6L12 13L8 10.2L4 13L5.4 8.6L2 6.1H6.2L8 2Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="meth-item-title">Silent filters, made visible</div>
+              <div class="meth-item-desc">Visa risk, school tier bias, trajectory doubts. The things recruiters act on but never put in a rejection email.</div>
+            </div>
           </div>
         </div>
       </div>
       <div>
         <div class="stats-grid">
-          <div class="stat-card reveal d2"><div class="stat-num">6&ndash;10s</div><div class="stat-desc">Real recruiter skim time &mdash; modeled precisely in every simulation</div></div>
-          <div class="stat-card reveal d3"><div class="stat-num">5</div><div class="stat-desc">Recruiter profiles, each running different rules on your resume</div></div>
-          <div class="stat-card reveal d4"><div class="stat-num">3</div><div class="stat-desc">Evaluation layers per scan: ATS parse, human skim, deep-read signal</div></div>
-          <div class="stat-card reveal d5"><div class="stat-num">0</div><div class="stat-desc">Pieces of motivational fluff. Every line of feedback earns its place.</div></div>
+          <div class="stat-cell reveal d2"><div class="stat-num">6&ndash;10s</div><div class="stat-desc">Real recruiter skim time, modeled in every simulation</div></div>
+          <div class="stat-cell reveal d3"><div class="stat-num">5</div><div class="stat-desc">Recruiter profiles, each with different rejection logic</div></div>
+          <div class="stat-cell reveal d4"><div class="stat-num">3</div><div class="stat-desc">Layers per scan: ATS parse, human skim, deep read</div></div>
+          <div class="stat-cell reveal d5"><div class="stat-num">0</div><div class="stat-desc">Pieces of fluff. Every line of feedback earns its place.</div></div>
         </div>
       </div>
     </div>
@@ -580,42 +606,36 @@
 <!-- Testimonials -->
 <section class="section" id="testimonials" aria-labelledby="t-h">
   <div class="wrap">
-    <div style="text-align:center;margin-bottom:56px;" class="reveal">
-      <span class="lbl lbl-c">Testimonials</span>
-      <h2 class="t-h2" id="t-h">What happens when you finally know why</h2>
+    <div class="t-head">
+      <span class="lbl lbl-c reveal-l">Testimonials</span>
+      <h2 class="t-h2 reveal-h d1" id="t-h">What happens when you finally know why</h2>
     </div>
     <div class="t-marquee" aria-label="Testimonials carousel">
       <div class="t-track">
         <div class="tcard">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">HIRVO flagged that my resume was passing ATS but a recruiter was stopping at the third bullet. I didn't know that was even trackable. Rewrote that bullet, went from zero callbacks to three in two weeks.</p>
-          <div class="t-foot"><div class="t-av">JL</div><div><div class="t-name">Jamie L.</div><div class="t-role">CS Senior &middot; UC Berkeley</div></div></div>
+          <p class="t-body-text">"HIRVO flagged that my resume was passing ATS but a recruiter was stopping at the third bullet. I didn't know that was even trackable.<br><br>Rewrote that bullet, went from zero callbacks to three in two weeks."</p>
+          <div class="t-foot"><div class="t-name">Jamie L.</div><div class="t-role">CS Senior &middot; UC Berkeley</div></div>
         </div>
         <div class="tcard">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">I'd applied to 60 roles with no responses. HIRVO's international mode showed me I was being flagged for visa sponsorship before anyone even read my name. That was the thing no one ever said out loud.</p>
-          <div class="t-foot"><div class="t-av">AK</div><div><div class="t-name">Arav K.</div><div class="t-role">MIS Grad &middot; Carnegie Mellon</div></div></div>
+          <p class="t-body-text">"I'd applied to 60 roles with no responses. HIRVO's international mode showed me I was being flagged for visa sponsorship before anyone even read my name.<br><br>That was the thing no one ever said out loud."</p>
+          <div class="t-foot"><div class="t-name">Arav K.</div><div class="t-role">MIS Grad &middot; Carnegie Mellon</div></div>
         </div>
         <div class="tcard">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">The simulator asked me to explain my "team leadership" bullet and I had nothing. I'd written it assuming no one would dig in. Now I know exactly which claims I can't actually defend &mdash; and I've fixed them.</p>
-          <div class="t-foot"><div class="t-av">RN</div><div><div class="t-name">Rachel N.</div><div class="t-role">MBA &middot; Stanford GSB</div></div></div>
+          <p class="t-body-text">"The simulator asked me to explain my 'team leadership' bullet and I had nothing. I'd written it assuming no one would dig in.<br><br>Now I know exactly which claims I can't actually defend &mdash; and I've fixed them."</p>
+          <div class="t-foot"><div class="t-name">Rachel N.</div><div class="t-role">MBA &middot; Stanford GSB</div></div>
         </div>
         <!-- Duplicate set for seamless loop -->
         <div class="tcard" aria-hidden="true">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">HIRVO flagged that my resume was passing ATS but a recruiter was stopping at the third bullet. I didn't know that was even trackable. Rewrote that bullet, went from zero callbacks to three in two weeks.</p>
-          <div class="t-foot"><div class="t-av">JL</div><div><div class="t-name">Jamie L.</div><div class="t-role">CS Senior &middot; UC Berkeley</div></div></div>
+          <p class="t-body-text">"HIRVO flagged that my resume was passing ATS but a recruiter was stopping at the third bullet. I didn't know that was even trackable.<br><br>Rewrote that bullet, went from zero callbacks to three in two weeks."</p>
+          <div class="t-foot"><div class="t-name">Jamie L.</div><div class="t-role">CS Senior &middot; UC Berkeley</div></div>
         </div>
         <div class="tcard" aria-hidden="true">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">I'd applied to 60 roles with no responses. HIRVO's international mode showed me I was being flagged for visa sponsorship before anyone even read my name. That was the thing no one ever said out loud.</p>
-          <div class="t-foot"><div class="t-av">AK</div><div><div class="t-name">Arav K.</div><div class="t-role">MIS Grad &middot; Carnegie Mellon</div></div></div>
+          <p class="t-body-text">"I'd applied to 60 roles with no responses. HIRVO's international mode showed me I was being flagged for visa sponsorship before anyone even read my name.<br><br>That was the thing no one ever said out loud."</p>
+          <div class="t-foot"><div class="t-name">Arav K.</div><div class="t-role">MIS Grad &middot; Carnegie Mellon</div></div>
         </div>
         <div class="tcard" aria-hidden="true">
-          <div class="t-quot">"</div>
-          <p class="t-body-text">The simulator asked me to explain my "team leadership" bullet and I had nothing. I'd written it assuming no one would dig in. Now I know exactly which claims I can't actually defend &mdash; and I've fixed them.</p>
-          <div class="t-foot"><div class="t-av">RN</div><div><div class="t-name">Rachel N.</div><div class="t-role">MBA &middot; Stanford GSB</div></div></div>
+          <p class="t-body-text">"The simulator asked me to explain my 'team leadership' bullet and I had nothing. I'd written it assuming no one would dig in.<br><br>Now I know exactly which claims I can't actually defend &mdash; and I've fixed them."</p>
+          <div class="t-foot"><div class="t-name">Rachel N.</div><div class="t-role">MBA &middot; Stanford GSB</div></div>
         </div>
       </div>
     </div>
@@ -626,29 +646,29 @@
 <!-- FAQ -->
 <section class="section" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <div class="faq-head reveal">
-      <span class="lbl lbl-c">FAQ</span>
-      <h2 class="t-h2" id="faq-h">Straight answers. No hedging.</h2>
+    <div class="faq-head">
+      <span class="lbl lbl-c reveal-l">FAQ</span>
+      <h2 class="t-h2 reveal-h d1" id="faq-h">Straight answers.<br>No hedging.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">How is this different from resume tools like Jobscan?<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <div class="faq-item reveal d1">
+        <button class="faq-btn" aria-expanded="false">How is this different from resume tools like Jobscan?<svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="faq-body"><div class="faq-inner">Jobscan tells you whether your resume contains the right keywords. That's useful for exactly one problem: the ATS filter. HIRVO models what happens next &mdash; the 6-second human skim, the recruiter's internal read, the follow-up screen &mdash; which is where most candidates actually lose. Different problem. More consequential problem.</div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">Is the feedback actually honest or just generic?<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <div class="faq-item reveal d2">
+        <button class="faq-btn" aria-expanded="false">Is the feedback actually honest or just generic?<svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="faq-body"><div class="faq-inner">Yes, and that's the entire point. HIRVO will tell you when a bullet reads like coursework, when "improved performance by 40%" is a number you clearly can't back up, and when a strong experience is buried where no one will see it. No motivational padding. The feedback is exactly what a recruiter would think &mdash; written out.</div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">Does it work for international students?<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <div class="faq-item reveal d3">
+        <button class="faq-btn" aria-expanded="false">Does it work for international students?<svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="faq-body"><div class="faq-inner">Yes &mdash; International Mode is built for exactly this. It models visa risk signals, school tier bias, and sponsorship sensitivity in each recruiter profile. These filters are real, they operate quietly, and most tools ignore them entirely. HIRVO surfaces them with a clear strategy for each one.</div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">How accurate is the recruiter simulation?<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <div class="faq-item reveal d4">
+        <button class="faq-btn" aria-expanded="false">How accurate is the recruiter simulation?<svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="faq-body"><div class="faq-inner">Each recruiter profile is modeled on documented screening patterns, not career advice content. We won't claim it perfectly replicates any one recruiter's mind &mdash; but when candidates do get honest feedback, it matches what HIRVO already told them.</div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">What's included in the free tier?<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <div class="faq-item reveal d5">
+        <button class="faq-btn" aria-expanded="false">What's included in the free tier?<svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="faq-body"><div class="faq-inner">Three full resume scans, no credit card, no catch. Each scan includes the ATS parse, the human skim simulation, and a complete rejection report with specific reasons and fixes. Any of the five recruiter profiles. Unlimited scans, interview simulation, and progress tracking are on the paid plan.</div></div>
       </div>
     </div>
@@ -691,10 +711,10 @@
     </svg>
   </div>
   <div class="wrap" style="position:relative;z-index:1">
-    <div class="pricing-head reveal">
-      <span class="lbl lbl-c">Pricing</span>
-      <h2 class="t-h2">Simple, transparent pricing</h2>
-      <p class="pricing-sub">Start free. Upgrade when you're ready to get serious about landing interviews.</p>
+    <div class="pricing-head">
+      <span class="lbl lbl-c reveal-l">Pricing</span>
+      <h2 class="t-h2 reveal-h d1">Simple, transparent pricing</h2>
+      <p class="pricing-sub reveal-f d2">Start free. Upgrade when you're ready to get serious about landing interviews.</p>
     </div>
 
     <div class="pricing-toggle" role="group" aria-label="Billing period">
@@ -728,8 +748,8 @@
 
       <!-- Pro (Popular) -->
       <div class="pcard pcard-popular reveal d2">
-        <div class="pcard-badge">Most Popular</div>
         <div class="pcard-head">
+          <span class="pcard-badge">Most Popular</span>
           <h3 class="pcard-name">Pro</h3>
           <div class="pcard-price">
             <span class="pcard-amount" data-monthly="29" data-yearly="23">$29</span>
@@ -838,6 +858,8 @@
   <script src="js/glow.js"></script>
   <script src="js/scroll-anim.js"></script>
   <script src="js/orbital-timeline.js"></script>
+  <script src="js/testimonials.js"></script>
+  <script src="js/feature-glow.js"></script>
 
 </body>
 </html>

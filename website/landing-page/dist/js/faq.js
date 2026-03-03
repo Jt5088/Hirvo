@@ -25,3 +25,50 @@
   });
 
 })();
+
+/* ── Divider line glow — mouse proximity brightens nearby lines ── */
+(function () {
+  'use strict';
+
+  var items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  var PROXIMITY = 80;
+  var mx = 0, my = 0, rafId = null;
+
+  function tick() {
+    var anyActive = false;
+
+    for (var i = 0; i < items.length; i++) {
+      var rect = items[i].getBoundingClientRect();
+      var inX = mx > rect.left - 40 && mx < rect.right + 40;
+
+      /* Top divider (::before) — glow based on distance to top edge */
+      var distTop = Math.abs(my - rect.top);
+      var glow = (inX && distTop < PROXIMITY) ? 1 - distTop / PROXIMITY : 0;
+      items[i].style.setProperty('--line-glow', glow.toFixed(3));
+      if (glow > 0) anyActive = true;
+
+      /* Bottom divider on last item (::after) */
+      if (i === items.length - 1) {
+        var distBot = Math.abs(my - rect.bottom);
+        var glowB = (inX && distBot < PROXIMITY) ? 1 - distBot / PROXIMITY : 0;
+        items[i].style.setProperty('--line-glow-b', glowB.toFixed(3));
+        if (glowB > 0) anyActive = true;
+      }
+    }
+
+    rafId = anyActive ? requestAnimationFrame(tick) : null;
+  }
+
+  function onMove(e) {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }
+
+  document.body.addEventListener('pointermove', onMove, { passive: true });
+  window.addEventListener('scroll', function () {
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }, { passive: true });
+})();

@@ -1,18 +1,29 @@
 .cta-outer{
-  position:relative;overflow:hidden;border-top:1px solid var(--bdr);
+  position:relative;border-top:1px solid var(--bdr);
   background:var(--bg);
 }
 
-/* Very subtle warm glow — NOT colored, just slight atmospheric lift */
+/* Warm ambient glow — scrim-curve multi-stop falloff per light diffusion guide */
 .cta-glow{
-  position:absolute;inset:0;
+  position:absolute;inset:-20px -30px;
   background:
-    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(237,237,236,0.04) 0%,transparent 65%);
+    radial-gradient(ellipse 45% 50% at 50% 48%,
+      rgba(237,237,236,0.045) 0%,
+      rgba(237,237,236,0.033) 19%,
+      rgba(237,237,236,0.024) 34%,
+      rgba(237,237,236,0.017) 47%,
+      rgba(237,237,236,0.012) 56.5%,
+      rgba(237,237,236,0.008) 65%,
+      rgba(237,237,236,0.005) 73%,
+      rgba(237,237,236,0.003) 80%,
+      rgba(237,237,236,0.001) 91%,
+      transparent 100%);
+  mix-blend-mode:screen;
   pointer-events:none;
   transition:opacity var(--d3) var(--ease);
   animation:ctaPulse 10s var(--ease-out) infinite;
 }
-@keyframes ctaPulse{0%,100%{opacity:0.5}50%{opacity:1}}
+@keyframes ctaPulse{0%,100%{opacity:0.6}50%{opacity:1}}
 .cta-outer:hover .cta-glow{opacity:1;animation-play-state:paused}
 
 .cta-inner{
@@ -22,12 +33,15 @@
 
 .cta-h1{
   font-size:clamp(42px,5.5vw,68px);font-weight:900;line-height:1.04;letter-spacing:-0.04em;
+  background:linear-gradient(135deg, var(--t1) 0%, var(--t-warm) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
 }
 .cta-h1 .dim{
-  color:var(--t3);
-  transition:color var(--d3) var(--ease);
+  -webkit-text-fill-color:var(--t3);
+  transition:-webkit-text-fill-color var(--d3) var(--ease);
 }
-.cta-outer:hover .cta-h1 .dim{color:var(--t2)}
+.cta-outer:hover .cta-h1 .dim{-webkit-text-fill-color:var(--t2)}
 
 .cta-sub{
   font-size:16px;line-height:1.72;color:var(--t2);

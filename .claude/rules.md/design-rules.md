@@ -1,6 +1,8 @@
 # Design Rules
 
 ## Philosophy
+Dark-themed throughout. Elegant, never snappy — every transition and interaction must feel deliberate and smooth. Designs are curated carefully; nothing ships without visual intent.
+
 This site targets Linear/Cursor-level quality. Avoid anything that reads as "AI SaaS template":
 - No purple/teal glows or fills — `--acc` is for focus outlines **only**
 - No centered box-shadows with colored rgba
@@ -10,6 +12,7 @@ This site targets Linear/Cursor-level quality. Avoid anything that reads as "AI 
 - White CTAs on dark — maximum contrast, zero gimmick
 - Directional shadows from a virtual light source (top-left), not colored glows
 - 3D perspective tilt on product screenshots (`.ui-frame`)
+- No light-theme elements — entire page stays dark, no white panels or light sections
 
 ## Token Rules
 All colors, spacing, timing, and easing **must** reference `styles/tokens.css`. Never hardcode hex values, raw `ms`/`s` timing, or rgba() colors in component CSS or JS.
@@ -46,6 +49,7 @@ box-shadow:
 On hover: brighten inset to `var(--highlight-hover)`, lift with `translateY(-4px)`.
 
 ## Animation Rules
+- **Elegant, not snappy** — favour longer durations (`--d3`–`--d5`) for state changes; avoid anything that feels abrupt
 - Prefer animating `transform` and `opacity` only — never `width`, `height`, `top`, `left`
 - All durations must use `--d1` through `--d5` tokens
 - All easings must use `--ease` or `--ease-out`

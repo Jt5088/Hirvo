@@ -1,9 +1,8 @@
 :root {
   /* ── Backgrounds ──
-     Cursor-inspired: near-black with slight warm undertone
-     NOT pure blue-black (that's the AI tell)
-     surf lifted slightly for better card-vs-page contrast (Linear-level separation) */
-  --bg:#09090B; --surf:#131316; --surf2:#1C1C21; --surf3:#242428;
+     Near-black with warm undertone — darker than Cursor, not pitch black.
+     Surfaces proportionally closer to bg for subtler card lift on very dark page */
+  --bg:#060608; --surf:#0E0E11; --surf2:#151518; --surf3:#1C1C20;
 
   /* ── Borders ──
      Warm gray, not blue-tinted — top edges slightly brighter for gradient border legibility */
@@ -25,7 +24,7 @@
 
   /* ── CTA accent ──
      Clean white with warm edge — maximum contrast, zero color gimmick */
-  --cta:#FFFFFF; --cta2:#F5F3EF; --cta-text:#09090B;
+  --cta:#FFFFFF; --cta2:#F5F3EF; --cta-text:#060608;
   --cta-glow:rgba(255,255,255,0.06); --cta-hover:#E8E5E0;
 
   /* ── Secondary accent ──
@@ -45,11 +44,13 @@
   /* ── Text ──
      Warm off-whites. NO blue cast. */
   --t1:#EDEDEC; --t2:rgba(237,237,236,0.64); --t3:rgba(237,237,236,0.32); --t4:rgba(237,237,236,0.16);
+  --t-warm:#E8DFC8; --t3-warm:rgba(232,223,200,0.36);
 
   /* ── Icon glow ── */
   --icon-glow:rgba(237,237,236,0.05);
 
   /* ── Easing + durations ── */
   --ease:cubic-bezier(0.16,1,0.3,1); --ease-out:cubic-bezier(0.33,1,0.68,1);
+  --ease-reveal:cubic-bezier(0.33,0.7,0.2,1);
   --d1:150ms; --d2:280ms; --d3:450ms; --d4:750ms; --d5:1000ms;
 }

@@ -4,21 +4,188 @@
 .btn-lg{height:46px;padding-inline:24px;font-size:14.5px}
 
 /* ── Primary: white on dark — Cursor style ── */
-.btn-pri{background:var(--cta);color:var(--cta-text);position:relative;overflow:hidden}
-.btn-pri:hover{background:var(--cta-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,255,255,0.08)}
-.btn-pri:active{transform:scale(0.98);box-shadow:none}
+.btn-pri{
+  background:var(--cta);color:var(--cta-text);position:relative;overflow:hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-far);
+  transition:
+    background var(--d1) var(--ease-out),
+    transform var(--d2) var(--ease),
+    box-shadow var(--d2) var(--ease);
+}
+.btn-pri:hover{
+  background:var(--cta-hover);
+  transform:translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.24),
+    0 2px 4px var(--shadow-near),
+    0 8px 20px var(--shadow-mid),
+    0 4px 12px var(--cta-glow);
+}
+.btn-pri:active{
+  transform:translateY(0) scale(0.97);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.2),
+    0 1px 2px var(--shadow-near);
+  transition-duration:60ms;
+}
 .btn-pri:focus-visible{outline:2px solid var(--cta2);outline-offset:3px;box-shadow:0 0 0 4px var(--cta-glow)}
 
 /* ── Ghost button ── */
-.btn-ghost{background:rgba(255,255,255,0.04);color:var(--t2);border:1px solid var(--bdr2)}
-.btn-ghost:hover{color:var(--t1);border-color:var(--bdr3);background:rgba(255,255,255,0.06);transform:translateY(-1px)}
-.btn-ghost:active{transform:scale(0.98)}
+.btn-ghost{
+  background:rgba(255,255,255,0.04);color:var(--t2);border:1px solid var(--bdr2);
+  transition:
+    background var(--d1) var(--ease-out),
+    color var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    transform var(--d2) var(--ease),
+    box-shadow var(--d2) var(--ease);
+}
+.btn-ghost:hover{
+  color:var(--t1);border-color:var(--bdr3);
+  background:rgba(255,255,255,0.07);
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+.btn-ghost:active{
+  transform:translateY(0) scale(0.97);
+  box-shadow:none;
+  transition-duration:60ms;
+}
 .btn-ghost:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
 
 @media(max-width:480px){
   .btn-sm{height:38px;padding-inline:16px}
 }
 
+/* ── Hero CTA: Premium depth + scan-line shimmer ── */
+.hero-btns .btn-pri{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    0 1px 2px var(--shadow-near),
+    0 4px 8px var(--shadow-far);
+  transition:
+    background var(--d1) var(--ease-out),
+    transform var(--d2) var(--ease),
+    box-shadow var(--d2) var(--ease);
+}
+.hero-btns .btn-pri:hover{
+  background:var(--cta-hover);
+  transform:translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    0 2px 4px var(--shadow-near),
+    0 12px 28px var(--shadow-mid),
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 6px 16px var(--cta-glow);
+}
+.hero-btns .btn-pri:active{
+  transform:translateY(0) scale(0.96);
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.25),
+    0 1px 2px var(--shadow-near);
+  transition-duration:60ms;
+}
+
+/* Primary icon: rotate up-right on hover */
+.hero-btns .btn-pri .btn-icon{
+  display:inline-block;
+  transition:transform var(--d2) cubic-bezier(0.34,1.56,0.64,1) 30ms;
+}
+.hero-btns .btn-pri:hover .btn-icon{
+  transform:rotate(-45deg);
+}
+
+/* Scan-line shimmer on primary (dark band sweeps across white) */
+.hero-btns .btn-pri::after{
+  content:'';
+  position:absolute;
+  top:-30%;
+  left:-50%;
+  width:30%;
+  height:160%;
+  background:linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(6,6,8,0.04) 35%,
+    rgba(6,6,8,0.08) 50%,
+    rgba(6,6,8,0.04) 65%,
+    transparent 100%
+  );
+  transform:translateX(-100%);
+  pointer-events:none;
+}
+.hero-btns .btn-pri:hover::after{
+  transform:translateX(420%);
+  transition:transform 600ms var(--ease-out);
+}
+
+/* ── Hero Ghost: arrow slide + shimmer ── */
+.hero-btns .btn-ghost{
+  position:relative;
+  overflow:hidden;
+}
+/* Let arrow paths render outside SVG viewBox on translate */
+.hero-btns .btn-ghost svg{
+  overflow:visible;
+}
+
+/* Arrow line hidden at rest, fades in on hover */
+.hero-btns .btn-ghost .arrow-line{
+  opacity:0;
+  transform:translateX(-4px);
+  transition:opacity var(--d1) var(--ease-out),transform var(--d1) var(--ease-out);
+}
+.hero-btns .btn-ghost .arrow-head{
+  transition:transform var(--d2) cubic-bezier(0.34,1.56,0.64,1);
+}
+.hero-btns .btn-ghost:hover .arrow-line{
+  opacity:1;
+  transform:translateX(0);
+}
+.hero-btns .btn-ghost:hover .arrow-head{
+  transform:translateX(3px);
+}
+
+/* Shimmer sweep on ghost */
+.hero-btns .btn-ghost::after{
+  content:'';
+  position:absolute;
+  top:-20%;
+  left:-60%;
+  width:40%;
+  height:140%;
+  background:linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0.06) 40%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.06) 60%,
+    transparent 100%
+  );
+  transform:translateX(-100%);
+  pointer-events:none;
+}
+.hero-btns .btn-ghost:hover::after{
+  transform:translateX(350%);
+  transition:transform 700ms var(--ease-out);
+}
+
+/* ── Touch + reduced-motion overrides ── */
 @media(hover:none){
-  .btn-pri:hover,.btn-ghost:hover{transform:none;box-shadow:none}
+  .btn-pri:hover{transform:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 1px 2px var(--shadow-near),0 4px 8px var(--shadow-far)}
+  .btn-ghost:hover{transform:none;box-shadow:none}
+  .hero-btns .btn-pri:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,0.14),0 1px 2px var(--shadow-near),0 4px 8px var(--shadow-far)}
+  .hero-btns .btn-ghost .arrow-line,.hero-btns .btn-ghost .arrow-head{transition:none}
+  .hero-btns .btn-pri::after,.hero-btns .btn-ghost::after{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .btn-pri:hover,.btn-ghost:hover{transform:none}
+  .btn-pri:active,.btn-ghost:active{transform:none;opacity:0.9}
+  .hero-btns .btn-ghost .arrow-line,
+  .hero-btns .btn-ghost .arrow-head{transition:none}
+  .hero-btns .btn-pri::after,.hero-btns .btn-ghost::after{display:none}
 }
