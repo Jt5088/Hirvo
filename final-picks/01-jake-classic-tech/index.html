@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jake Ryan - Resume</title>
+<style>
+  /* ============================================
+     Jake's Resume — Classic Tech (LaTeX Style)
+     ============================================ */
+
+  :root {
+    /* Colors */
+    --color-text: #000000;
+    --color-bg: #ffffff;
+    --color-link: #0000EE;
+    --color-rule: #000000;
+
+    /* Typography */
+    --font-body: "CMU Serif", Georgia, "Times New Roman", serif;
+    --font-size-name: 25pt;
+    --font-size-section: 13.5pt;
+    --font-size-body: 10.5pt;
+    --font-size-small: 9.5pt;
+
+    /* Spacing */
+    --margin-page: 0.5in;
+    --line-height: 1.1;
+    --section-gap: 10pt;
+    --bullet-gap: 2pt;
+    --entry-tight: -4pt;
+    --rule-thickness: 0.8pt;
+  }
+
+  @page {
+    size: letter;
+    margin: var(--margin-page);
+  }
+
+  @media print {
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 8.5in;
+      background: var(--color-bg);
+    }
+    .page {
+      margin: 0;
+      padding: var(--margin-page);
+      box-shadow: none;
+      border: none;
+      width: auto;
+      min-height: auto;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #e0e0e0;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height);
+    color: var(--color-text);
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.5in auto;
+    padding: var(--margin-page);
+    background: var(--color-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  /* — Header — */
+  .header {
+    text-align: center;
+    margin-bottom: 6pt;
+  }
+
+  .header-name {
+    font-size: var(--font-size-name);
+    font-variant: small-caps;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    margin-bottom: 4pt;
+  }
+
+  .header-contact {
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+  }
+
+  .header-contact a {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+
+  .header-contact .sep {
+    margin: 0 4pt;
+  }
+
+  /* — Sections — */
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  .section-heading {
+    font-size: var(--font-size-section);
+    font-variant: small-caps;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 1pt;
+    border-bottom: var(--rule-thickness) solid var(--color-rule);
+    margin-bottom: 5pt;
+    line-height: 1.3;
+  }
+
+  /* — Entry (Experience / Education / Project) — */
+  .entry {
+    margin-bottom: 2pt;
+  }
+
+  .entry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .entry-primary {
+    font-weight: 700;
+    font-size: var(--font-size-body);
+  }
+
+  .entry-secondary {
+    font-style: italic;
+    font-size: var(--font-size-body);
+  }
+
+  .entry-date {
+    font-size: var(--font-size-body);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .entry-date-italic {
+    font-style: italic;
+    font-size: var(--font-size-body);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* — Bullet Lists — */
+  .bullets {
+    list-style: none;
+    padding-left: 15pt;
+    margin-top: 1pt;
+    margin-bottom: var(--entry-tight);
+  }
+
+  .bullets li {
+    position: relative;
+    margin-bottom: var(--bullet-gap);
+    padding-left: 2pt;
+    line-height: 1.15;
+  }
+
+  .bullets li::before {
+    content: "\2022";
+    position: absolute;
+    left: -12pt;
+    top: 0;
+    font-size: 9pt;
+    line-height: 1.3;
+  }
+
+  /* — Skills (inline) — */
+  .skills-table {
+    width: 100%;
+    margin-top: 2pt;
+  }
+
+  .skills-row {
+    display: flex;
+    margin-bottom: 2pt;
+    line-height: 1.25;
+  }
+
+  .skills-label {
+    font-weight: 700;
+    white-space: nowrap;
+    min-width: 100pt;
+  }
+
+  .skills-value {
+    flex: 1;
+  }
+
+  /* — Project entry with inline tech — */
+  .project-title {
+    font-weight: 700;
+  }
+
+  .project-tech {
+    font-style: italic;
+  }
+
+  .project-pipe {
+    margin: 0 3pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-name">Jake Ryan</div>
+    <div class="header-contact">
+      <a href="tel:123-456-7890">123-456-7890</a>
+      <span class="sep">|</span>
+      <a href="mailto:jake@su.edu">jake@su.edu</a>
+      <span class="sep">|</span>
+      <a href="https://linkedin.com/in/jake">linkedin.com/in/jake</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/jake">github.com/jake</a>
+    </div>
+  </header>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <h2 class="section-heading">Education</h2>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-primary">Southwestern University</span>
+        <span class="entry-date">Georgetown, TX</span>
+      </div>
+      <div class="entry-row">
+        <span class="entry-secondary">Bachelor of Arts in Computer Science, Minor in Business</span>
+        <span class="entry-date-italic">Aug. 2018 &ndash; May 2021</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-primary">Blinn College</span>
+        <span class="entry-date">Bryan, TX</span>
+      </div>
+      <div class="entry-row">
+        <span class="entry-secondary">Associate's in Liberal Arts</span>
+        <span class="entry-date-italic">Aug. 2014 &ndash; May 2018</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <h2 class="section-heading">Experience</h2>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-primary">Undergraduate Research Assistant</span>
+        <span class="entry-date">June 2020 &ndash; Present</span>
+      </div>
+      <div class="entry-row">
+        <span class="entry-secondary">Texas A&amp;M University</span>
+        <span class="entry-date-italic">College Station, TX</span>
+      </div>
+      <ul class="bullets">
+        <li>Developed a REST API using FastAPI and PostgreSQL to transition from file-based to a database system, improving data retrieval response time by 35%</li>
+        <li>Implemented continuous integration and deployment workflows using GitHub Actions, reducing manual deployment time and enabling faster iteration on new features</li>
+        <li>Collaborated with Agile Scrum team of 8 to develop an ideation platform, resulting in a tool adopted by 150+ researchers university-wide</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-primary">Information Technology Support Specialist</span>
+        <span class="entry-date">Sep. 2018 &ndash; Present</span>
+      </div>
+      <div class="entry-row">
+        <span class="entry-secondary">Southwestern University</span>
+        <span class="entry-date-italic">Georgetown, TX</span>
+      </div>
+      <ul class="bullets">
+        <li>Communicate with managers to set up campus computers used on extract, transform, load (ETL) processes</li>
+        <li>Assess and troubleshoot computer problems brought by students and faculty by diagnosing hardware and software issues</li>
+        <li>Maintain upkeep of computers in 12 university labs, ensuring 99.5% uptime for 400+ machines</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-primary">Artificial Intelligence Research Assistant</span>
+        <span class="entry-date">May 2019 &ndash; July 2019</span>
+      </div>
+      <div class="entry-row">
+        <span class="entry-secondary">Southwestern University</span>
+        <span class="entry-date-italic">Georgetown, TX</span>
+      </div>
+      <ul class="bullets">
+        <li>Explored methods to generate video game dungeons based on <em>The Legend of Zelda</em> using machine learning and graph theory</li>
+        <li>Developed a Java-based game engine prototype with procedurally generated levels, applying A* pathfinding and BSP tree algorithms</li>
+        <li>Presented findings at the International Conference on Computational Creativity (ICCC) and received Best Student Paper nomination</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <h2 class="section-heading">Projects</h2>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span>
+          <span class="project-title">Gitlytics</span>
+          <span class="project-pipe">|</span>
+          <span class="project-tech">Python, Flask, React, PostgreSQL, Docker</span>
+        </span>
+        <span class="entry-date">June 2020 &ndash; Present</span>
+      </div>
+      <ul class="bullets">
+        <li>Developed a full-stack web application using Flask serving a REST API with React as the frontend</li>
+        <li>Implemented GitHub OAuth to enable secure user authentication and access to repository metadata</li>
+        <li>Visualized GitHub data with interactive charts built using Chartjs, providing insights into contribution patterns and code frequency</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span>
+          <span class="project-title">Simple Paintball</span>
+          <span class="project-pipe">|</span>
+          <span class="project-tech">Spigot API, Java, Maven, TravisCI, Git</span>
+        </span>
+        <span class="entry-date">May 2020 &ndash; July 2020</span>
+      </div>
+      <ul class="bullets">
+        <li>Developed and published a Minecraft server plugin to entertain players with custom game modes, amassing 350+ downloads within two months</li>
+        <li>Utilized Gradle and GitHub Actions for automated testing and deployment, reducing build time by 40%</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span>
+          <span class="project-title">Algorithmic Trading Bot</span>
+          <span class="project-pipe">|</span>
+          <span class="project-tech">Python, Alpaca API, NumPy, Pandas</span>
+        </span>
+        <span class="entry-date">Jan. 2020 &ndash; May 2020</span>
+      </div>
+      <ul class="bullets">
+        <li>Designed and implemented a quantitative trading strategy using moving average crossover signals with real-time market data</li>
+        <li>Backtested the algorithm against 5 years of historical data, achieving a simulated 12% annualized return with a Sharpe ratio of 1.4</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TECHNICAL SKILLS -->
+  <section class="section">
+    <h2 class="section-heading">Technical Skills</h2>
+    <div class="skills-table">
+      <div class="skills-row">
+        <span class="skills-label">Languages:</span>
+        <span class="skills-value">Java, Python, C/C++, SQL (Postgres), JavaScript, HTML/CSS, R</span>
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">Frameworks:</span>
+        <span class="skills-value">React, Node.js, Flask, JUnit, WordPress, Material-UI, FastAPI</span>
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">Developer Tools:</span>
+        <span class="skills-value">Git, Docker, TravisCI, Google Cloud Platform, VS Code, Visual Studio, PyCharm, IntelliJ, Eclipse</span>
+      </div>
+      <div class="skills-row">
+        <span class="skills-label">Libraries:</span>
+        <span class="skills-value">pandas, NumPy, Matplotlib</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

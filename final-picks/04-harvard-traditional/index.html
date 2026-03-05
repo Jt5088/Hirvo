@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — James R. Whitfield</title>
+  <style>
+    /* ===== CSS Custom Properties ===== */
+    :root {
+      /* Page */
+      --page-width: 8.5in;
+      --page-height: 11in;
+      --margin: 0.7in;
+
+      /* Fonts */
+      --font-primary: 'Times New Roman', 'Georgia', 'Times', serif;
+
+      /* Font Sizes */
+      --size-name: 17pt;
+      --size-contact: 10pt;
+      --size-section-heading: 12pt;
+      --size-company: 11pt;
+      --size-role: 11pt;
+      --size-body: 10.5pt;
+      --size-date: 10.5pt;
+
+      /* Font Weights */
+      --weight-normal: 400;
+      --weight-bold: 700;
+
+      /* Line Heights */
+      --lh-body: 1.12;
+      --lh-bullet: 1.15;
+
+      /* Colors — pure black on white, zero color */
+      --color-text: #000000;
+      --color-bg: #ffffff;
+
+      /* Spacing */
+      --section-gap: 15pt;
+      --entry-gap: 8pt;
+      --bullet-gap: 3pt;
+      --bullet-indent: 0.25in;
+
+      /* Rule */
+      --rule-weight: 0.5pt;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ===== Page Setup ===== */
+    @page {
+      size: letter;
+      margin: var(--margin);
+    }
+
+    html {
+      background: #e8e8e8;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      font-size: var(--size-body);
+      font-weight: var(--weight-normal);
+      line-height: var(--lh-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+
+    /* Screen: simulate US Letter page */
+    @media screen {
+      body {
+        width: var(--page-width);
+        min-height: var(--page-height);
+        margin: 40px auto;
+        padding: var(--margin);
+        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      }
+    }
+
+    /* Print: remove screen chrome */
+    @media print {
+      html {
+        background: none;
+      }
+      body {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* ===== Header ===== */
+    .header {
+      text-align: center;
+      margin-bottom: var(--section-gap);
+    }
+
+    .name {
+      font-family: var(--font-primary);
+      font-size: var(--size-name);
+      font-weight: var(--weight-bold);
+      line-height: 1.2;
+      margin-bottom: 4pt;
+    }
+
+    .contact {
+      font-size: var(--size-contact);
+      line-height: 1.4;
+    }
+
+    .contact-sep {
+      margin: 0 4px;
+    }
+
+    .contact a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    /* ===== Section ===== */
+    .section {
+      margin-bottom: var(--section-gap);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-heading {
+      font-family: var(--font-primary);
+      font-size: var(--size-section-heading);
+      font-weight: var(--weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      padding-bottom: 2pt;
+      border-bottom: var(--rule-weight) solid var(--color-text);
+      margin-bottom: 8pt;
+    }
+
+    /* ===== Entry ===== */
+    .entry {
+      margin-bottom: var(--entry-gap);
+    }
+
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .entry-left {
+      flex: 1;
+    }
+
+    .entry-right {
+      flex-shrink: 0;
+      text-align: right;
+      margin-left: 12pt;
+      font-size: var(--size-date);
+    }
+
+    .company {
+      font-size: var(--size-company);
+      font-weight: var(--weight-bold);
+    }
+
+    .role {
+      font-size: var(--size-role);
+      font-style: italic;
+    }
+
+    .location {
+      font-size: var(--size-body);
+    }
+
+    .entry-date {
+      font-size: var(--size-date);
+    }
+
+    /* ===== Education Entry ===== */
+    .edu-degree {
+      font-size: var(--size-company);
+      font-weight: var(--weight-bold);
+    }
+
+    .edu-school {
+      font-size: var(--size-body);
+    }
+
+    .edu-detail {
+      font-size: var(--size-body);
+      font-style: italic;
+    }
+
+    /* ===== Bullet Lists ===== */
+    .bullets {
+      list-style: disc;
+      padding-left: var(--bullet-indent);
+      margin-top: 2pt;
+    }
+
+    .bullets li {
+      margin-bottom: var(--bullet-gap);
+      line-height: var(--lh-bullet);
+      font-size: var(--size-body);
+    }
+
+    .bullets li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ===== Activities / Skills ===== */
+    .activity-entry {
+      margin-bottom: var(--entry-gap);
+    }
+
+    .activity-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .activity-title {
+      font-weight: var(--weight-bold);
+      font-size: var(--size-body);
+    }
+
+    .activity-role {
+      font-style: italic;
+      font-size: var(--size-body);
+    }
+
+    .skills-row {
+      margin-bottom: 4pt;
+      line-height: var(--lh-bullet);
+    }
+
+    .skills-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .skills-label {
+      font-weight: var(--weight-bold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1 class="name">James R. Whitfield</h1>
+    <div class="contact">
+      (212) 549-8173<span class="contact-sep">|</span>
+      <a href="mailto:jrwhitfield@email.com">jrwhitfield@email.com</a><span class="contact-sep">|</span>
+      <a href="https://linkedin.com/in/jameswhitfield">linkedin.com/in/jameswhitfield</a>
+    </div>
+  </header>
+
+  <!-- Education (FIRST per Harvard format) -->
+  <section class="section">
+    <h2 class="section-heading">Education</h2>
+
+    <article class="entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="edu-degree">Harvard University, Harvard Business School</div>
+          <div class="edu-school">Master of Business Administration</div>
+          <div class="edu-detail">Concentration in Finance. Baker Scholar (top 5% of class).</div>
+        </div>
+        <div class="entry-right">
+          <div>Boston, MA</div>
+          <div class="entry-date">May 2019</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="edu-degree">Georgetown University, McDonough School of Business</div>
+          <div class="edu-school">Bachelor of Science in Business Administration, Finance</div>
+          <div class="edu-detail">Summa Cum Laude. Dean's List all semesters. GPA: 3.91/4.00.</div>
+        </div>
+        <div class="entry-right">
+          <div>Washington, DC</div>
+          <div class="entry-date">May 2015</div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Experience -->
+  <section class="section">
+    <h2 class="section-heading">Experience</h2>
+
+    <article class="entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="company">McKinsey &amp; Company</div>
+          <div class="role">Engagement Manager</div>
+        </div>
+        <div class="entry-right">
+          <div>New York, NY</div>
+          <div class="entry-date">Jul 2019 &ndash; Present</div>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Lead cross-functional teams of 4-8 consultants on engagements across financial services, private equity, and industrials, managing project scopes of $2M-$5M in fees</li>
+        <li>Directed due diligence for a $3.2B acquisition in the specialty chemicals sector, identifying $180M in synergies and building the integration roadmap adopted by the client's board</li>
+        <li>Developed pricing strategy for a top-10 US bank's commercial lending division, delivering a $95M annual revenue uplift by restructuring fee schedules and risk-based pricing tiers</li>
+        <li>Built organizational effectiveness diagnostic for a Fortune 200 industrial conglomerate, resulting in a restructuring plan that reduced SG&amp;A by 14% while preserving critical capabilities</li>
+      </ul>
+    </article>
+
+    <article class="entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="company">Goldman Sachs</div>
+          <div class="role">Investment Banking Analyst, Mergers &amp; Acquisitions Group</div>
+        </div>
+        <div class="entry-right">
+          <div>New York, NY</div>
+          <div class="entry-date">Jul 2015 &ndash; Jun 2017</div>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Executed M&amp;A advisory mandates across technology, media, and telecommunications sectors, supporting 8 completed transactions with an aggregate deal value exceeding $14B</li>
+        <li>Built financial models (DCF, LBO, accretion/dilution) and prepared Board-level presentation materials for sell-side and buy-side engagements</li>
+        <li>Conducted extensive industry research and competitive benchmarking to support client positioning in strategic review processes and activist defense situations</li>
+      </ul>
+    </article>
+
+    <article class="entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="company">Lazard</div>
+          <div class="role">Summer Analyst, Restructuring Group</div>
+        </div>
+        <div class="entry-right">
+          <div>New York, NY</div>
+          <div class="entry-date">Jun 2014 &ndash; Aug 2014</div>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Supported restructuring advisory for two distressed companies in the energy sector, building 13-week cash flow models and waterfall analyses for creditor negotiations</li>
+        <li>Prepared valuation analyses and recovery estimates under multiple scenarios for presentation to ad hoc creditor committees</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- Leadership & Activities -->
+  <section class="section">
+    <h2 class="section-heading">Leadership &amp; Activities</h2>
+
+    <article class="activity-entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <span class="activity-title">HBS Finance Club</span>, <span class="activity-role">Co-President</span>
+        </div>
+        <div class="entry-right">
+          <div class="entry-date">2018 &ndash; 2019</div>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Organized 30+ speaker events and recruiting panels; led negotiations with 12 financial sponsors for annual conference attended by 400+ students</li>
+      </ul>
+    </article>
+
+    <article class="activity-entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <span class="activity-title">Habitat for Humanity Capital District</span>, <span class="activity-role">Board Member</span>
+        </div>
+        <div class="entry-right">
+          <div class="entry-date">2020 &ndash; Present</div>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Serve on finance committee overseeing $4.2M annual budget; led fundraising initiative that exceeded $600K goal by 22%</li>
+      </ul>
+    </article>
+
+    <article class="activity-entry">
+      <div class="entry-row">
+        <div class="entry-left">
+          <span class="activity-title">CFA Institute</span>, <span class="activity-role">Charterholder</span>
+        </div>
+        <div class="entry-right">
+          <div class="entry-date">2020</div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Skills & Interests -->
+  <section class="section">
+    <h2 class="section-heading">Skills &amp; Interests</h2>
+    <div class="skills-row">
+      <span class="skills-label">Technical:</span> Financial Modeling (DCF, LBO, M&amp;A), Valuation, Due Diligence, Excel (advanced), PowerPoint, Bloomberg Terminal, Capital IQ, FactSet
+    </div>
+    <div class="skills-row">
+      <span class="skills-label">Languages:</span> English (native), Spanish (professional proficiency), Mandarin (conversational)
+    </div>
+    <div class="skills-row">
+      <span class="skills-label">Interests:</span> Marathon running (NYC Marathon 2022, 2023), classical piano, alpine skiing
+    </div>
+  </section>
+
+</body>
+</html>

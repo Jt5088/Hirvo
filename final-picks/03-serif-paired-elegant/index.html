@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — Elena Vasquez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS Custom Properties ===== */
+    :root {
+      /* Page */
+      --page-width: 8.5in;
+      --page-height: 11in;
+      --margin: 0.7in;
+
+      /* Fonts */
+      --font-heading: 'EB Garamond', 'Georgia', serif;
+      --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+      /* Font Sizes */
+      --size-name: 28pt;
+      --size-contact: 10pt;
+      --size-section-heading: 13.5pt;
+      --size-body: 10.5pt;
+      --size-date: 10pt;
+      --size-small: 9.5pt;
+
+      /* Font Weights */
+      --weight-name: 500;
+      --weight-section-heading: 600;
+      --weight-body: 400;
+      --weight-bold: 600;
+
+      /* Line Heights */
+      --lh-name: 1.15;
+      --lh-section-heading: 1.3;
+      --lh-body: 1.45;
+
+      /* Colors */
+      --color-primary: #000000;
+      --color-secondary: #333333;
+      --color-tertiary: #666666;
+      --color-divider: #dddddd;
+      --color-accent: rgba(115, 99, 255, 0.20);
+      --color-bg: #ffffff;
+
+      /* Spacing */
+      --section-gap: 22pt;
+      --entry-gap: 12pt;
+      --bullet-gap: 5pt;
+
+      /* Divider */
+      --divider-weight: 0.5pt;
+
+      /* Accent spine */
+      --spine-width: 1px;
+      --spine-offset: -14px;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ===== Page Setup ===== */
+    @page {
+      size: letter;
+      margin: var(--margin);
+    }
+
+    html {
+      background: #e8e8e8;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      font-weight: var(--weight-body);
+      line-height: var(--lh-body);
+      color: var(--color-primary);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Screen: simulate US Letter page */
+    @media screen {
+      body {
+        width: var(--page-width);
+        min-height: var(--page-height);
+        margin: 40px auto;
+        padding: var(--margin);
+        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      }
+    }
+
+    /* Print: remove screen chrome */
+    @media print {
+      html {
+        background: none;
+      }
+      body {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* ===== Header ===== */
+    .header {
+      margin-bottom: var(--section-gap);
+    }
+
+    .name {
+      font-family: var(--font-heading);
+      font-size: var(--size-name);
+      font-weight: var(--weight-name);
+      line-height: var(--lh-name);
+      color: var(--color-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 6pt;
+    }
+
+    .contact {
+      font-family: var(--font-body);
+      font-size: var(--size-contact);
+      color: var(--color-tertiary);
+      line-height: 1.5;
+    }
+
+    .contact a {
+      color: var(--color-tertiary);
+      text-decoration: none;
+    }
+
+    .contact-sep {
+      margin: 0 6px;
+      color: var(--color-divider);
+    }
+
+    /* ===== Sections Container (spine anchor) ===== */
+    .sections {
+      position: relative;
+    }
+
+    /* HIRVO TWIST: Vertical accent spine */
+    .sections::before {
+      content: '';
+      position: absolute;
+      left: var(--spine-offset);
+      top: 6pt;
+      bottom: 6pt;
+      width: var(--spine-width);
+      background: var(--color-accent);
+      pointer-events: none;
+    }
+
+    @media print {
+      .sections::before {
+        left: calc(var(--margin) * -1 + 12px);
+      }
+    }
+
+    /* ===== Section ===== */
+    .section {
+      margin-bottom: var(--section-gap);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: var(--size-section-heading);
+      font-weight: var(--weight-section-heading);
+      line-height: var(--lh-section-heading);
+      letter-spacing: 0.03em;
+      color: var(--color-primary);
+      padding-bottom: 5pt;
+      border-bottom: var(--divider-weight) solid var(--color-divider);
+      margin-bottom: 10pt;
+    }
+
+    /* ===== Summary ===== */
+    .summary-text {
+      color: var(--color-secondary);
+    }
+
+    /* ===== Experience Entry ===== */
+    .entry {
+      margin-bottom: var(--entry-gap);
+    }
+
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 3pt;
+    }
+
+    .entry-title {
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+    }
+
+    .entry-date {
+      font-family: var(--font-body);
+      font-size: var(--size-date);
+      font-weight: var(--weight-body);
+      color: var(--color-tertiary);
+      flex-shrink: 0;
+      margin-left: 12pt;
+    }
+
+    .entry-subtitle {
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      color: var(--color-secondary);
+      margin-bottom: 4pt;
+    }
+
+    .entry-location {
+      font-style: italic;
+      color: var(--color-tertiary);
+      font-size: var(--size-date);
+    }
+
+    /* ===== Bullet Lists ===== */
+    .bullets {
+      list-style: disc;
+      padding-left: 18pt;
+    }
+
+    .bullets li {
+      margin-bottom: var(--bullet-gap);
+      color: var(--color-secondary);
+    }
+
+    .bullets li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ===== Skills ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      row-gap: 5pt;
+      column-gap: 14pt;
+    }
+
+    .skill-label {
+      font-weight: var(--weight-bold);
+      font-size: var(--size-body);
+      color: var(--color-primary);
+    }
+
+    .skill-value {
+      font-size: var(--size-body);
+      color: var(--color-secondary);
+    }
+
+    /* ===== Certifications ===== */
+    .cert-list {
+      list-style: none;
+    }
+
+    .cert-list li {
+      margin-bottom: var(--bullet-gap);
+      color: var(--color-secondary);
+    }
+
+    .cert-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .cert-name {
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+    }
+
+    .cert-org {
+      color: var(--color-tertiary);
+    }
+
+    /* ===== Education ===== */
+    .edu-degree {
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+    }
+
+    .edu-school {
+      color: var(--color-secondary);
+    }
+
+    .edu-detail {
+      color: var(--color-tertiary);
+      font-size: var(--size-date);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1 class="name">Elena Vasquez</h1>
+    <div class="contact">
+      San Francisco, CA<span class="contact-sep">|</span>
+      (415) 782-3041<span class="contact-sep">|</span>
+      <a href="mailto:elena.vasquez@email.com">elena.vasquez@email.com</a><span class="contact-sep">|</span>
+      <a href="https://linkedin.com/in/elenavasquez">linkedin.com/in/elenavasquez</a>
+    </div>
+  </header>
+
+  <!-- Sections with accent spine -->
+  <div class="sections">
+
+    <!-- Summary -->
+    <section class="section">
+      <h2 class="section-heading">Summary</h2>
+      <p class="summary-text">
+        Marketing director with 12 years of experience building brand strategy and demand generation programs for B2B SaaS companies. Led cross-functional teams of up to 30 across brand, content, product marketing, and growth. Drove $48M in pipeline across two fiscal years at Clearpath through account-based marketing and full-funnel attribution. Known for translating complex products into clear market positioning that shortens sales cycles.
+      </p>
+    </section>
+
+    <!-- Experience -->
+    <section class="section">
+      <h2 class="section-heading">Experience</h2>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="entry-title">VP of Marketing</span>
+          <span class="entry-date">Jan 2021 &ndash; Present</span>
+        </div>
+        <div class="entry-subtitle">Clearpath Analytics &mdash; San Francisco, CA</div>
+        <ul class="bullets">
+          <li>Built and scaled marketing organization from 8 to 30 across brand, growth, content, and product marketing, establishing career ladders and hiring rubrics that reduced time-to-fill by 35%.</li>
+          <li>Designed account-based marketing program targeting enterprise segments, generating $48M in qualified pipeline over 24 months with a 3.8x ROI on program spend.</li>
+          <li>Repositioned the product narrative from "data integration tool" to "revenue intelligence platform," contributing to a 22% increase in average deal size within two quarters.</li>
+          <li>Launched a thought leadership initiative including a quarterly research report, driving 12,000+ opt-in subscribers and 40% of inbound MQLs from organic channels.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Director of Brand &amp; Content Marketing</span>
+          <span class="entry-date">Mar 2018 &ndash; Dec 2020</span>
+        </div>
+        <div class="entry-subtitle">Nomad Commerce &mdash; New York, NY</div>
+        <ul class="bullets">
+          <li>Oversaw brand identity refresh and messaging framework that unified positioning across 4 product lines, resulting in 28% improvement in unaided brand recall among target buyers.</li>
+          <li>Managed $3.2M annual content budget, producing 200+ assets per quarter across blog, video, webinar, and gated content formats with a documented 2.4x increase in organic traffic.</li>
+          <li>Partnered with sales enablement to develop competitive battle cards and segment-specific pitch decks, cited by 78% of AEs as their most-used resource in discovery calls.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Senior Marketing Manager</span>
+          <span class="entry-date">Jun 2015 &ndash; Feb 2018</span>
+        </div>
+        <div class="entry-subtitle">Meridian Software &mdash; Austin, TX</div>
+        <ul class="bullets">
+          <li>Led go-to-market strategy for 3 product launches, coordinating cross-functional teams across product, design, and sales to hit launch timelines and exceed first-quarter revenue targets by 18%.</li>
+          <li>Built demand generation engine combining paid search, content syndication, and event marketing that grew monthly MQL volume from 320 to 1,100 within 14 months.</li>
+          <li>Introduced marketing attribution model using multi-touch analysis, giving leadership visibility into channel performance and shifting $800K in budget toward highest-converting programs.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Marketing Coordinator</span>
+          <span class="entry-date">Aug 2012 &ndash; May 2015</span>
+        </div>
+        <div class="entry-subtitle">Apex Digital Agency &mdash; Chicago, IL</div>
+        <ul class="bullets">
+          <li>Managed campaign execution for 6 B2B SaaS clients, coordinating creative briefs, media buys, and performance reporting that consistently met or exceeded client KPIs.</li>
+          <li>Developed standardized reporting templates adopted agency-wide, reducing weekly report production time by 60% and improving client satisfaction scores by 15 points.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-heading">Education</h2>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="edu-degree">M.B.A., Marketing &amp; Strategy</span>
+          <span class="entry-date">2012</span>
+        </div>
+        <div class="edu-school">Kellogg School of Management, Northwestern University</div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-header">
+          <span class="edu-degree">B.A., Communications</span>
+          <span class="entry-date">2009</span>
+        </div>
+        <div class="edu-school">University of Michigan, Ann Arbor</div>
+        <div class="edu-detail">Magna Cum Laude</div>
+      </article>
+    </section>
+
+    <!-- Skills -->
+    <section class="section">
+      <h2 class="section-heading">Skills</h2>
+      <div class="skills-grid">
+        <span class="skill-label">Strategy</span>
+        <span class="skill-value">Brand Positioning, Go-to-Market Planning, Account-Based Marketing, Market Research, Competitive Analysis</span>
+
+        <span class="skill-label">Demand Gen</span>
+        <span class="skill-value">Full-Funnel Attribution, Paid Media (SEM/Social), Content Syndication, SEO, Marketing Automation</span>
+
+        <span class="skill-label">Tools</span>
+        <span class="skill-value">Salesforce, HubSpot, Marketo, Google Analytics, Tableau, Figma, Asana</span>
+
+        <span class="skill-label">Leadership</span>
+        <span class="skill-value">Team Building (30+ reports), Cross-Functional Coordination, Executive Presentation, Budget Management</span>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section">
+      <h2 class="section-heading">Certifications</h2>
+      <ul class="cert-list">
+        <li><span class="cert-name">Google Analytics 4 Certification</span> <span class="cert-org">&mdash; Google, 2024</span></li>
+        <li><span class="cert-name">HubSpot Inbound Marketing Certification</span> <span class="cert-org">&mdash; HubSpot Academy, 2023</span></li>
+        <li><span class="cert-name">Pragmatic Institute Certified (PMC III)</span> <span class="cert-org">&mdash; Pragmatic Institute, 2021</span></li>
+      </ul>
+    </section>
+
+  </div>
+
+</body>
+</html>

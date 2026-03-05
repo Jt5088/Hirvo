@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume - Catherine M. Aldridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ── CSS Custom Properties ── */
+  :root {
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --color-primary: #1a1a1a;
+    --color-secondary: #444444;
+    --color-tertiary: #777777;
+    --color-date: #666666;
+    --color-divider: #e0e0e0;
+    --color-bg: #ffffff;
+
+    --size-name: 26pt;
+    --size-heading: 14pt;
+    --size-body: 11pt;
+    --size-date: 10pt;
+    --size-contact: 10pt;
+
+    --weight-name: 600;
+    --weight-heading: 700;
+    --weight-body: 400;
+    --weight-role: 600;
+
+    --lh-body: 1.48;
+    --lh-heading: 1.2;
+
+    --ls-heading: 0.06em;
+
+    --margin-page: 0.9in;
+    --gap-section: 26pt;
+    --gap-entry: 14pt;
+    --gap-bullet: 5pt;
+    --gap-header-bottom: 30pt;
+
+    --divider-weight: 0.5pt;
+  }
+
+  /* ── Reset ── */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Page Setup ── */
+  @page {
+    size: letter;
+    margin: 0.9in;
+  }
+
+  html {
+    background: #f0f0f0;
+  }
+
+  body {
+    font-family: var(--font-primary);
+    font-size: var(--size-body);
+    font-weight: var(--weight-body);
+    line-height: var(--lh-body);
+    color: var(--color-primary);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Screen: simulate US Letter page ── */
+  @media screen {
+    html {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+    }
+    body {
+      width: 8.5in;
+      min-height: 11in;
+      padding: var(--margin-page);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    }
+  }
+
+  /* ── Print overrides ── */
+  @media print {
+    html {
+      background: white;
+    }
+    body {
+      padding: 0;
+      box-shadow: none;
+      width: auto;
+      min-height: auto;
+    }
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: var(--gap-header-bottom);
+  }
+
+  .header__name {
+    font-size: var(--size-name);
+    font-weight: var(--weight-name);
+    line-height: 1.1;
+    color: var(--color-primary);
+    margin-bottom: 8pt;
+  }
+
+  .header__contact {
+    font-size: var(--size-contact);
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  .header__contact a {
+    color: var(--color-secondary);
+    text-decoration: none;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: var(--gap-section);
+  }
+
+  .section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__heading {
+    font-size: var(--size-heading);
+    font-weight: var(--weight-heading);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-heading);
+    color: var(--color-primary);
+    line-height: var(--lh-heading);
+    padding-bottom: 6pt;
+    border-bottom: var(--divider-weight) solid var(--color-divider);
+    margin-bottom: 14pt;
+  }
+
+  /* ── Entry (Job / Board Role) ── */
+  .entry {
+    margin-bottom: var(--gap-entry);
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 2pt;
+  }
+
+  .entry__role {
+    font-size: var(--size-body);
+    font-weight: var(--weight-role);
+    color: var(--color-primary);
+  }
+
+  .entry__date {
+    font-size: var(--size-date);
+    font-weight: var(--weight-body);
+    color: var(--color-date);
+    white-space: nowrap;
+  }
+
+  .entry__org {
+    font-size: var(--size-body);
+    color: var(--color-secondary);
+    margin-bottom: 4pt;
+  }
+
+  .entry__location {
+    font-size: var(--size-date);
+    color: var(--color-tertiary);
+  }
+
+  /* ── Bullet List ── */
+  .bullets {
+    list-style: disc;
+    padding-left: 18pt;
+    margin-top: 4pt;
+  }
+
+  .bullets li {
+    margin-bottom: var(--gap-bullet);
+    color: var(--color-primary);
+  }
+
+  .bullets li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Summary Paragraph ── */
+  .summary {
+    color: var(--color-secondary);
+    line-height: var(--lh-body);
+  }
+
+  /* ── Education Entry ── */
+  .edu__degree {
+    font-weight: var(--weight-role);
+    color: var(--color-primary);
+  }
+
+  .edu__school {
+    color: var(--color-secondary);
+  }
+
+  /* ── Board Roles ── */
+  .board-entry {
+    margin-bottom: 8pt;
+  }
+
+  .board-entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .board-entry__role {
+    font-weight: var(--weight-role);
+  }
+
+  .board-entry__org {
+    color: var(--color-secondary);
+  }
+
+  .board-entry__date {
+    font-size: var(--size-date);
+    color: var(--color-date);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════ HEADER ════ -->
+  <header class="header">
+    <h1 class="header__name">Catherine M. Aldridge</h1>
+    <div class="header__contact">
+      San Francisco, CA &nbsp;|&nbsp; (415) 882-7140 &nbsp;|&nbsp; <a href="mailto:c.aldridge@email.com">c.aldridge@email.com</a> &nbsp;|&nbsp; <a href="https://linkedin.com/in/caldridge">linkedin.com/in/caldridge</a>
+    </div>
+  </header>
+
+  <!-- ════ EXECUTIVE SUMMARY ════ -->
+  <section class="section">
+    <h2 class="section__heading">Executive Summary</h2>
+    <p class="summary">
+      Engineering executive with 18 years of experience scaling platform organizations from Series B through IPO and beyond. Led teams of 60&ndash;250 engineers across infrastructure, product, and data platform groups. Track record of reducing system downtime by 94%, driving $120M+ in annual revenue through platform reliability, and building engineering cultures that consistently rank in the top 10% for retention. Experienced board advisor on technical due diligence and post-merger integration.
+    </p>
+  </section>
+
+  <!-- ════ PROFESSIONAL EXPERIENCE ════ -->
+  <section class="section">
+    <h2 class="section__heading">Professional Experience</h2>
+
+    <!-- Entry 1 -->
+    <div class="entry">
+      <div class="entry__header">
+        <span class="entry__role">Vice President of Engineering</span>
+        <span class="entry__date">2019 &ndash; Present</span>
+      </div>
+      <div class="entry__org">Meridian Cloud Technologies &nbsp;&middot;&nbsp; <span class="entry__location">San Francisco, CA</span></div>
+      <ul class="bullets">
+        <li>Grew the engineering organization from 85 to 240 engineers across 28 teams, establishing a dual-track career ladder that reduced senior attrition from 22% to 6% annually.</li>
+        <li>Architected the migration from monolith to microservices, cutting mean deployment time from 4 hours to 12 minutes and enabling 45 daily production deploys.</li>
+        <li>Partnered with the CFO to build a $68M annual technology budget, delivering three consecutive years under budget while exceeding platform uptime SLAs (99.97%).</li>
+        <li>Led technical due diligence for two acquisitions totaling $340M, integrating 60 engineers and consolidating infrastructure within 9 months post-close.</li>
+        <li>Established an internal platform team that built shared services adopted by 100% of product teams, reducing duplicated infrastructure spend by $4.2M annually.</li>
+      </ul>
+    </div>
+
+    <!-- Entry 2 -->
+    <div class="entry">
+      <div class="entry__header">
+        <span class="entry__role">Senior Director of Engineering</span>
+        <span class="entry__date">2014 &ndash; 2019</span>
+      </div>
+      <div class="entry__org">Helios Data Systems &nbsp;&middot;&nbsp; <span class="entry__location">Seattle, WA</span></div>
+      <ul class="bullets">
+        <li>Directed 120 engineers across platform infrastructure, data engineering, and developer experience, reporting directly to the CTO.</li>
+        <li>Designed and executed a 14-month reliability program that reduced P1 incidents from 23/quarter to 2/quarter, saving an estimated $18M in annual revenue impact.</li>
+        <li>Built the real-time data pipeline processing 2.8 billion events/day, enabling the product team to launch three new analytics features that drove $32M in new ARR.</li>
+        <li>Introduced engineering-wide OKRs and a quarterly technical review process adopted company-wide, cited by the CEO as a model for cross-functional alignment.</li>
+      </ul>
+    </div>
+
+    <!-- Entry 3 -->
+    <div class="entry">
+      <div class="entry__header">
+        <span class="entry__role">Engineering Manager &rarr; Director of Engineering</span>
+        <span class="entry__date">2008 &ndash; 2014</span>
+      </div>
+      <div class="entry__org">Stratos Inc. &nbsp;&middot;&nbsp; <span class="entry__location">Austin, TX</span></div>
+      <ul class="bullets">
+        <li>Promoted twice in six years, growing scope from a single team of 8 to a 55-person department spanning backend, infrastructure, and QA.</li>
+        <li>Led the ground-up build of the company&rsquo;s core API platform, which processed $1.2B in transactions annually by year three.</li>
+        <li>Implemented CI/CD pipelines and automated testing that improved release velocity by 300% while reducing production defects by 60%.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════ EDUCATION ════ -->
+  <section class="section">
+    <h2 class="section__heading">Education</h2>
+    <div class="entry">
+      <div class="entry__header">
+        <span class="edu__degree">Master of Science in Computer Science</span>
+        <span class="entry__date">2008</span>
+      </div>
+      <div class="edu__school">Stanford University, Stanford, CA</div>
+    </div>
+    <div class="entry" style="margin-top: 8pt;">
+      <div class="entry__header">
+        <span class="edu__degree">Bachelor of Science in Electrical Engineering</span>
+        <span class="entry__date">2006</span>
+      </div>
+      <div class="edu__school">University of Michigan, Ann Arbor, MI</div>
+    </div>
+  </section>
+
+  <!-- ════ BOARD & ADVISORY ROLES ════ -->
+  <section class="section">
+    <h2 class="section__heading">Board &amp; Advisory Roles</h2>
+    <div class="board-entry">
+      <span class="board-entry__role">Technical Advisory Board Member</span> &mdash; <span class="board-entry__org">Vertex AI Ventures</span> &nbsp;<span class="board-entry__date">2021 &ndash; Present</span>
+    </div>
+    <div class="board-entry">
+      <span class="board-entry__role">Board of Directors, Independent Member</span> &mdash; <span class="board-entry__org">OpenGrid Foundation</span> &nbsp;<span class="board-entry__date">2020 &ndash; Present</span>
+    </div>
+    <div class="board-entry">
+      <span class="board-entry__role">Technical Advisor</span> &mdash; <span class="board-entry__org">NovaBridge (Series A, acquired 2023)</span> &nbsp;<span class="board-entry__date">2019 &ndash; 2023</span>
+    </div>
+  </section>
+
+</body>
+</html>

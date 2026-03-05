@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume - Daniel Voss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --name-size: 30pt;
+    --name-weight: 800;
+    --summary-size: 15pt;
+    --summary-weight: 400;
+    --summary-line-height: 1.5;
+    --section-heading-size: 11pt;
+    --section-heading-weight: 700;
+    --section-heading-spacing: 0.1em;
+    --entry-title-size: 12pt;
+    --entry-title-weight: 600;
+    --body-size: 10.5pt;
+    --body-weight: 400;
+    --body-line-height: 1.5;
+    --date-size: 10pt;
+    --date-weight: 400;
+    --skills-size: 10.5pt;
+
+    /* Colors — absolute minimum */
+    --color-name: #000000;
+    --color-heading: #333333;
+    --color-body: #444444;
+    --color-date: #888888;
+
+    /* Spacing */
+    --page-margin: 0.95in;
+    --section-gap: 32pt;
+    --entry-gap: 16pt;
+    --bullet-gap: 6pt;
+
+    /* Page */
+    --page-width: 8.5in;
+    --page-height: 11in;
+  }
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @page {
+    size: letter;
+    margin: var(--page-margin);
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: var(--font-family);
+    font-size: var(--body-size);
+    font-weight: var(--body-weight);
+    line-height: var(--body-line-height);
+    color: var(--color-body);
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .page {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    background: #ffffff;
+    padding: var(--page-margin);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  }
+
+  /* ── Name ── */
+  .name {
+    font-size: var(--name-size);
+    font-weight: var(--name-weight);
+    color: var(--color-name);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  /* ── Contact ── */
+  .contact {
+    margin-top: 8pt;
+    font-size: var(--date-size);
+    color: var(--color-date);
+    line-height: 1.6;
+  }
+
+  .contact-separator {
+    margin: 0 6px;
+    color: #ccc;
+  }
+
+  /* ── Summary (deliberately oversized) ── */
+  .summary {
+    margin-top: 24pt;
+    font-size: var(--summary-size);
+    font-weight: var(--summary-weight);
+    line-height: var(--summary-line-height);
+    color: var(--color-body);
+  }
+
+  /* ── Sections ── */
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  .section-heading {
+    font-size: var(--section-heading-size);
+    font-weight: var(--section-heading-weight);
+    text-transform: uppercase;
+    letter-spacing: var(--section-heading-spacing);
+    color: var(--color-heading);
+    margin-bottom: 16pt;
+  }
+
+  /* ── Entries ── */
+  .entry {
+    margin-bottom: var(--entry-gap);
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .entry-title {
+    font-size: var(--entry-title-size);
+    font-weight: var(--entry-title-weight);
+    color: var(--color-heading);
+  }
+
+  .entry-date {
+    font-size: var(--date-size);
+    font-weight: var(--date-weight);
+    color: var(--color-date);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .entry-org {
+    font-size: var(--body-size);
+    color: var(--color-date);
+    margin-top: 1pt;
+  }
+
+  .entry-bullets {
+    list-style: none;
+    padding: 0;
+    margin-top: 6pt;
+  }
+
+  .entry-bullets li {
+    font-size: var(--body-size);
+    color: var(--color-body);
+    line-height: var(--body-line-height);
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: var(--bullet-gap);
+  }
+
+  .entry-bullets li:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-bullets li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: var(--color-date);
+  }
+
+  /* ── Skills (inline) ── */
+  .skills-list {
+    font-size: var(--skills-size);
+    color: var(--color-body);
+    line-height: 1.7;
+  }
+
+  .skills-category {
+    margin-bottom: 6pt;
+  }
+
+  .skills-category:last-child {
+    margin-bottom: 0;
+  }
+
+  .skills-category-label {
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  /* ── Education details ── */
+  .education-detail {
+    font-size: var(--body-size);
+    color: var(--color-body);
+    margin-top: 4pt;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+
+    .page {
+      width: 100%;
+      min-height: auto;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1 class="name">Daniel Voss</h1>
+
+  <div class="contact">
+    daniel.voss@email.com<span class="contact-separator">&middot;</span>(512) 440-7823<span class="contact-separator">&middot;</span>Austin, TX<span class="contact-separator">&middot;</span>linkedin.com/in/danielvoss
+  </div>
+
+  <p class="summary">Product leader with 9 years building and scaling B2B software from zero-to-one through Series C. I turn ambiguous market signals into shipped products. At my last company, the platform I led grew from $2M to $18M ARR in under three years. I care about outcomes over output and teams that ship with conviction.</p>
+
+  <section class="section">
+    <h2 class="section-heading">Experience</h2>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">VP of Product</span>
+        <span class="entry-date">Mar 2022 &ndash; Present</span>
+      </div>
+      <div class="entry-org">Lattice &middot; San Francisco, CA (Remote)</div>
+      <ul class="entry-bullets">
+        <li>Own product strategy for the Performance Management suite serving 5,200+ enterprise customers, driving $48M in annual revenue</li>
+        <li>Restructured the product org from feature-based to outcome-based squads, reducing cycle time from 8 weeks to 3 weeks on average</li>
+        <li>Launched an AI-powered review summarization feature that reached 60% adoption within one quarter, reducing manager review time by 40%</li>
+        <li>Established quarterly customer advisory board with 30 enterprise accounts, directly influencing 70% of the H2 roadmap</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">Senior Product Manager</span>
+        <span class="entry-date">Jun 2019 &ndash; Feb 2022</span>
+      </div>
+      <div class="entry-org">Clearbit (acquired by HubSpot) &middot; San Francisco, CA</div>
+      <ul class="entry-bullets">
+        <li>Led the Enrichment API product from $2M to $18M ARR by identifying and shipping integrations with Salesforce, HubSpot, and Marketo that unlocked mid-market demand</li>
+        <li>Defined and executed the data-as-a-platform strategy that became the foundation of the company's Series C pitch ($150M raise)</li>
+        <li>Shipped a self-serve onboarding experience that reduced time-to-value from 5 days to 45 minutes, increasing trial-to-paid conversion by 32%</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">Product Manager</span>
+        <span class="entry-date">Aug 2016 &ndash; May 2019</span>
+      </div>
+      <div class="entry-org">Segment (acquired by Twilio) &middot; San Francisco, CA</div>
+      <ul class="entry-bullets">
+        <li>Managed the Connections product line handling 400B+ API calls per month, maintaining 99.98% uptime while scaling infrastructure costs down 25%</li>
+        <li>Launched Protocols, a data governance layer that became the most-requested enterprise feature and accelerated upmarket expansion</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">Associate Product Manager</span>
+        <span class="entry-date">Jul 2015 &ndash; Jul 2016</span>
+      </div>
+      <div class="entry-org">Google &middot; Mountain View, CA</div>
+      <ul class="entry-bullets">
+        <li>Rotated through Google Cloud and Google Maps, shipping localization improvements that increased Maps accuracy in Southeast Asia by 15%</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">Education</h2>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">M.B.A.</span>
+        <span class="entry-date">2013 &ndash; 2015</span>
+      </div>
+      <div class="entry-org">Stanford Graduate School of Business</div>
+      <p class="education-detail">Certificate in Public Management. Co-president of the Product Management Club.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-row">
+        <span class="entry-title">B.S. in Computer Science</span>
+        <span class="entry-date">2009 &ndash; 2013</span>
+      </div>
+      <div class="entry-org">University of Texas at Austin</div>
+      <p class="education-detail">Honors Program. Minor in Business Foundations.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">Skills</h2>
+    <div class="skills-list">
+      <div class="skills-category">
+        <span class="skills-category-label">Product:</span> Roadmap Strategy, OKR Frameworks, A/B Testing, User Research, Jobs-to-be-Done, Pricing & Packaging, Go-to-Market
+      </div>
+      <div class="skills-category">
+        <span class="skills-category-label">Technical:</span> SQL, Python, REST APIs, Amplitude, Mixpanel, Looker, dbt, Figma
+      </div>
+      <div class="skills-category">
+        <span class="skills-category-label">Leadership:</span> Org Design, Hiring (built teams of 4 to 22), Executive Communication, Board Reporting, Cross-functional Alignment
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

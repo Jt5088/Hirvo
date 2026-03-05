@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume - Maya Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --name-size: 26pt;
+    --name-weight: 700;
+    --section-heading-size: 12pt;
+    --section-heading-weight: 600;
+    --section-heading-spacing: 0.05em;
+    --sidebar-label-size: 10pt;
+    --sidebar-label-weight: 600;
+    --sidebar-label-spacing: 0.08em;
+    --sidebar-body-size: 9.5pt;
+    --body-size: 10.5pt;
+    --body-weight: 400;
+    --body-line-height: 1.4;
+    --date-size: 9.5pt;
+    --entry-title-size: 11pt;
+    --entry-title-weight: 600;
+
+    /* Colors */
+    --color-primary: #1a1a1a;
+    --color-secondary: #444444;
+    --color-tertiary: #888888;
+    --color-date: #666666;
+    --color-sidebar-bg: #f7f7f7;
+    --color-skill-track: #e8e8e8;
+    --color-skill-fill: #1a1a1a;
+    --color-divider: #e0e0e0;
+    --color-white: #ffffff;
+
+    /* Layout */
+    --sidebar-width: 30%;
+    --main-width: 70%;
+    --sidebar-padding: 24px;
+    --main-padding-top: 24px;
+    --main-padding-right: 0.6in;
+    --main-padding-left: 24px;
+    --column-gap: 0px; /* gap handled by padding */
+    --section-gap: 20pt;
+    --entry-gap: 12pt;
+    --bullet-gap: 4pt;
+    --skill-bar-height: 4px;
+    --skill-bar-radius: 2px;
+
+    /* Page */
+    --page-width: 8.5in;
+    --page-height: 11in;
+  }
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @page {
+    size: letter;
+    margin: 0;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: var(--font-family);
+    font-size: var(--body-size);
+    font-weight: var(--body-weight);
+    line-height: var(--body-line-height);
+    color: var(--color-primary);
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .page {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    background: var(--color-white);
+    display: flex;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--color-sidebar-bg);
+    padding: var(--sidebar-padding);
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar-label {
+    font-size: var(--sidebar-label-size);
+    font-weight: var(--sidebar-label-weight);
+    letter-spacing: var(--sidebar-label-spacing);
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 2px;
+  }
+
+  .sidebar-text {
+    font-size: var(--sidebar-body-size);
+    color: var(--color-secondary);
+    line-height: 1.45;
+  }
+
+  .contact-item {
+    font-size: var(--sidebar-body-size);
+    color: var(--color-secondary);
+    line-height: 1.7;
+  }
+
+  .contact-item-label {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Skill bars */
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .skill-item + .skill-item {
+    margin-top: 6px;
+  }
+
+  .skill-name {
+    font-size: var(--sidebar-body-size);
+    color: var(--color-secondary);
+    font-weight: 500;
+  }
+
+  .skill-bar-track {
+    width: 100%;
+    height: var(--skill-bar-height);
+    background: var(--color-skill-track);
+    border-radius: var(--skill-bar-radius);
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: var(--color-skill-fill);
+    border-radius: var(--skill-bar-radius);
+  }
+
+  /* Languages */
+  .language-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--sidebar-body-size);
+    color: var(--color-secondary);
+    line-height: 1.7;
+  }
+
+  .language-level {
+    color: var(--color-tertiary);
+    font-style: italic;
+  }
+
+  /* Certifications */
+  .cert-item {
+    font-size: var(--sidebar-body-size);
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  .cert-item + .cert-item {
+    margin-top: 8px;
+  }
+
+  .cert-name {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .cert-org {
+    color: var(--color-tertiary);
+    font-size: 9pt;
+  }
+
+  /* ── Main Content ── */
+  .main {
+    width: var(--main-width);
+    padding: var(--main-padding-top) var(--main-padding-right) 24px var(--main-padding-left);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Name header */
+  .header {
+    margin-bottom: var(--section-gap);
+  }
+
+  .name {
+    font-size: var(--name-size);
+    font-weight: var(--name-weight);
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .title-line {
+    font-size: 11pt;
+    color: var(--color-date);
+    font-weight: 400;
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Main sections */
+  .main-section {
+    margin-bottom: var(--section-gap);
+  }
+
+  .main-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-heading {
+    font-size: var(--section-heading-size);
+    font-weight: var(--section-heading-weight);
+    text-transform: uppercase;
+    letter-spacing: var(--section-heading-spacing);
+    color: var(--color-primary);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-divider);
+    margin-bottom: var(--entry-gap);
+  }
+
+  /* Summary */
+  .summary-text {
+    font-size: var(--body-size);
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  /* Experience / Education entries */
+  .entry {
+    margin-bottom: var(--entry-gap);
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+
+  .entry-title {
+    font-size: var(--entry-title-size);
+    font-weight: var(--entry-title-weight);
+    color: var(--color-primary);
+  }
+
+  .entry-date {
+    font-size: var(--date-size);
+    color: var(--color-date);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  .entry-subtitle {
+    font-size: var(--body-size);
+    color: var(--color-secondary);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .entry-location {
+    font-size: var(--date-size);
+    color: var(--color-tertiary);
+    font-style: italic;
+  }
+
+  .entry-bullets {
+    list-style: none;
+    padding: 0;
+    margin-top: 4px;
+  }
+
+  .entry-bullets li {
+    font-size: var(--body-size);
+    color: var(--color-secondary);
+    line-height: var(--body-line-height);
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: var(--bullet-gap);
+  }
+
+  .entry-bullets li:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-bullets li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: var(--color-tertiary);
+  }
+
+  /* Projects */
+  .project-tech {
+    font-size: 9pt;
+    color: var(--color-tertiary);
+    margin-top: 2px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+
+    .page {
+      width: 100%;
+      min-height: auto;
+      box-shadow: none;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- ── Left Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Contact</div>
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span><br>
+        maya.chen@email.com
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Phone</span><br>
+        (415) 928-3047
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Location</span><br>
+        San Francisco, CA
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Portfolio</span><br>
+        mayachen.design
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">LinkedIn</span><br>
+        linkedin.com/in/mayachen
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Skills</div>
+      <div class="skill-item">
+        <span class="skill-name">Figma</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">User Research</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Prototyping</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Design Systems</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">HTML / CSS</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Usability Testing</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Framer Motion</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Adobe Creative Suite</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Languages</div>
+      <div class="language-item">
+        <span>English</span>
+        <span class="language-level">Native</span>
+      </div>
+      <div class="language-item">
+        <span>Mandarin</span>
+        <span class="language-level">Fluent</span>
+      </div>
+      <div class="language-item">
+        <span>Japanese</span>
+        <span class="language-level">Conversational</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Certifications</div>
+      <div class="cert-item">
+        <div class="cert-name">Google UX Design Certificate</div>
+        <div class="cert-org">Google / Coursera, 2022</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-name">Interaction Design Foundation</div>
+        <div class="cert-org">IDF Member, 2021</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-name">Certified Usability Analyst</div>
+        <div class="cert-org">Human Factors International, 2020</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main">
+    <header class="header">
+      <h1 class="name">Maya Chen</h1>
+      <p class="title-line">UX / Product Designer</p>
+    </header>
+
+    <section class="main-section">
+      <h2 class="section-heading">Summary</h2>
+      <p class="summary-text">Product designer with 6 years of experience shaping user-centered digital products across fintech, healthcare, and SaaS. Skilled at translating complex workflows into intuitive interfaces. Led design systems adoption that reduced component inconsistency by 40% and cut feature delivery time by two weeks per cycle.</p>
+    </section>
+
+    <section class="main-section">
+      <h2 class="section-heading">Experience</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Senior Product Designer</span>
+          <span class="entry-date">Jan 2022 &ndash; Present</span>
+        </div>
+        <div class="entry-subtitle">Stripe &middot; San Francisco, CA</div>
+        <ul class="entry-bullets">
+          <li>Redesigned the merchant onboarding flow, reducing drop-off by 28% across 14 markets through progressive disclosure and contextual guidance patterns</li>
+          <li>Built and maintained a shared design system (120+ components) used by 8 product teams, cutting design-to-dev handoff discrepancies by 60%</li>
+          <li>Conducted 40+ user interviews and usability tests per quarter, synthesizing findings into actionable briefs that shaped the Q3 and Q4 roadmaps</li>
+          <li>Collaborated with engineering to prototype and ship an AI-powered fraud alert dashboard used by 15,000 merchants within 3 months of launch</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Product Designer</span>
+          <span class="entry-date">Mar 2020 &ndash; Dec 2021</span>
+        </div>
+        <div class="entry-subtitle">Oscar Health &middot; New York, NY</div>
+        <ul class="entry-bullets">
+          <li>Designed the care navigation experience for 500K+ members, increasing provider search-to-booking completion by 35%</li>
+          <li>Led the responsive redesign of the member portal, achieving WCAG 2.1 AA compliance and a 22-point NPS lift</li>
+          <li>Created journey maps and service blueprints that identified 7 friction points in the claims submission process</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">UX Designer</span>
+          <span class="entry-date">Jun 2018 &ndash; Feb 2020</span>
+        </div>
+        <div class="entry-subtitle">Asana &middot; San Francisco, CA</div>
+        <ul class="entry-bullets">
+          <li>Shipped interaction design for the Timeline view feature, adopted by 2M+ users in the first year</li>
+          <li>Partnered with research to run A/B tests on task creation flows, lifting activation rates by 18%</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="main-section">
+      <h2 class="section-heading">Education</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">B.F.A. in Graphic Design</span>
+          <span class="entry-date">2014 &ndash; 2018</span>
+        </div>
+        <div class="entry-subtitle">Rhode Island School of Design (RISD)</div>
+        <ul class="entry-bullets">
+          <li>Concentration in Interactive Media. Dean's List 6 semesters. Senior thesis on adaptive interfaces for aging populations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="main-section">
+      <h2 class="section-heading">Projects</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Beacon &mdash; Personal Finance Dashboard</span>
+          <span class="entry-date">2023</span>
+        </div>
+        <ul class="entry-bullets">
+          <li>Designed end-to-end concept for a budgeting app that visualizes spending through interactive radial charts. Prototyped in Figma with 47 screens and conducted 12 user tests.</li>
+        </ul>
+        <div class="project-tech">Figma, Framer, Principle</div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">OpenTable Concept Redesign</span>
+          <span class="entry-date">2022</span>
+        </div>
+        <ul class="entry-bullets">
+          <li>Unsolicited redesign focused on improving group-booking UX. Published on Behance with 8K+ views and featured in UX Collective.</li>
+        </ul>
+        <div class="project-tech">Figma, After Effects</div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elena Vasquez - Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     Swiss/International Typographic Resume
+     Modern Designer -- with Hirvo Twist
+     ============================================ */
+
+  :root {
+    /* Colors -- three-tone gray system */
+    --color-primary: #000000;
+    --color-secondary: #333333;
+    --color-tertiary: #555555;
+    --color-bg: #ffffff;
+    --color-rule: transparent;
+
+    /* Accent (Hirvo twist) */
+    --accent: #7363FF;
+    --accent-hover: rgba(115, 99, 255, 0.08);
+
+    /* Typography */
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    --font-size-name: 30pt;
+    --font-size-section: 11pt;
+    --font-size-body: 10pt;
+    --font-size-small: 9pt;
+    --font-size-label: 8pt;
+    --font-size-watermark: 7pt;
+
+    /* Spacing */
+    --margin-page: 0.75in;
+    --line-height-body: 1.45;
+    --line-height-tight: 1.2;
+    --section-gap: 28pt;
+    --entry-gap: 14pt;
+    --bullet-gap: 5pt;
+  }
+
+  @page {
+    size: letter;
+    margin: var(--margin-page);
+  }
+
+  @media print {
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 8.5in;
+      background: var(--color-bg);
+    }
+    .page {
+      margin: 0;
+      padding: var(--margin-page);
+      box-shadow: none;
+      border: none;
+      width: auto;
+      min-height: auto;
+    }
+    /* Hide interactive hover effects in print */
+    .section::before {
+      display: none !important;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #e8e8e8;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    line-height: var(--line-height-body);
+    color: var(--color-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.5in auto;
+    padding: var(--margin-page);
+    background: var(--color-bg);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  /* — Header — */
+  .header {
+    margin-bottom: var(--section-gap);
+  }
+
+  .header-name {
+    font-size: var(--font-size-name);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--color-primary);
+    margin-bottom: 10pt;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6pt 20pt;
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  .header-meta a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-tertiary);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .header-meta a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .header-title {
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    color: var(--color-tertiary);
+    margin-bottom: 8pt;
+    letter-spacing: 0.01em;
+  }
+
+  /* — Sections — */
+  .section {
+    margin-bottom: var(--section-gap);
+    position: relative;
+    padding-left: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Hirvo twist: accent bar on hover */
+  .section::before {
+    content: '';
+    position: absolute;
+    left: -16pt;
+    top: 20%;
+    width: 3px;
+    height: 0%;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0;
+    transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease;
+  }
+
+  .section:hover::before {
+    height: 60%;
+    opacity: 1;
+  }
+
+  .section-heading {
+    font-size: var(--font-size-section);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-primary);
+    margin-bottom: 14pt;
+    line-height: var(--line-height-tight);
+    /* No rules -- Swiss purity through whitespace */
+  }
+
+  /* — Entry — */
+  .entry {
+    margin-bottom: var(--entry-gap);
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2pt;
+  }
+
+  .entry-role {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 0.005em;
+  }
+
+  .entry-date {
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    color: var(--color-tertiary);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .entry-org {
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    color: var(--color-secondary);
+    margin-bottom: 4pt;
+  }
+
+  .entry-location {
+    color: var(--color-tertiary);
+  }
+
+  /* — Bullet Lists — */
+  .bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .bullets li {
+    position: relative;
+    padding-left: 14pt;
+    margin-bottom: var(--bullet-gap);
+    color: var(--color-secondary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5.5pt;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-tertiary);
+  }
+
+  /* — Skills — */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10pt 32pt;
+  }
+
+  .skill-group {}
+
+  .skill-label {
+    font-size: var(--font-size-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-tertiary);
+    margin-bottom: 3pt;
+  }
+
+  .skill-value {
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  /* — Education — */
+  .edu-degree {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .edu-school {
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    color: var(--color-secondary);
+  }
+
+  .edu-detail {
+    font-size: var(--font-size-small);
+    color: var(--color-tertiary);
+    margin-top: 2pt;
+  }
+
+  /* — Watermark (Hirvo twist) — */
+  .watermark {
+    position: absolute;
+    bottom: 20pt;
+    right: var(--margin-page);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-watermark);
+    color: var(--color-primary);
+    opacity: 0.15;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="header-name">Elena Vasquez</h1>
+    <p class="header-title">Senior Product Designer</p>
+    <div class="header-meta">
+      <span>San Francisco, CA</span>
+      <a href="mailto:elena@vasquez.design">elena@vasquez.design</a>
+      <a href="https://vasquez.design">vasquez.design</a>
+      <a href="https://linkedin.com/in/elenavasquez">linkedin.com/in/elenavasquez</a>
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="section">
+    <h2 class="section-heading">Profile</h2>
+    <p style="color: var(--color-secondary); line-height: var(--line-height-body); max-width: 540pt;">
+      Product designer with 8 years shaping complex B2B interfaces into clear, usable systems.
+      Led design for platforms serving 2M+ users across fintech, developer tools, and enterprise SaaS.
+      Focused on systematic design, accessibility, and bridging user research with engineering constraints.
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <h2 class="section-heading">Experience</h2>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-role">Senior Product Designer</span>
+        <span class="entry-date">2022 -- Present</span>
+      </div>
+      <div class="entry-org">Stripe <span class="entry-location">/ San Francisco, CA</span></div>
+      <ul class="bullets">
+        <li>Led redesign of the merchant onboarding flow, reducing drop-off by 34% and cutting average completion time from 12 to 7 minutes</li>
+        <li>Established component governance process for the internal design system, improving cross-team adoption from 60% to 92%</li>
+        <li>Designed and shipped a real-time fraud dashboard used by 15,000+ platform operators daily</li>
+        <li>Mentored 3 junior designers through structured critique sessions and paired design sprints</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-role">Product Designer</span>
+        <span class="entry-date">2019 -- 2022</span>
+      </div>
+      <div class="entry-org">Figma <span class="entry-location">/ San Francisco, CA</span></div>
+      <ul class="bullets">
+        <li>Owned the design for FigJam's initial launch, contributing interaction patterns that became core to the collaborative whiteboard product</li>
+        <li>Conducted 80+ user research sessions across enterprise and individual segments, translating findings into 12 shipped feature improvements</li>
+        <li>Reduced support ticket volume by 28% through systematic UX audit and information architecture restructuring</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-role">UX Designer</span>
+        <span class="entry-date">2017 -- 2019</span>
+      </div>
+      <div class="entry-org">Dropbox <span class="entry-location">/ San Francisco, CA</span></div>
+      <ul class="bullets">
+        <li>Redesigned file-sharing permissions UI, resulting in a 22% increase in successful share completions</li>
+        <li>Built and maintained a Figma component library of 200+ elements aligned to the internal design system</li>
+        <li>Partnered with accessibility engineering to achieve WCAG 2.1 AA compliance across 4 core product surfaces</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-role">Junior Designer</span>
+        <span class="entry-date">2016 -- 2017</span>
+      </div>
+      <div class="entry-org">IDEO <span class="entry-location">/ Palo Alto, CA</span></div>
+      <ul class="bullets">
+        <li>Contributed to 6 client engagements spanning healthcare, education, and consumer electronics</li>
+        <li>Facilitated design thinking workshops for cross-functional teams of 10-25 stakeholders</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <h2 class="section-heading">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-label">Design</div>
+        <div class="skill-value">Product design, interaction design, design systems, prototyping, information architecture, visual design</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Research</div>
+        <div class="skill-value">User interviews, usability testing, A/B testing, journey mapping, quantitative analysis, heuristic evaluation</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Tools</div>
+        <div class="skill-value">Figma, Sketch, Adobe CC, Framer, Principle, Maze, Dovetail, Notion, Linear</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Technical</div>
+        <div class="skill-value">HTML/CSS, React basics, Git, accessibility (WCAG), responsive design, design tokens</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <h2 class="section-heading">Education</h2>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="edu-degree">BFA, Graphic Design</span>
+        <span class="entry-date">2012 -- 2016</span>
+      </div>
+      <div class="edu-school">Rhode Island School of Design (RISD)</div>
+      <div class="edu-detail">Concentration in Interactive Media. Dean's List 2014--2016.</div>
+    </div>
+  </section>
+
+  <!-- Hirvo watermark -->
+  <span class="watermark">built with hirvo</span>
+
+</div>
+
+</body>
+</html>

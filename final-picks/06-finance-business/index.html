@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume - James R. Whitfield</title>
+<style>
+  /* ── CSS Custom Properties ── */
+  :root {
+    --font-primary: Georgia, 'Times New Roman', Times, serif;
+    --color-primary: #000000;
+    --color-bg: #ffffff;
+
+    --size-name: 15pt;
+    --size-contact: 10pt;
+    --size-heading: 11.5pt;
+    --size-body: 10pt;
+    --size-entry-org: 10pt;
+    --size-date: 10pt;
+
+    --weight-name: 700;
+    --weight-heading: 700;
+    --weight-body: 400;
+    --weight-org: 700;
+
+    --lh-body: 1.08;
+    --lh-heading: 1.2;
+    --lh-bullets: 1.08;
+
+    --margin-page: 0.55in;
+    --gap-section: 11pt;
+    --gap-entry: 7pt;
+    --gap-bullet: 2pt;
+
+    --divider-weight: 0.75pt;
+  }
+
+  /* ── Reset ── */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Page Setup ── */
+  @page {
+    size: letter;
+    margin: 0.55in;
+  }
+
+  html {
+    background: #f0f0f0;
+  }
+
+  body {
+    font-family: var(--font-primary);
+    font-size: var(--size-body);
+    font-weight: var(--weight-body);
+    line-height: var(--lh-body);
+    color: var(--color-primary);
+    background: var(--color-bg);
+  }
+
+  /* ── Screen: simulate US Letter page ── */
+  @media screen {
+    html {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+    }
+    body {
+      width: 8.5in;
+      min-height: 11in;
+      padding: var(--margin-page);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    }
+  }
+
+  /* ── Print overrides ── */
+  @media print {
+    html {
+      background: white;
+    }
+    body {
+      padding: 0;
+      box-shadow: none;
+      width: auto;
+      min-height: auto;
+    }
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 12pt;
+  }
+
+  .header__name {
+    font-size: var(--size-name);
+    font-weight: var(--weight-name);
+    line-height: 1.2;
+    color: var(--color-primary);
+    margin-bottom: 3pt;
+  }
+
+  .header__contact {
+    font-size: var(--size-contact);
+    color: var(--color-primary);
+    line-height: 1.4;
+  }
+
+  .header__contact a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: var(--gap-section);
+  }
+
+  .section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__heading {
+    font-size: var(--size-heading);
+    font-weight: var(--weight-heading);
+    text-transform: uppercase;
+    color: var(--color-primary);
+    line-height: var(--lh-heading);
+    padding-bottom: 2pt;
+    border-bottom: var(--divider-weight) solid var(--color-primary);
+    margin-bottom: 7pt;
+  }
+
+  /* ── Entry ── */
+  .entry {
+    margin-bottom: var(--gap-entry);
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Line 1: Company (bold) + Location ... Date (right) */
+  .entry__line1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--size-entry-org);
+    line-height: 1.3;
+  }
+
+  .entry__org {
+    font-weight: var(--weight-org);
+  }
+
+  .entry__location {
+    font-weight: var(--weight-body);
+  }
+
+  .entry__date {
+    font-weight: var(--weight-body);
+    white-space: nowrap;
+  }
+
+  /* Line 2: Role (italic) + optional right-aligned date */
+  .entry__line2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--size-body);
+    line-height: 1.3;
+    margin-bottom: 2pt;
+  }
+
+  .entry__role {
+    font-style: italic;
+  }
+
+  .entry__role-date {
+    font-style: normal;
+    font-weight: var(--weight-body);
+    white-space: nowrap;
+  }
+
+  /* ── Bullet List ── */
+  .bullets {
+    list-style: disc;
+    padding-left: 16pt;
+  }
+
+  .bullets li {
+    margin-bottom: var(--gap-bullet);
+    line-height: var(--lh-bullets);
+    font-size: var(--size-body);
+  }
+
+  .bullets li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Education Entry ── */
+  .edu__line1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--size-body);
+    line-height: 1.3;
+  }
+
+  .edu__school {
+    font-weight: var(--weight-org);
+  }
+
+  .edu__location {
+    font-weight: var(--weight-body);
+  }
+
+  .edu__date {
+    white-space: nowrap;
+  }
+
+  .edu__degree {
+    font-style: italic;
+    font-size: var(--size-body);
+    line-height: 1.3;
+  }
+
+  .edu__details {
+    font-size: var(--size-body);
+    line-height: 1.3;
+    margin-top: 1pt;
+  }
+
+  /* ── Additional Information ── */
+  .additional p {
+    font-size: var(--size-body);
+    line-height: 1.35;
+    margin-bottom: 3pt;
+  }
+
+  .additional p:last-child {
+    margin-bottom: 0;
+  }
+
+  .additional strong {
+    font-weight: var(--weight-org);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════ HEADER ════ -->
+  <header class="header">
+    <h1 class="header__name">James R. Whitfield</h1>
+    <div class="header__contact">
+      127 East 74th Street, Apt 6B, New York, NY 10021 | (212) 458-9301 | <a href="mailto:jwhitfield@email.com">jwhitfield@email.com</a> | <a href="https://linkedin.com/in/jrwhitfield">linkedin.com/in/jrwhitfield</a>
+    </div>
+  </header>
+
+  <!-- ════ EDUCATION ════ -->
+  <section class="section">
+    <h2 class="section__heading">Education</h2>
+
+    <div class="entry">
+      <div class="edu__line1">
+        <span><span class="edu__school">The Wharton School, University of Pennsylvania</span>, <span class="edu__location">Philadelphia, PA</span></span>
+        <span class="edu__date">May 2020</span>
+      </div>
+      <div class="edu__degree">Bachelor of Science in Economics, Concentration in Finance; Minor in Statistics</div>
+      <div class="edu__details">GPA: 3.82/4.00 | Dean's List (all semesters) | Wharton Research Scholars | Varsity Lightweight Rowing</div>
+    </div>
+  </section>
+
+  <!-- ════ EXPERIENCE ════ -->
+  <section class="section">
+    <h2 class="section__heading">Experience</h2>
+
+    <!-- Entry 1 -->
+    <div class="entry">
+      <div class="entry__line1">
+        <span><span class="entry__org">Goldman Sachs &amp; Co.</span>, <span class="entry__location">New York, NY</span></span>
+        <span class="entry__date">July 2020 &ndash; Present</span>
+      </div>
+      <div class="entry__line2">
+        <span class="entry__role">Associate, Technology, Media &amp; Telecom Investment Banking</span>
+        <span class="entry__role-date">Jan 2023 &ndash; Present</span>
+      </div>
+      <ul class="bullets">
+        <li>Lead execution on M&amp;A and equity capital markets transactions across the TMT sector, managing deal teams of 3&ndash;5 analysts and associates</li>
+        <li>Served as lead associate on the $4.2B sale of a mid-market enterprise SaaS company to a strategic acquirer; built the financial model, coordinated due diligence across 12 workstreams, and managed buyer negotiations through signing</li>
+        <li>Executed a $1.8B follow-on equity offering for a large-cap cloud infrastructure company; developed the investor presentation and managed the bookbuilding process across 45+ institutional investors</li>
+        <li>Advised on $750M debt refinancing for a media conglomerate; structured covenant analysis and prepared rating agency presentations that secured investment-grade pricing</li>
+      </ul>
+      <div class="entry__line2" style="margin-top: 4pt;">
+        <span class="entry__role">Analyst, Technology, Media &amp; Telecom Investment Banking</span>
+        <span class="entry__role-date">Jul 2020 &ndash; Dec 2022</span>
+      </div>
+      <ul class="bullets">
+        <li>Built and maintained operating models, DCF analyses, LBO models, and trading/transaction comparables for 15+ active engagements across enterprise software, digital media, and semiconductor subsectors</li>
+        <li>Supported the $2.6B acquisition of a cybersecurity platform by a private equity consortium; prepared management presentations and information memoranda, coordinated 8 buyer site visits</li>
+        <li>Developed pitch materials for 20+ new business opportunities, contributing to $14M in banking fees won during tenure</li>
+      </ul>
+    </div>
+
+    <!-- Entry 2 -->
+    <div class="entry">
+      <div class="entry__line1">
+        <span><span class="entry__org">Centerview Partners</span>, <span class="entry__location">New York, NY</span></span>
+        <span class="entry__date">Jun 2019 &ndash; Aug 2019</span>
+      </div>
+      <div class="entry__line2">
+        <span class="entry__role">Summer Analyst, Mergers &amp; Acquisitions</span>
+      </div>
+      <ul class="bullets">
+        <li>Supported senior bankers on three active M&amp;A mandates with aggregate transaction value exceeding $8B across healthcare and industrials</li>
+        <li>Built a detailed sum-of-the-parts valuation model for a $5B diversified industrial company exploring strategic alternatives; analysis was presented directly to the client board of directors</li>
+        <li>Conducted comprehensive market screening of 200+ potential acquisition targets in the medical devices sector, narrowing to a shortlist of 12 based on strategic fit, financial profile, and antitrust feasibility</li>
+      </ul>
+    </div>
+
+    <!-- Entry 3 -->
+    <div class="entry">
+      <div class="entry__line1">
+        <span><span class="entry__org">Blackstone Group</span>, <span class="entry__location">New York, NY</span></span>
+        <span class="entry__date">Jun 2018 &ndash; Aug 2018</span>
+      </div>
+      <div class="entry__line2">
+        <span class="entry__role">Summer Analyst, Private Equity</span>
+      </div>
+      <ul class="bullets">
+        <li>Assisted with due diligence on a $3.1B take-private transaction in the specialty chemicals sector; prepared industry analysis and competitive benchmarking across 25 comparable companies</li>
+        <li>Built a fully integrated LBO model with 15 operating scenarios and multiple exit strategies; presented findings to the deal team for investment committee review</li>
+        <li>Analyzed portfolio company operating performance across 8 Blackstone-owned businesses, identifying $45M in potential cost synergies through procurement consolidation</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════ ADDITIONAL INFORMATION ════ -->
+  <section class="section">
+    <h2 class="section__heading">Additional Information</h2>
+    <div class="additional">
+      <p><strong>Technical Skills:</strong> Advanced Excel (VBA, macros, complex modeling), PowerPoint, Bloomberg Terminal, Capital IQ, FactSet, Dealogic, Python (pandas, NumPy)</p>
+      <p><strong>Languages:</strong> English (native), Mandarin Chinese (fluent), Spanish (conversational)</p>
+      <p><strong>Certifications:</strong> CFA Level III Candidate (June 2026); Series 7 and Series 63 licensed</p>
+      <p><strong>Interests:</strong> Marathon running (3:12 PR, NYC Marathon 2024), classical piano, angel investing in early-stage fintech</p>
+    </div>
+  </section>
+
+</body>
+</html>
