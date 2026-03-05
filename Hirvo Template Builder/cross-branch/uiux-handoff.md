@@ -35,6 +35,33 @@ Full reports in `tb-uiux:Hirvo template builder/research/`:
 - Print color-adjust for dark headers
 - Import validation added to prevent malformed JSON crashes
 
+### Guided Section Flow (NEW -- from research)
+Resume.io, Zety, and FlowCV all use step-by-step guided flows. We've implemented this:
+
+**What was added:**
+- **Step numbers** (1-6) on each section header via `.step-number` circles
+- **"Continue to [Next Section]" buttons** at the bottom of each section body
+- **Section completion states** -- `.completed` class added when a section has minimum required data
+- Step numbers change color: gray (default) -> purple (open/active) -> green (completed)
+- Continue buttons close the current section and smooth-scroll to the next
+
+**Section order:** Personal Info -> Experience -> Education -> Skills -> Languages -> Certifications
+
+**How it works (code):**
+- `index.html`: Each `.form-section` has `data-step="N"` and a `.btn-continue[data-next="sectionName"]`
+- `form-handler.js`: `bindContinueButtons()` wires up the flow, `isSectionComplete()` checks per-section completion rules, `updateSectionCompletionStates()` toggles `.completed` class
+- `styles.css`: `.step-number` (circle), `.btn-continue` (white CTA), `.form-section.completed .step-number` (green)
+
+**Completion rules per section:**
+| Section | Required for "completed" |
+|---|---|
+| Personal | firstName + lastName + email |
+| Experience | At least 1 entry with role + company |
+| Education | At least 1 entry with degree + institution |
+| Skills | At least 1 entry with category + items |
+| Languages | At least 1 entry with language name |
+| Certifications | At least 1 entry with cert name |
+
 ---
 
 ## What the Coder Branch Needs to Know

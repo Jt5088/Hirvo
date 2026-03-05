@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hirvo Resume Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <div id="error-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#dc2626;color:#fff;padding:12px 20px;font-family:monospace;font-size:13px;"></div>
+    <div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;z-index:9998;background:#1a1a1f;color:#ededec;padding:10px 20px;border-radius:8px;font-size:13px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 12px rgba(0,0,0,0.4);transition:opacity 0.3s;"></div>
+
+    <header class="header">
+        <div class="header-brand">
+            <span class="brand-mark">H</span>
+            <span class="brand-text">Hirvo Builder</span>
+        </div>
+        <div class="completeness-wrap">
+            <div class="completeness-bar"><div class="completeness-fill" id="completeness-fill"></div></div>
+            <span class="completeness-text" id="completeness-text">0%</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-ghost" id="btn-clear" title="Clear all data">Clear</button>
+            <button class="btn btn-ghost" id="btn-import" title="Import JSON data">Import JSON</button>
+            <button class="btn btn-ghost" id="btn-export-json" title="Export as JSON">Export JSON</button>
+            <button class="btn btn-ghost" id="btn-export-html" title="Export as standalone HTML">Export HTML</button>
+            <button class="btn btn-primary" id="btn-export-pdf" title="Export as PDF (Ctrl+P)">Export PDF</button>
+        </div>
+    </header>
+
+    <main class="app-layout">
+        <!-- Left Panel: Form -->
+        <aside class="panel panel-form" id="form-panel">
+            <!-- Template Selector -->
+            <div class="template-selector">
+                <label class="form-label">Template</label>
+                <div class="template-grid" id="template-grid"></div>
+            </div>
+
+            <!-- Form Sections — guided step-by-step flow -->
+            <div class="form-sections" id="form-sections">
+                <!-- Step 1: Personal Info -->
+                <div class="form-section" data-section="personal" data-step="1">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">1</span>Personal Information</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="field-row">
+                            <div class="field">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-input" data-path="personal.firstName" placeholder="John">
+                            </div>
+                            <div class="field">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-input" data-path="personal.lastName" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="title">Job Title</label>
+                            <input type="text" id="title" class="form-input" data-path="personal.title" placeholder="Software Engineer">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" class="form-input" data-path="personal.email" placeholder="john@example.com">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" id="phone" class="form-input" data-path="personal.phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="location">Location</label>
+                            <input type="text" id="location" class="form-input" data-path="personal.location" placeholder="San Francisco, CA">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="website">Website</label>
+                            <input type="url" id="website" class="form-input" data-path="personal.website" placeholder="https://johndoe.com">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="linkedin">LinkedIn</label>
+                            <input type="text" id="linkedin" class="form-input" data-path="personal.linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="summary">Professional Summary</label>
+                            <textarea id="summary" class="form-input form-textarea" data-path="personal.summary" rows="4" placeholder="Brief professional summary..."></textarea>
+                        </div>
+                        <button class="btn btn-continue" type="button" data-next="experience">Continue to Experience &#8594;</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Experience -->
+                <div class="form-section" data-section="experience" data-step="2">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">2</span>Experience</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="dynamic-list" id="experience-list"></div>
+                        <button class="btn btn-add" data-list="experience">+ Add Experience</button>
+                        <button class="btn btn-continue" type="button" data-next="education">Continue to Education &#8594;</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Education -->
+                <div class="form-section" data-section="education" data-step="3">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">3</span>Education</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="dynamic-list" id="education-list"></div>
+                        <button class="btn btn-add" data-list="education">+ Add Education</button>
+                        <button class="btn btn-continue" type="button" data-next="skills">Continue to Skills &#8594;</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Skills -->
+                <div class="form-section" data-section="skills" data-step="4">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">4</span>Skills</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="dynamic-list" id="skills-list"></div>
+                        <button class="btn btn-add" data-list="skills">+ Add Skill Category</button>
+                        <button class="btn btn-continue" type="button" data-next="languages">Continue to Languages &#8594;</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Languages -->
+                <div class="form-section" data-section="languages" data-step="5">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">5</span>Languages</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="dynamic-list" id="languages-list"></div>
+                        <button class="btn btn-add" data-list="languages">+ Add Language</button>
+                        <button class="btn btn-continue" type="button" data-next="certifications">Continue to Certifications &#8594;</button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Certifications -->
+                <div class="form-section" data-section="certifications" data-step="6">
+                    <button class="section-header" type="button">
+                        <span class="section-title"><span class="step-number">6</span>Certifications</span>
+                        <span class="section-chevron">&#9662;</span>
+                    </button>
+                    <div class="section-body">
+                        <div class="dynamic-list" id="certifications-list"></div>
+                        <button class="btn btn-add" data-list="certifications">+ Add Certification</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Panel: Preview -->
+        <section class="panel panel-preview">
+            <div class="preview-container" id="preview-container">
+                <iframe id="preview-frame" title="Resume Preview"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <input type="file" id="import-file" accept=".json" style="display:none">
+
+    <!-- Templates -->
+    <script src="src/templates/classic.js"></script>
+    <script src="src/templates/modern.js"></script>
+    <script src="src/templates/simple.js"></script>
+    <script src="src/templates/design.js"></script>
+    <script src="src/templates/elegant.js"></script>
+    <script src="src/templates/perfecto.js"></script>
+    <script src="src/templates/professional.js"></script>
+    <script src="src/templates/creative.js"></script>
+
+    <!-- Core Modules -->
+    <script src="src/js/template-engine.js"></script>
+    <script src="src/js/sample-data.js"></script>
+    <script src="src/js/preview.js"></script>
+    <script src="src/js/export.js"></script>
+    <script src="src/js/storage.js"></script>
+    <script src="src/js/form-handler.js"></script>
+    <script src="src/js/app.js"></script>
+
+    <script>
+    (function() {
+        var missing = [];
+        if (typeof TemplateEngine === 'undefined') missing.push('TemplateEngine');
+        if (typeof SampleData === 'undefined') missing.push('SampleData');
+        if (typeof ResumePreview === 'undefined') missing.push('ResumePreview');
+        if (typeof ResumeExport === 'undefined') missing.push('ResumeExport');
+        if (typeof ResumeStorage === 'undefined') missing.push('ResumeStorage');
+        if (typeof FormHandler === 'undefined') missing.push('FormHandler');
+        if (typeof App === 'undefined') missing.push('App');
+        if (missing.length) {
+            var banner = document.getElementById('error-banner');
+            banner.style.display = 'block';
+            banner.textContent = 'Missing module: ' + missing.join(', ');
+        }
+    })();
+    window.onerror = function(msg, url, line) {
+        var banner = document.getElementById('error-banner');
+        banner.style.display = 'block';
+        banner.textContent = 'JS Error: ' + msg + ' at ' + url + ':' + line;
+    };
+    </script>
+</body>
+</html>
