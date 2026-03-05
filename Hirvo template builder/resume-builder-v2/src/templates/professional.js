@@ -6,6 +6,14 @@
         description: 'Corporate-friendly, ATS-optimized format',
         fonts: ['Roboto'],
         colors: { primary: '#1f2937', accent: '#059669', text: '#374151' },
+        metadata: {
+            name: 'Professional',
+            category: 'Professional',
+            industries: ['Business', 'Corporate', 'Consulting'],
+            atsScore: 'Excellent',
+            density: 'Standard',
+            description: 'Corporate-friendly single-column format with green accents and tabular skills layout.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -32,7 +40,9 @@
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; padding: 3px 0; }\
                 .meta-label { color: #374151; font-weight: 500; }\
                 .meta-value { color: #6b7280; }\
-                @media print { .resume { padding: 32px 40px; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { padding: 32px 40px; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

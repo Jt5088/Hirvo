@@ -6,6 +6,14 @@
         description: 'Bold and expressive layout with vibrant accents',
         fonts: ['Poppins'],
         colors: { primary: '#1a1a1a', accent: '#f43f5e', text: '#404040' },
+        metadata: {
+            name: 'Creative',
+            category: 'Creative',
+            industries: ['Marketing', 'Media', 'Design'],
+            atsScore: 'Good',
+            density: 'Standard',
+            description: 'Bold and expressive layout with a dark gradient header, vibrant accents, and chip-style skills.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -34,7 +42,9 @@
                 .info-item { background: #fafafa; border-radius: 8px; padding: 10px 14px; border: 1px solid #f0f0f0; }\
                 .info-label { font-size: 11px; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }\
                 .info-value { font-size: 13px; color: #1a1a1a; font-weight: 500; }\
-                @media print { .header { padding: 28px 36px 24px; background: #1a1a1a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .body { padding: 24px 36px 32px; } .summary, .info-item { background: #fff !important; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .header { padding: 28px 36px 24px; background: #1a1a1a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .body { padding: 24px 36px 32px; } .summary, .info-item { background: #fff !important; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

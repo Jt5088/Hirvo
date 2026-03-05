@@ -6,6 +6,14 @@
         description: 'Minimal and clean with generous whitespace',
         fonts: ['Inter'],
         colors: { primary: '#111827', accent: '#6b7280', text: '#374151' },
+        metadata: {
+            name: 'Simple',
+            category: 'Minimal',
+            industries: ['Any Industry'],
+            atsScore: 'Excellent',
+            density: 'Dense',
+            description: 'Minimalist single-column layout with generous whitespace and no visual distractions.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -29,7 +37,9 @@
                 .skill-items { color: #6b7280; }\
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; margin-bottom: 3px; }\
                 .meta-value { color: #6b7280; }\
-                @media print { .resume { padding: 36px 40px; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { padding: 36px 40px; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

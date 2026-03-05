@@ -6,6 +6,14 @@
         description: 'Sophisticated design with serif typography and gold accents',
         fonts: ['Playfair Display', 'Lato'],
         colors: { primary: '#2c2c2c', accent: '#b8860b', text: '#3a3a3a' },
+        metadata: {
+            name: 'Elegant',
+            category: 'Elegant',
+            industries: ['Law', 'Finance', 'Executive'],
+            atsScore: 'Excellent',
+            density: 'Spacious',
+            description: 'Sophisticated serif typography with gold accents and generous spacing for senior roles.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -30,7 +38,9 @@
                 .skill-items { font-size: 12px; color: #666; line-height: 1.6; }\
                 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }\
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; padding: 2px 0; }\
-                @media print { .resume { padding: 36px 44px; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { padding: 36px 44px; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

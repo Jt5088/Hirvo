@@ -6,6 +6,14 @@
         description: 'Traditional, ATS-friendly layout with clean typography',
         fonts: ['Source Serif 4', 'Inter'],
         colors: { primary: '#1a1a1a', accent: '#1a1a1a', text: '#333' },
+        metadata: {
+            name: 'Classic',
+            category: 'Traditional',
+            industries: ['Finance', 'Consulting', 'Legal'],
+            atsScore: 'Excellent',
+            density: 'Standard',
+            description: 'A timeless single-column layout with serif headings and clean hierarchy.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -35,7 +43,9 @@
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; padding: 2px 0; }\
                 .meta-label { color: #333; font-weight: 500; }\
                 .meta-value { color: #707070; }\
-                @media print { .resume { padding: 36px 44px; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { padding: 36px 44px; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

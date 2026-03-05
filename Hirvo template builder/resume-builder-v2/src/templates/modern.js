@@ -6,6 +6,14 @@
         description: 'Contemporary layout with bold typography and accent color',
         fonts: ['Inter'],
         colors: { primary: '#0f172a', accent: '#3b82f6', text: '#334155' },
+        metadata: {
+            name: 'Modern',
+            category: 'Modern',
+            industries: ['Tech', 'Startups', 'Marketing'],
+            atsScore: 'Good',
+            density: 'Standard',
+            description: 'Contemporary layout with bold typography, dark header, and accent color tags.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -35,7 +43,9 @@
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; padding: 3px 0; }\
                 .meta-label { color: #334155; font-weight: 500; }\
                 .meta-value { color: #7c8da0; }\
-                @media print { .header { padding: 28px 36px 24px; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .body { padding: 24px 36px 32px; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .header { padding: 28px 36px 24px; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .body { padding: 24px 36px 32px; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

@@ -6,6 +6,14 @@
         description: 'Two-column layout with a tinted sidebar',
         fonts: ['DM Sans'],
         colors: { primary: '#1e293b', accent: '#0ea5e9', text: '#334155' },
+        metadata: {
+            name: 'Design',
+            category: 'Creative',
+            industries: ['Design', 'Creative', 'Marketing'],
+            atsScore: 'Moderate',
+            density: 'Standard',
+            description: 'Two-column layout with a dark sidebar for skills and contact, ideal for visual roles.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -35,7 +43,9 @@
                 .entry-desc { font-size: 13px; color: #475569; line-height: 1.65; overflow-wrap: break-word; word-break: break-word; }\
                 .cert-item { font-size: 12px; margin-bottom: 4px; color: #cbd5e1; }\
                 .cert-year { color: #7c8da0; font-size: 11px; }\
-                @media print { .resume { grid-template-columns: 220px 1fr; min-height: auto; } .sidebar { padding: 28px 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .main { padding: 28px 28px; } @page { margin: 0.4in 0.5in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { grid-template-columns: 220px 1fr; min-height: auto; } .resume.a4 { width: 210mm; } .sidebar { padding: 28px 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .main { padding: 28px 28px; } @page { margin: 0.4in 0.5in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';

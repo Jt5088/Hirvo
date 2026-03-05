@@ -6,6 +6,14 @@
         description: 'Structured grid with geometric accents and clean sections',
         fonts: ['Space Grotesk', 'Inter'],
         colors: { primary: '#18181b', accent: '#a855f7', text: '#3f3f46' },
+        metadata: {
+            name: 'Perfecto',
+            category: 'Modern',
+            industries: ['Tech', 'Product', 'Engineering'],
+            atsScore: 'Excellent',
+            density: 'Standard',
+            description: 'Structured grid with geometric accents, pill-shaped skill tags, and clean sections.'
+        },
         render: function(data) {
             var p = data.personal || {};
             var style = '\
@@ -33,7 +41,9 @@
                 .meta-row { font-size: 13px; display: flex; justify-content: space-between; padding: 3px 0; }\
                 .meta-label { color: #3f3f46; }\
                 .meta-value { color: #71717a; }\
-                @media print { .resume { padding: 32px 40px; } .summary { background: #fff; } @page { margin: 0.5in 0.6in; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
+                @page { size: letter; }\
+                .resume.a4 { width: 210mm; min-height: 297mm; }\
+                @media print { .resume { padding: 32px 40px; } .summary { background: #fff; } @page { margin: 0.5in 0.6in; } .resume.a4 { width: 210mm; } .entry { page-break-inside: avoid; break-inside: avoid; } .section-title { page-break-after: avoid; break-after: avoid; } }\
             ';
 
             var html = '<div class="resume">';
