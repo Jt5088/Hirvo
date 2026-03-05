@@ -4,8 +4,8 @@
     window.HirvoTemplates.classic = {
         name: 'Classic',
         description: 'Traditional, ATS-friendly layout with clean typography',
-        fonts: ['Source Serif 4', 'Inter'],
-        colors: { primary: '#1a1a1a', accent: '#1a1a1a', text: '#333' },
+        fonts: ['Source Serif 4'],
+        colors: { primary: '#1a1a1a', accent: '#1a1a1a', text: '#1a1a1a' },
         metadata: {
             name: 'Classic',
             category: 'Traditional',
@@ -17,17 +17,17 @@
         render: function(data) {
             var p = data.personal || {};
             var style = '\
-                body { font-family: "Inter", sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 0; background: #fff; }\
+                body { font-family: Georgia, "Times New Roman", serif; color: #1a1a1a; line-height: 1.2; margin: 0; padding: 0; background: #fff; }\
                 .resume { max-width: 800px; margin: 0 auto; padding: 48px 52px; }\
                 .header { text-align: center; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid #1a1a1a; }\
-                h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 28px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.01em; margin: 0 0 4px; }\
+                h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 28px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.04em; font-variant: small-caps; text-transform: uppercase; margin: 0 0 4px; }\
                 .subtitle { font-size: 15px; color: #555; margin-bottom: 10px; }\
                 .contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12px; color: #666; }\
                 .contact span { white-space: nowrap; }\
                 .contact .sep { color: #ccc; }\
                 .summary { font-size: 14px; color: #444; line-height: 1.75; margin-bottom: 24px; }\
                 .section { margin-bottom: 22px; }\
-                .section-title { font-family: "Source Serif 4", Georgia, serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1a1a1a; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #ddd; }\
+                .section-title { font-family: "Source Serif 4", Georgia, serif; font-size: 14px; font-weight: 700; text-transform: uppercase; font-variant: small-caps; letter-spacing: 0.06em; color: #1a1a1a; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #000; }\
                 .entry { margin-bottom: 16px; }\
                 .entry:last-child { margin-bottom: 0; }\
                 .entry-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; }\
