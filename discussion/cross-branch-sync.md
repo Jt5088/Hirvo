@@ -80,3 +80,25 @@ This file tracks communication between worktree branches. Updated after each syn
 - When preview system is built, it needs to render our 8 templates in real-time.
 
 ---
+
+## Sync #2 — 2026-03-05
+
+### FROM tb-uiux TO ALL branches (full handoff)
+
+**What was delivered:**
+- 11 builder analysis (3 research reports), 3 audits (UX, template, code)
+- 18 bugs fixed, WCAG AA contrast on all 8 templates, guided section flow added
+- Handoff documents pushed to tb-resume-code, tb-resume-designs, tb-preview, and template-builder
+
+**Guided section flow (new feature):**
+- Step numbers 1-6 on section headers (gray → purple active → green completed)
+- "Continue to [Next] →" buttons guide users through sections sequentially
+- Users can still click any section header to jump freely (hybrid approach)
+- Per-section completion tracking with visual feedback
+- Research-backed: Resume.io, Zety, FlowCV all use this pattern
+
+**See:** `discussion/uiux-handoff-guided-flow.md` for full details.
+
+**Remaining P2/P3 items distributed to sub-branches.** tb-uiux work is complete.
+
+---
