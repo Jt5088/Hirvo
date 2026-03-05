@@ -20,13 +20,13 @@
         </div>
         <div class="completeness-wrap">
             <div class="completeness-bar"><div class="completeness-fill" id="completeness-fill"></div></div>
-            <span class="completeness-text" id="completeness-text">0%</span>
+            <span class="completeness-text" id="completeness-text">Resume: 0%</span>
         </div>
         <div class="header-actions">
+            <button class="btn btn-ghost" id="btn-template-picker" title="Change template">Template</button>
             <button class="btn btn-ghost" id="btn-clear" title="Clear all data">Clear</button>
             <button class="btn btn-ghost" id="btn-import" title="Import JSON data">Import JSON</button>
             <button class="btn btn-ghost" id="btn-export-json" title="Export as JSON">Export JSON</button>
-            <button class="btn btn-ghost" id="btn-export-html" title="Export as standalone HTML">Export HTML</button>
             <button class="btn btn-primary" id="btn-export-pdf" title="Export as PDF (Ctrl+P)">Export PDF</button>
         </div>
     </header>
@@ -34,21 +34,41 @@
     <main class="app-layout">
         <!-- Left Panel: Form -->
         <aside class="panel panel-form" id="form-panel">
-            <!-- Template Selector -->
-            <div class="template-selector">
-                <label class="form-label">Template</label>
-                <div class="template-grid" id="template-grid"></div>
-            </div>
+            <!-- Step Navigation Bar -->
+            <nav class="step-nav" id="step-nav">
+                <button class="step-nav-item active" data-step-target="personal" type="button">
+                    <span class="step-nav-num">1</span>
+                    <span class="step-nav-label">Personal</span>
+                </button>
+                <button class="step-nav-item" data-step-target="experience" type="button">
+                    <span class="step-nav-num">2</span>
+                    <span class="step-nav-label">Experience</span>
+                </button>
+                <button class="step-nav-item" data-step-target="education" type="button">
+                    <span class="step-nav-num">3</span>
+                    <span class="step-nav-label">Education</span>
+                </button>
+                <button class="step-nav-item" data-step-target="skills" type="button">
+                    <span class="step-nav-num">4</span>
+                    <span class="step-nav-label">Skills</span>
+                </button>
+                <button class="step-nav-item" data-step-target="languages" type="button">
+                    <span class="step-nav-num">5</span>
+                    <span class="step-nav-label">Languages</span>
+                </button>
+                <button class="step-nav-item" data-step-target="certifications" type="button">
+                    <span class="step-nav-num">6</span>
+                    <span class="step-nav-label">Certs</span>
+                </button>
+            </nav>
 
-            <!-- Form Sections — guided step-by-step flow -->
+            <!-- Form Sections — only one visible at a time -->
             <div class="form-sections" id="form-sections">
                 <!-- Step 1: Personal Info -->
-                <div class="form-section" data-section="personal" data-step="1">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">1</span>Personal Information</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                <div class="form-section active" data-section="personal" data-step="1">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Personal Information</h3>
+                        <p class="wizard-desc">Start with your basic contact details.</p>
                         <div class="field-row">
                             <div class="field">
                                 <label class="form-label" for="firstName">First Name</label>
@@ -76,82 +96,91 @@
                             <input type="text" id="location" class="form-input" data-path="personal.location" placeholder="San Francisco, CA">
                         </div>
                         <div class="field">
-                            <label class="form-label" for="website">Website</label>
-                            <input type="url" id="website" class="form-input" data-path="personal.website" placeholder="https://johndoe.com">
-                        </div>
-                        <div class="field">
                             <label class="form-label" for="linkedin">LinkedIn</label>
                             <input type="text" id="linkedin" class="form-input" data-path="personal.linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div class="field">
+                            <label class="form-label" for="website">Website</label>
+                            <input type="url" id="website" class="form-input" data-path="personal.website" placeholder="https://johndoe.com">
                         </div>
                         <div class="field">
                             <label class="form-label" for="summary">Professional Summary</label>
                             <textarea id="summary" class="form-input form-textarea" data-path="personal.summary" rows="4" placeholder="Brief professional summary..."></textarea>
                         </div>
-                        <button class="btn btn-continue" type="button" data-next="experience">Continue to Experience &#8594;</button>
+                        <div class="wizard-nav">
+                            <span></span>
+                            <button class="btn btn-continue" type="button" data-next="experience">Continue &#8594;</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 2: Experience -->
                 <div class="form-section" data-section="experience" data-step="2">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">2</span>Experience</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Experience</h3>
+                        <p class="wizard-desc">Add your work history, most recent first.</p>
                         <div class="dynamic-list" id="experience-list"></div>
                         <button class="btn btn-add" data-list="experience">+ Add Experience</button>
-                        <button class="btn btn-continue" type="button" data-next="education">Continue to Education &#8594;</button>
+                        <div class="wizard-nav">
+                            <button class="btn btn-back" type="button" data-prev="personal">&#8592; Back</button>
+                            <button class="btn btn-continue" type="button" data-next="education">Continue &#8594;</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 3: Education -->
                 <div class="form-section" data-section="education" data-step="3">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">3</span>Education</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Education</h3>
+                        <p class="wizard-desc">Add your degrees and institutions.</p>
                         <div class="dynamic-list" id="education-list"></div>
                         <button class="btn btn-add" data-list="education">+ Add Education</button>
-                        <button class="btn btn-continue" type="button" data-next="skills">Continue to Skills &#8594;</button>
+                        <div class="wizard-nav">
+                            <button class="btn btn-back" type="button" data-prev="experience">&#8592; Back</button>
+                            <button class="btn btn-continue" type="button" data-next="skills">Continue &#8594;</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 4: Skills -->
                 <div class="form-section" data-section="skills" data-step="4">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">4</span>Skills</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Skills</h3>
+                        <p class="wizard-desc">Group your skills by category.</p>
                         <div class="dynamic-list" id="skills-list"></div>
                         <button class="btn btn-add" data-list="skills">+ Add Skill Category</button>
-                        <button class="btn btn-continue" type="button" data-next="languages">Continue to Languages &#8594;</button>
+                        <div class="wizard-nav">
+                            <button class="btn btn-back" type="button" data-prev="education">&#8592; Back</button>
+                            <button class="btn btn-continue" type="button" data-next="languages">Continue &#8594;</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 5: Languages -->
                 <div class="form-section" data-section="languages" data-step="5">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">5</span>Languages</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Languages</h3>
+                        <p class="wizard-desc">List languages you speak and your proficiency.</p>
                         <div class="dynamic-list" id="languages-list"></div>
                         <button class="btn btn-add" data-list="languages">+ Add Language</button>
-                        <button class="btn btn-continue" type="button" data-next="certifications">Continue to Certifications &#8594;</button>
+                        <div class="wizard-nav">
+                            <button class="btn btn-back" type="button" data-prev="skills">&#8592; Back</button>
+                            <button class="btn btn-continue" type="button" data-next="certifications">Continue &#8594;</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 6: Certifications -->
                 <div class="form-section" data-section="certifications" data-step="6">
-                    <button class="section-header" type="button">
-                        <span class="section-title"><span class="step-number">6</span>Certifications</span>
-                        <span class="section-chevron">&#9662;</span>
-                    </button>
-                    <div class="section-body">
+                    <div class="section-body-wizard">
+                        <h3 class="wizard-heading">Certifications</h3>
+                        <p class="wizard-desc">Add any professional certifications.</p>
                         <div class="dynamic-list" id="certifications-list"></div>
                         <button class="btn btn-add" data-list="certifications">+ Add Certification</button>
+                        <div class="wizard-nav">
+                            <button class="btn btn-back" type="button" data-prev="languages">&#8592; Back</button>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,6 +193,18 @@
             </div>
         </section>
     </main>
+
+    <!-- Template Picker Overlay -->
+    <div class="template-overlay" id="template-overlay">
+        <div class="template-overlay-backdrop" id="template-overlay-backdrop"></div>
+        <div class="template-overlay-panel">
+            <div class="template-overlay-header">
+                <h3 class="template-overlay-title">Choose Template</h3>
+                <button class="btn-close-overlay" id="btn-close-overlay" type="button">&times;</button>
+            </div>
+            <div class="template-overlay-grid" id="template-grid"></div>
+        </div>
+    </div>
 
     <input type="file" id="import-file" accept=".json" style="display:none">
 
