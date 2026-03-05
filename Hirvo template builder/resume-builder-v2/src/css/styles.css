@@ -1,33 +1,56 @@
 /* ========================================
    Hirvo Resume Builder — Styles
+   Complete CSS rewrite — Hirvo design system
    ======================================== */
 
+
+/* ----------------------------------------
+   1. DESIGN TOKENS
+   ---------------------------------------- */
+
 :root {
+    /* Backgrounds */
     --bg: #060608;
     --surf: #0E0E11;
     --surf2: #151518;
     --surf3: #1C1C20;
+
+    /* Borders (white at opacity) */
     --bdr: rgba(255,255,255,0.07);
     --bdr2: rgba(255,255,255,0.11);
     --bdr3: rgba(255,255,255,0.20);
+
+    /* Accent */
+    --acc: #7363FF;
+    --acc2: #9B8FFF;
+    --acc-s: #8B9A8E;
+    --acc-s2: #A3B0A6;
+
+    /* CTA */
+    --cta: #FFFFFF;
+    --cta2: #F5F3EF;
+    --cta-text: #060608;
+    --cta-hover: #E8E5E0;
+    --cta-glow: rgba(255,255,255,0.06);
+
+    /* Status */
+    --green: #34D399;
+    --green2: #4ADE80;
+    --green3: #22C55E;
+    --red: #F87171;
+    --red2: #EF4444;
+    --amber: #FBBF24;
+    --amber2: #F97316;
+
+    /* Text (warm off-whites, no blue cast) */
     --t1: #EDEDEC;
     --t2: rgba(237,237,236,0.64);
     --t3: rgba(237,237,236,0.32);
     --t4: rgba(237,237,236,0.16);
-    --acc: #7363FF;
-    --acc2: #9B8FFF;
+    --t-warm: #E8DFC8;
+    --t3-warm: rgba(232,223,200,0.36);
 
-    /* CTA tokens */
-    --cta: #FFFFFF;
-    --cta-hover: #E8E5E0;
-    --cta-text: #060608;
-
-    /* Status colors */
-    --red: #F87171;
-    --green: #34D399;
-    --amber: #FBBF24;
-
-    /* Shadow tokens (4-layer depth) */
+    /* Shadows (4-layer depth) */
     --shadow-near: rgba(0,0,0,0.55);
     --shadow-mid: rgba(0,0,0,0.35);
     --shadow-far: rgba(0,0,0,0.22);
@@ -36,24 +59,42 @@
     /* Highlights */
     --highlight: rgba(255,255,255,0.08);
     --highlight-hover: rgba(255,255,255,0.12);
+    --icon-glow: rgba(237,237,236,0.05);
 
-    /* Easing tokens */
+    /* Easing */
     --ease: cubic-bezier(0.16,1,0.3,1);
     --ease-out: cubic-bezier(0.33,1,0.68,1);
+    --ease-reveal: cubic-bezier(0.33,0.7,0.2,1);
 
-    /* Duration tokens */
+    /* Durations */
     --d1: 150ms;
     --d2: 280ms;
     --d3: 450ms;
+    --d4: 750ms;
+    --d5: 1000ms;
 
+    /* Radii */
     --radius: 10px;
     --radius-lg: 14px;
 }
 
-*, *::before, *::after {
+
+/* ----------------------------------------
+   2. RESET & BASE
+   ---------------------------------------- */
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -62,22 +103,70 @@ body {
     color: var(--t1);
     min-height: 100vh;
     overflow: hidden;
+    line-height: 1.5;
+    font-size: 14px;
 }
 
-/* Header */
+::selection {
+    background: rgba(115,99,255,0.30);
+    color: var(--t1);
+}
+
+
+/* ----------------------------------------
+   3. SCROLLBARS (WebKit + Firefox)
+   ---------------------------------------- */
+
+/* Firefox */
+.panel-form,
+.form-sections {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bdr2) transparent;
+}
+
+/* WebKit */
+.panel-form::-webkit-scrollbar,
+.form-sections::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel-form::-webkit-scrollbar-track,
+.form-sections::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.panel-form::-webkit-scrollbar-thumb,
+.form-sections::-webkit-scrollbar-thumb {
+    background: var(--bdr2);
+    border-radius: 3px;
+}
+
+.panel-form::-webkit-scrollbar-thumb:hover,
+.form-sections::-webkit-scrollbar-thumb:hover {
+    background: var(--bdr3);
+}
+
+
+/* ----------------------------------------
+   4. HEADER
+   ---------------------------------------- */
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
-    background: var(--surf);
-    border-bottom: none;
+    padding: 0 20px;
+    background: rgba(14,14,17,0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     height: 56px;
     flex-shrink: 0;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* Gradient divider for header (not flat border) */
+/* Gradient bottom divider (never flat border) */
 .header::after {
     content: '';
     position: absolute;
@@ -86,6 +175,7 @@ body {
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--bdr2) 12%, var(--bdr2) 88%, transparent);
+    pointer-events: none;
 }
 
 .header-brand {
@@ -98,29 +188,37 @@ body {
     width: 28px;
     height: 28px;
     background: var(--t1);
-    color: var(--bg);
-    border-radius: 6px;
+    color: var(--cta-text);
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
     font-size: 15px;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
 }
 
 .brand-text {
-    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
     font-size: 15px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     color: var(--t1);
 }
 
 .header-actions {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
-/* Buttons */
+
+/* ----------------------------------------
+   5. BUTTONS
+   ---------------------------------------- */
+
 .btn {
     font-family: inherit;
     font-size: 13px;
@@ -129,13 +227,29 @@ body {
     border-radius: var(--radius);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: all var(--d2) var(--ease-out);
+    transition:
+        background var(--d2) var(--ease-out),
+        color var(--d2) var(--ease-out),
+        border-color var(--d2) var(--ease-out),
+        box-shadow var(--d2) var(--ease-out),
+        transform var(--d1) var(--ease);
     white-space: nowrap;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    user-select: none;
 }
 
 .btn:focus-visible {
     outline: 2px solid var(--acc);
     outline-offset: 2px;
+}
+
+.btn:active {
+    transform: scale(0.97);
+    transition-duration: 50ms;
 }
 
 .btn:disabled {
@@ -144,64 +258,21 @@ body {
     pointer-events: none;
 }
 
+/* Primary — white CTA, maximum contrast */
 .btn-primary {
     background: var(--cta);
     color: var(--cta-text);
     border-color: var(--cta);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
     background: var(--cta-hover);
     border-color: var(--cta-hover);
+    box-shadow: 0 0 0 1px var(--cta-glow);
 }
 
-.btn-ghost {
-    background: transparent;
-    color: var(--t2);
-    border-color: var(--bdr2);
-}
-
-.btn-ghost:hover {
-    background: var(--surf2);
-    color: var(--t1);
-    border-color: var(--bdr3);
-}
-
-.btn-add {
-    background: transparent;
-    color: var(--t2);
-    border: 1px dashed var(--bdr2);
-    width: 100%;
-    padding: 10px;
-    font-size: 13px;
-    margin-top: 8px;
-    transition: all var(--d2) var(--ease-out);
-}
-
-.btn-add:hover {
-    background: var(--highlight);
-    color: var(--t1);
-    border-color: var(--bdr3);
-}
-
-.btn-remove {
-    background: transparent;
-    border: none;
-    color: var(--t3);
-    cursor: pointer;
-    font-size: 18px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    line-height: 1;
-    transition: all var(--d1) var(--ease-out);
-}
-
-.btn-remove:hover {
-    color: var(--red);
-    background: rgba(248,113,113,0.1);
-}
-
-/* Loading state for primary button */
+/* Loading state */
 .btn-primary.loading {
     position: relative;
     color: transparent;
@@ -226,7 +297,112 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Layout */
+/* Ghost — transparent with border */
+.btn-ghost {
+    background: transparent;
+    color: var(--t2);
+    border-color: var(--bdr2);
+}
+
+.btn-ghost:hover {
+    background: var(--highlight);
+    color: var(--t1);
+    border-color: var(--bdr3);
+}
+
+/* Add — dashed border, accent color */
+.btn-add {
+    background: transparent;
+    color: var(--acc2);
+    border: 1px dashed var(--bdr3);
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 8px;
+    border-radius: var(--radius);
+    transition:
+        background var(--d2) var(--ease-out),
+        color var(--d2) var(--ease-out),
+        border-color var(--d2) var(--ease-out);
+}
+
+.btn-add:hover {
+    background: rgba(115,99,255,0.06);
+    color: var(--cta);
+    border-color: rgba(115,99,255,0.30);
+}
+
+.btn-add:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px;
+}
+
+/* Continue — guides user to next section */
+.btn-continue {
+    background: var(--cta);
+    color: var(--cta-text);
+    border: 1px solid var(--cta);
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 14px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    transition:
+        background var(--d2) var(--ease-out),
+        box-shadow var(--d2) var(--ease-out),
+        transform var(--d1) var(--ease);
+}
+
+.btn-continue:hover {
+    background: var(--cta-hover);
+    border-color: var(--cta-hover);
+    box-shadow: 0 0 0 1px var(--cta-glow);
+}
+
+.btn-continue:active {
+    transform: scale(0.97);
+    transition-duration: 50ms;
+}
+
+.btn-continue:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px;
+}
+
+/* Remove — minimal, red on hover */
+.btn-remove {
+    background: transparent;
+    border: none;
+    color: var(--t3);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    transition:
+        color var(--d1) var(--ease-out),
+        background var(--d1) var(--ease-out);
+}
+
+.btn-remove:hover {
+    color: var(--red);
+    background: rgba(248,113,113,0.10);
+}
+
+.btn-remove:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px;
+}
+
+
+/* ----------------------------------------
+   6. LAYOUT
+   ---------------------------------------- */
+
 .app-layout {
     display: flex;
     height: calc(100vh - 56px);
@@ -236,38 +412,46 @@ body {
     overflow-y: auto;
 }
 
+
+/* ----------------------------------------
+   7. LEFT PANEL (Form)
+   ---------------------------------------- */
+
 .panel-form {
     width: 420px;
     min-width: 420px;
     background: var(--surf);
-    border-right: 1px solid var(--bdr);
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-    /* Firefox scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--bdr2) transparent;
+    position: relative;
+    border-right: none;
 }
 
-.panel-preview {
-    flex: 1;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
+/* Right-side gradient divider (not flat border) */
+.panel-form::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--bdr2) 8%, var(--bdr2) 92%, transparent);
+    pointer-events: none;
 }
 
-/* Template Selector */
+
+/* ----------------------------------------
+   8. TEMPLATE SELECTOR
+   ---------------------------------------- */
+
 .template-selector {
-    padding-bottom: 12px;
-    border-bottom: none;
+    padding-bottom: 14px;
     position: relative;
 }
 
-/* Gradient divider for template selector */
+/* Gradient bottom divider */
 .template-selector::after {
     content: '';
     position: absolute;
@@ -276,6 +460,7 @@ body {
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--bdr2) 8%, var(--bdr2) 92%, transparent);
+    pointer-events: none;
 }
 
 .template-grid {
@@ -286,32 +471,53 @@ body {
 }
 
 .template-card {
-    background: var(--surf2);
+    background: rgba(19,19,22,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--bdr);
     border-radius: var(--radius);
-    padding: 10px 6px;
+    padding: 10px 8px;
     text-align: center;
     cursor: pointer;
-    transition: all var(--d2) var(--ease-out);
+    transition:
+        border-color var(--d2) var(--ease-out),
+        background var(--d2) var(--ease-out),
+        color var(--d2) var(--ease-out),
+        transform var(--d2) var(--ease),
+        box-shadow var(--d2) var(--ease-out);
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--t2);
+    box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 1px 2px var(--shadow-near),
+        0 2px 4px var(--shadow-mid);
 }
 
 .template-card:hover {
-    border-color: var(--bdr3);
-    background: var(--surf3);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(19,19,22,0.92);
     color: var(--t1);
     transform: translateY(-2px);
+    box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 1px 2px var(--shadow-near),
+        0 4px 8px var(--shadow-mid),
+        0 8px 16px var(--shadow-far);
 }
 
 .template-card.active {
     border-color: var(--acc);
-    background: rgba(115,99,255,0.08);
+    background: rgba(115,99,255,0.06);
     color: var(--t1);
     box-shadow:
-        0 0 0 1px rgba(115,99,255,0.15),
-        0 2px 8px rgba(115,99,255,0.10);
+        inset 0 1px 0 var(--highlight),
+        0 0 0 1px rgba(115,99,255,0.12),
+        0 2px 8px rgba(115,99,255,0.08);
+}
+
+.template-card.active:hover {
+    transform: none;
 }
 
 .template-card:focus-visible {
@@ -322,42 +528,57 @@ body {
 .template-card-swatch {
     width: 100%;
     height: 44px;
-    border-radius: 4px;
+    border-radius: 5px;
     margin-bottom: 6px;
     border: 1px solid var(--bdr);
-    transition: transform var(--d1) var(--ease-out);
+    transition: transform var(--d2) var(--ease);
 }
 
 .template-card:hover .template-card-swatch {
     transform: scale(1.04);
 }
 
+.template-card.active .template-card-swatch {
+    border-color: rgba(115,99,255,0.20);
+}
+
 .template-card-name {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
 }
 
-/* Form Sections */
+
+/* ----------------------------------------
+   9. FORM SECTIONS (Accordion)
+   ---------------------------------------- */
+
 .form-sections {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     flex: 1;
     overflow-y: auto;
     padding-bottom: 24px;
-
-    /* Firefox scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--bdr2) transparent;
 }
 
 .form-section {
-    background: var(--surf2);
+    background: rgba(19,19,22,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--bdr);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: border-color var(--d2) var(--ease-out);
+    transition: border-color var(--d2) var(--ease-out),
+                box-shadow var(--d2) var(--ease-out);
+    box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 1px 2px var(--shadow-near),
+        0 4px 8px var(--shadow-mid),
+        0 12px 24px var(--shadow-far),
+        0 24px 48px var(--shadow-ambient);
 }
 
 .form-section:hover {
@@ -373,58 +594,116 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 12px 14px;
+    padding: 14px 16px;
     background: transparent;
     border: none;
     color: var(--t1);
-    font-family: inherit;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+    letter-spacing: -0.01em;
     transition: background var(--d2) var(--ease-out);
 }
 
 .section-header:hover {
-    background: rgba(255,255,255,0.03);
+    background: var(--highlight);
 }
 
 .section-header:focus-visible {
     outline: 2px solid var(--acc);
     outline-offset: -2px;
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
 }
 
+.section-title {
+    display: flex;
+    align-items: center;
+}
+
+/* Step number indicator */
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    background: var(--surf3);
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--t3);
+    flex-shrink: 0;
+    transition:
+        background var(--d2) var(--ease-out),
+        color var(--d2) var(--ease-out);
+}
+
+.form-section.open .step-number {
+    background: var(--acc);
+    color: #fff;
+}
+
+.form-section.completed .step-number {
+    background: var(--green);
+    color: #fff;
+}
+
+/* Section count badge (pill) */
+.section-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    margin-left: 8px;
+    background: var(--surf3);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--t2);
+    letter-spacing: 0.02em;
+}
+
+/* Chevron rotation */
 .section-chevron {
     font-size: 10px;
     color: var(--t3);
-    transition: transform var(--d2) var(--ease-out);
+    transition: transform var(--d2) var(--ease);
+    flex-shrink: 0;
 }
 
 .form-section.open .section-chevron {
     transform: rotate(180deg);
 }
 
-/* Accordion: max-height with tighter cap and ease-out for
-   responsive close speed. 800px covers personal info (largest section). */
+/* Accordion body — max-height driven by JS */
 .section-body {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--d3) var(--ease-out),
-                padding var(--d3) var(--ease-out);
-    padding: 0 14px;
+    transition:
+        max-height var(--d3) var(--ease-out),
+        padding var(--d3) var(--ease-out);
+    padding: 0 16px;
 }
-
-/* max-height driven by JS — no CSS cap needed */
 
 .section-body > *:first-child {
     padding-top: 4px;
 }
 
 .form-section.open .section-body {
-    padding: 0 14px 14px;
+    padding: 0 16px 16px;
 }
 
-/* Fields */
+
+/* ----------------------------------------
+   10. FORM FIELDS
+   ---------------------------------------- */
+
 .field {
     margin-bottom: 10px;
 }
@@ -442,24 +721,27 @@ body {
 .form-label {
     display: block;
     font-size: 11px;
-    font-weight: 600;
-    color: var(--t2);
+    font-weight: 700;
+    color: var(--t3);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 5px;
+    letter-spacing: 0.11em;
+    margin-bottom: 6px;
+    line-height: 1.2;
 }
 
 .form-input {
     width: 100%;
-    padding: 8px 10px;
+    padding: 9px 12px;
     background: var(--bg);
     border: 1px solid var(--bdr2);
     border-radius: 6px;
     color: var(--t1);
     font-family: inherit;
     font-size: 13px;
-    transition: border-color var(--d2) var(--ease-out),
-                box-shadow var(--d2) var(--ease-out);
+    line-height: 1.5;
+    transition:
+        border-color var(--d2) var(--ease-out),
+        box-shadow var(--d2) var(--ease-out);
     outline: none;
 }
 
@@ -480,22 +762,29 @@ body {
 .form-textarea {
     resize: vertical;
     min-height: 80px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-/* Dynamic List Items */
+
+/* ----------------------------------------
+   11. DYNAMIC LIST ITEMS
+   ---------------------------------------- */
+
 .list-item {
     background: var(--bg);
     border: 1px solid var(--bdr);
     border-radius: var(--radius);
-    padding: 12px;
+    padding: 14px;
     margin-bottom: 8px;
     position: relative;
-    transition: border-color var(--d2) var(--ease-out);
+    transition:
+        border-color var(--d2) var(--ease-out),
+        box-shadow var(--d2) var(--ease-out);
 }
 
 .list-item:hover {
     border-color: var(--bdr2);
+    box-shadow: 0 2px 8px var(--shadow-ambient);
 }
 
 .list-item-header {
@@ -509,29 +798,135 @@ body {
     font-size: 12px;
     font-weight: 600;
     color: var(--t2);
+    letter-spacing: -0.01em;
 }
 
-/* Empty state for dynamic lists */
+/* List item actions row */
+.list-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Move up/down buttons */
+.btn-move {
+    background: transparent;
+    border: none;
+    color: var(--t4);
+    cursor: pointer;
+    font-size: 10px;
+    padding: 3px 5px;
+    border-radius: 4px;
+    line-height: 1;
+    transition:
+        color var(--d1) var(--ease-out),
+        background var(--d1) var(--ease-out);
+}
+
+.btn-move:hover {
+    color: var(--t1);
+    background: var(--highlight);
+}
+
+.btn-move:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-move:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 1px;
+}
+
+/* Empty state */
 .dynamic-list:empty::before {
     content: 'No items added yet';
     display: block;
-    padding: 20px 0;
+    padding: 24px 0;
     text-align: center;
     font-size: 13px;
     color: var(--t4);
     font-style: italic;
+    line-height: 1.5;
 }
 
-/* Preview */
+
+/* ----------------------------------------
+   12. DRAG HANDLE (future section reorder)
+   ---------------------------------------- */
+
+.drag-handle {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    cursor: grab;
+    padding: 4px;
+    border-radius: 4px;
+    transition:
+        color var(--d1) var(--ease-out),
+        background var(--d1) var(--ease-out);
+    color: var(--t4);
+    flex-shrink: 0;
+}
+
+.drag-handle:hover {
+    color: var(--t2);
+    background: var(--highlight);
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* 6-dot pattern (2 cols x 3 rows) */
+.drag-handle::before,
+.drag-handle::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    box-shadow: 0 4px 0 currentColor, 0 8px 0 currentColor;
+}
+
+/* Dragging state */
+.dragging {
+    opacity: 0.7;
+    box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 4px 16px var(--shadow-mid),
+        0 12px 32px var(--shadow-far);
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+
+/* ----------------------------------------
+   13. PREVIEW PANEL
+   ---------------------------------------- */
+
+.panel-preview {
+    flex: 1;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
 .preview-container {
     width: 100%;
-    max-width: 850px;
-    aspect-ratio: 210 / 297;
-    max-height: calc(100vh - 56px - 48px);
+    max-width: 650px;
+    aspect-ratio: 8.5 / 11;
+    max-height: calc(100vh - 56px - 64px);
     background: white;
     border-radius: var(--radius-lg);
     overflow: hidden;
+    position: relative;
     box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
         0 1px 2px var(--shadow-near),
         0 4px 8px var(--shadow-mid),
         0 12px 24px var(--shadow-far),
@@ -539,117 +934,284 @@ body {
 }
 
 #preview-frame {
-    width: 100%;
-    height: 100%;
+    width: 816px;  /* 8.5in at 96dpi */
+    height: 1056px; /* 11in at 96dpi */
     border: none;
     background: white;
-}
-
-/* Scrollbar — WebKit */
-.panel-form::-webkit-scrollbar,
-.form-sections::-webkit-scrollbar {
-    width: 6px;
-}
-
-.panel-form::-webkit-scrollbar-track,
-.form-sections::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.panel-form::-webkit-scrollbar-thumb,
-.form-sections::-webkit-scrollbar-thumb {
-    background: var(--bdr2);
-    border-radius: 3px;
-}
-
-.panel-form::-webkit-scrollbar-thumb:hover,
-.form-sections::-webkit-scrollbar-thumb:hover {
-    background: var(--bdr3);
-}
-
-/* Responsive */
-@media (max-width: 860px) {
-    .app-layout {
-        flex-direction: column;
-        height: auto;
-        overflow: auto;
-    }
-    body { overflow: auto; }
-    .panel-form {
-        width: 100%;
-        min-width: unset;
-        max-height: 50vh;
-        border-right: none;
-        border-bottom: 1px solid var(--bdr);
-    }
-    .panel-preview {
-        min-height: 60vh;
-    }
-    .template-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        padding: 10px 14px;
-    }
-    .header-actions {
-        gap: 4px;
-    }
-    .btn {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-    .panel-form {
-        padding: 12px;
-        max-height: 55vh;
-    }
-    .panel-preview {
-        padding: 12px;
-        min-height: 50vh;
-    }
-    .template-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Button active press */
-.btn:active {
-    transform: scale(0.97);
-    transition-duration: 50ms;
-}
-
-.template-card.active:hover {
-    transform: none;
-}
-
-/* Section count badges */
-.section-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
-    border-radius: 9px;
-    background: var(--bdr3);
-    color: var(--t1);
-    font-size: 10px;
-    font-weight: 700;
-    margin-left: 8px;
-}
-
-/* Preview iframe transition */
-#preview-frame {
-    transition: opacity var(--d1) var(--ease-out);
+    transform-origin: top left;
+    transition: opacity var(--d2) var(--ease-out);
 }
 
 #preview-frame.loading {
     opacity: 0.3;
 }
 
-/* Reduced motion */
+
+/* ----------------------------------------
+   14. COMPLETENESS BAR
+   ---------------------------------------- */
+
+.completeness-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.completeness-bar {
+    width: 80px;
+    height: 3px;
+    background: var(--surf2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.completeness-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width var(--d3) var(--ease);
+    min-width: 0;
+}
+
+.completeness-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--t3);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+/* ----------------------------------------
+   15. TOAST / NOTIFICATION
+   ---------------------------------------- */
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    background: rgba(19,19,22,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--bdr2);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    color: var(--t1);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 340px;
+    box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 1px 2px var(--shadow-near),
+        0 4px 8px var(--shadow-mid),
+        0 12px 24px var(--shadow-far),
+        0 24px 48px var(--shadow-ambient);
+    transform: translateY(16px);
+    opacity: 0;
+    animation: toast-in var(--d3) var(--ease) forwards;
+    pointer-events: auto;
+}
+
+.toast.toast-exit {
+    animation: toast-out var(--d2) var(--ease-out) forwards;
+}
+
+.toast-success {
+    border-left: 3px solid var(--green);
+}
+
+.toast-error {
+    border-left: 3px solid var(--red);
+}
+
+.toast-warning {
+    border-left: 3px solid var(--amber);
+}
+
+@keyframes toast-in {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toast-out {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+}
+
+
+/* ----------------------------------------
+   16. ERROR BANNER (inline override)
+   ---------------------------------------- */
+
+#error-banner {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+
+/* ----------------------------------------
+   17. FOCUS & ACCESSIBILITY
+   ---------------------------------------- */
+
+/* Global focus-visible for any interactive element missing explicit styles */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px;
+}
+
+/* Remove default focus ring for mouse users */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+
+/* ----------------------------------------
+   18. RESPONSIVE — 860px
+   ---------------------------------------- */
+
+@media (max-width: 860px) {
+    body {
+        overflow: auto;
+    }
+
+    .app-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: auto;
+    }
+
+    .panel-form {
+        width: 100%;
+        min-width: unset;
+        max-height: 50vh;
+        border-right: none;
+    }
+
+    /* Replace right divider with bottom divider */
+    .panel-form::after {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: auto;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--bdr2) 12%, var(--bdr2) 88%, transparent);
+    }
+
+    .panel-preview {
+        min-height: 60vh;
+        padding: 24px;
+    }
+
+    .template-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+
+/* ----------------------------------------
+   19. RESPONSIVE — 480px
+   ---------------------------------------- */
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0 14px;
+        height: 50px;
+    }
+
+    .header-actions {
+        gap: 4px;
+    }
+
+    .btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .panel-form {
+        padding: 12px;
+        max-height: 55vh;
+        gap: 10px;
+    }
+
+    .panel-preview {
+        padding: 12px;
+        min-height: 50vh;
+    }
+
+    .template-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .template-card {
+        padding: 8px 6px;
+    }
+
+    .template-card-swatch {
+        height: 36px;
+    }
+
+    .section-header {
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+
+    .section-body {
+        padding: 0 12px;
+    }
+
+    .form-section.open .section-body {
+        padding: 0 12px 12px;
+    }
+
+    .form-input {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .list-item {
+        padding: 10px;
+    }
+
+    .toast {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        max-width: none;
+    }
+
+    .completeness-bar {
+        padding: 0 12px 6px;
+    }
+
+    .app-layout {
+        height: auto;
+    }
+}
+
+
+/* ----------------------------------------
+   20. REDUCED MOTION
+   ---------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -658,10 +1220,27 @@ body {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
     }
+
     .section-body {
-        transition: none;
+        transition: none !important;
     }
-    .template-card:hover {
-        transform: none;
+
+    .template-card:hover,
+    .template-card:hover .template-card-swatch {
+        transform: none !important;
+    }
+
+    .toast {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .completeness-fill {
+        transition: none !important;
+    }
+
+    .dragging {
+        transform: none !important;
     }
 }

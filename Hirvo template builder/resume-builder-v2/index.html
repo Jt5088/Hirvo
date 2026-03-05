@@ -11,17 +11,23 @@
 </head>
 <body>
     <div id="error-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#dc2626;color:#fff;padding:12px 20px;font-family:monospace;font-size:13px;"></div>
+    <div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;z-index:9998;background:#1a1a1f;color:#ededec;padding:10px 20px;border-radius:8px;font-size:13px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 12px rgba(0,0,0,0.4);transition:opacity 0.3s;"></div>
 
     <header class="header">
         <div class="header-brand">
             <span class="brand-mark">H</span>
             <span class="brand-text">Hirvo Builder</span>
         </div>
+        <div class="completeness-wrap">
+            <div class="completeness-bar"><div class="completeness-fill" id="completeness-fill"></div></div>
+            <span class="completeness-text" id="completeness-text">0%</span>
+        </div>
         <div class="header-actions">
-            <button class="btn btn-ghost" id="btn-clear">Clear</button>
-            <button class="btn btn-ghost" id="btn-import">Import JSON</button>
-            <button class="btn btn-ghost" id="btn-export-json">Export JSON</button>
-            <button class="btn btn-primary" id="btn-export-pdf">Export PDF</button>
+            <button class="btn btn-ghost" id="btn-clear" title="Clear all data">Clear</button>
+            <button class="btn btn-ghost" id="btn-import" title="Import JSON data">Import JSON</button>
+            <button class="btn btn-ghost" id="btn-export-json" title="Export as JSON">Export JSON</button>
+            <button class="btn btn-ghost" id="btn-export-html" title="Export as standalone HTML">Export HTML</button>
+            <button class="btn btn-primary" id="btn-export-pdf" title="Export as PDF (Ctrl+P)">Export PDF</button>
         </div>
     </header>
 
@@ -34,12 +40,12 @@
                 <div class="template-grid" id="template-grid"></div>
             </div>
 
-            <!-- Form Sections -->
+            <!-- Form Sections — guided step-by-step flow -->
             <div class="form-sections" id="form-sections">
-                <!-- Personal Info -->
-                <div class="form-section" data-section="personal">
+                <!-- Step 1: Personal Info -->
+                <div class="form-section" data-section="personal" data-step="1">
                     <button class="section-header" type="button">
-                        <span class="section-title">Personal Information</span>
+                        <span class="section-title"><span class="step-number">1</span>Personal Information</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
@@ -81,61 +87,66 @@
                             <label class="form-label" for="summary">Professional Summary</label>
                             <textarea id="summary" class="form-input form-textarea" data-path="personal.summary" rows="4" placeholder="Brief professional summary..."></textarea>
                         </div>
+                        <button class="btn btn-continue" type="button" data-next="experience">Continue to Experience &#8594;</button>
                     </div>
                 </div>
 
-                <!-- Experience -->
-                <div class="form-section" data-section="experience">
+                <!-- Step 2: Experience -->
+                <div class="form-section" data-section="experience" data-step="2">
                     <button class="section-header" type="button">
-                        <span class="section-title">Experience</span>
+                        <span class="section-title"><span class="step-number">2</span>Experience</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
                         <div class="dynamic-list" id="experience-list"></div>
                         <button class="btn btn-add" data-list="experience">+ Add Experience</button>
+                        <button class="btn btn-continue" type="button" data-next="education">Continue to Education &#8594;</button>
                     </div>
                 </div>
 
-                <!-- Education -->
-                <div class="form-section" data-section="education">
+                <!-- Step 3: Education -->
+                <div class="form-section" data-section="education" data-step="3">
                     <button class="section-header" type="button">
-                        <span class="section-title">Education</span>
+                        <span class="section-title"><span class="step-number">3</span>Education</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
                         <div class="dynamic-list" id="education-list"></div>
                         <button class="btn btn-add" data-list="education">+ Add Education</button>
+                        <button class="btn btn-continue" type="button" data-next="skills">Continue to Skills &#8594;</button>
                     </div>
                 </div>
 
-                <!-- Skills -->
-                <div class="form-section" data-section="skills">
+                <!-- Step 4: Skills -->
+                <div class="form-section" data-section="skills" data-step="4">
                     <button class="section-header" type="button">
-                        <span class="section-title">Skills</span>
+                        <span class="section-title"><span class="step-number">4</span>Skills</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
                         <div class="dynamic-list" id="skills-list"></div>
                         <button class="btn btn-add" data-list="skills">+ Add Skill Category</button>
+                        <button class="btn btn-continue" type="button" data-next="languages">Continue to Languages &#8594;</button>
                     </div>
                 </div>
 
-                <!-- Languages -->
-                <div class="form-section" data-section="languages">
+                <!-- Step 5: Languages -->
+                <div class="form-section" data-section="languages" data-step="5">
                     <button class="section-header" type="button">
-                        <span class="section-title">Languages</span>
+                        <span class="section-title"><span class="step-number">5</span>Languages</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
                         <div class="dynamic-list" id="languages-list"></div>
                         <button class="btn btn-add" data-list="languages">+ Add Language</button>
+                        <button class="btn btn-continue" type="button" data-next="certifications">Continue to Certifications &#8594;</button>
                     </div>
                 </div>
 
-                <!-- Certifications -->
-                <div class="form-section" data-section="certifications">
+                <!-- Step 6: Certifications -->
+                <div class="form-section" data-section="certifications" data-step="6">
                     <button class="section-header" type="button">
-                        <span class="section-title">Certifications</span>
+                        <span class="section-title"><span class="step-number">6</span>Certifications</span>
                         <span class="section-chevron">&#9662;</span>
                     </button>
                     <div class="section-body">
